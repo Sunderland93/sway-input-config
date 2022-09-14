@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Sway Input Configurator
+Comment=Tool to configure input devices on Sway
+Exec=sway-input-config
+Icon=sway-input-config
+Terminal=false
+Categories=Settings;DesktopSettings;
