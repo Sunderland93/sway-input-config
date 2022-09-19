@@ -17,6 +17,8 @@ config_home = os.getenv('XDG_CONFIG_HOME') if os.getenv('XDG_CONFIG_HOME') else 
 data_home = os.getenv('XDG_DATA_HOME') if os.getenv('XDG_DATA_HOME') else os.path.join(
     os.getenv("HOME"), ".config/")
 
+sway_config = os.path.join(config_home, "sway", "config")
+
 dir_name = os.path.dirname(__file__)
 shortcut_list = os.path.join(dir_name, "data/shortcuts.json")
 
@@ -126,6 +128,11 @@ class KeyboardTab(QWidget):
         self.groupBox = QGroupBox("Keyboard settings")
         self.vbox.addWidget(self.groupBox)
 
+        self.KeyBoardUseSettings = QCheckBox("Use this settings")
+        if settings["keyboard-use-settings"] == "true":
+            self.KeyBoardUseSettings.setChecked(True)
+        self.KeyBoardUseSettings.toggled.connect(self.keyboard_use_settings)
+
         self.layoutList = QComboBox()
         self.layoutList.setStyleSheet("QComboBox { combobox-popup: 0; }")
         for item in layout_list:
@@ -207,8 +214,15 @@ class KeyboardTab(QWidget):
         self.gridLayout.addWidget(self.num_lockLabel, 6, 0, 1, 1)
         self.gridLayout.addWidget(self.num_lock, 6, 1, 1, 1)
         self.vbox2.addLayout(self.gridLayout)
+        self.vbox2.addWidget(self.KeyBoardUseSettings, 0, Qt.AlignRight)
         self.groupBox.setLayout(self.vbox2)
         self.setLayout(self.vbox)
+
+    def keyboard_use_settings(self):
+        if self.KeyBoardUseSettings.isChecked() == True:
+            settings["keyboard-use-settings"] = "true"
+        else:
+            settings["keyboard-use-settings"] = "false"
 
     def set_shortcut(self):
         data = load_json("data/shortcut.json")
@@ -253,6 +267,11 @@ class MouseTab(QWidget):
         self.vbox2 = QVBoxLayout()
         self.vbox.addWidget(self.groupBox)
 
+        self.PointerUseSettings = QCheckBox("Use this settings")
+        if settings["pointer-use-settings"] == "true":
+            self.PointerUseSettings.setChecked(True)
+        self.PointerUseSettings.toggled.connect(self.pointer_use_settings)
+
         self.accelProfile = QComboBox()
         self.accelProfile.setToolTip("Sets the pointer acceleration profile.")
         for item in ["flat", "adaptive"]:
@@ -292,8 +311,15 @@ class MouseTab(QWidget):
         self.formLayout.addRow(QLabel("Left handed:"), self.leftHanded)
 
         self.vbox2.addLayout(self.formLayout)
+        self.vbox2.addWidget(self.PointerUseSettings, 0, Qt.AlignRight)
         self.groupBox.setLayout(self.vbox2)
         self.setLayout(self.vbox)
+
+    def pointer_use_settings(self):
+        if self.PointerUseSettings.isChecked() == True:
+            settings["pointer-use-settings"] = "true"
+        else:
+            settings["pointer-use-settings"] = "false"
 
     def on_accel_profile_text_changed(self):
         settings["pointer-accel-profile"] = self.accelProfile.currentText()
@@ -322,6 +348,11 @@ class TouchpadTab(QWidget):
         self.vbox2 = QVBoxLayout()
         self.groupBox = QGroupBox("Touchpad settings")
         self.vbox.addWidget(self.groupBox)
+
+        self.TouchPadUseSettings = QCheckBox("Use this settings")
+        if settings["touchpad-use-settings"] == "true":
+            self.TouchPadUseSettings.setChecked(True)
+        self.TouchPadUseSettings.toggled.connect(self.touchpad_use_settings)
 
         self.accelProfile = QComboBox()
         self.accelProfile.setToolTip("Sets the pointer acceleration profile.")
@@ -425,8 +456,15 @@ class TouchpadTab(QWidget):
         self.gridLayout.addLayout(self.formLayout2, 0, 0, 1, 1)
         self.gridLayout.addLayout(self.formLayout3, 0, 1, 1, 1)
         self.vbox2.addLayout(self.gridLayout)
+        self.vbox2.addWidget(self.TouchPadUseSettings, 0, Qt.AlignRight)
         self.groupBox.setLayout(self.vbox2)
         self.setLayout(self.vbox)
+
+    def touchpad_use_settings(self):
+        if self.TouchPadUseSettings.isChecked() == True:
+            settings["touchpad-use-settings"] = "true"
+        else:
+            settings["touchpad-use-settings"] = "false"
 
     def on_accel_value_changed(self):
         settings["touchpad-pointer-accel"] = self.accel.value()
@@ -466,46 +504,51 @@ class TouchpadTab(QWidget):
 
 
 def save_to_config():
-    lines = ['input "type:keyboard" {']
-    if settings["keyboard-layout"]:
-        lines.append('  xkb_layout {}'.format(settings["keyboard-layout"]))
-    if settings["keyboard-variant"]:
-        lines.append('  xkb_variant {}'.format(settings["keyboard-variant"]))
-    if settings["keyboard-shortcut"]:
-        lines.append('  xkb_options {}'.format(settings["keyboard-shortcut"]))
-    lines.append('  repeat_delay {}'.format(settings["keyboard-repeat-delay"]))
-    lines.append('  repeat_rate {}'.format(settings["keyboard-repeat-rate"]))
-    lines.append('  xkb_capslock {}'.format(settings["keyboard-capslock"]))
-    lines.append('  xkb_numlock {}'.format(settings["keyboard-numlock"]))
-    lines.append('}')
+    if settings["keyboard-use-settings"] == "true":
 
-    save_list_to_text_file(lines, os.path.join(config_home, "sway/keyboard"))
+        lines = ['input "type:keyboard" {']
+        if settings["keyboard-layout"]:
+            lines.append('  xkb_layout {}'.format(settings["keyboard-layout"]))
+        if settings["keyboard-variant"]:
+            lines.append('  xkb_variant {}'.format(settings["keyboard-variant"]))
+        if settings["keyboard-shortcut"]:
+            lines.append('  xkb_options {}'.format(settings["keyboard-shortcut"]))
+        lines.append('  repeat_delay {}'.format(settings["keyboard-repeat-delay"]))
+        lines.append('  repeat_rate {}'.format(settings["keyboard-repeat-rate"]))
+        lines.append('  xkb_capslock {}'.format(settings["keyboard-capslock"]))
+        lines.append('  xkb_numlock {}'.format(settings["keyboard-numlock"]))
+        lines.append('}')
 
-    lines = ['input "type:pointer" {', '  accel_profile {}'.format(settings["pointer-accel-profile"]),
-             '  pointer_accel {}'.format(settings["pointer-pointer-accel"]),
-             '  natural_scroll {}'.format(settings["pointer-natural-scroll"]),
-             '  scroll_factor {}'.format(settings["pointer-scroll-factor"]),
-             '  left_handed {}'.format(settings["pointer-left-handed"])]
-    lines.append('}')
+        save_list_to_text_file(lines, os.path.join(config_home, "sway/keyboard"))
 
-    save_list_to_text_file(lines, os.path.join(config_home, "sway/pointer"))
+    if settings["pointer-use-settings"] == "true":
 
-    lines = ['input "type:touchpad" {', '  accel_profile {}'.format(settings["touchpad-accel-profile"]),
-             '  pointer_accel {}'.format(settings["touchpad-pointer-accel"]),
-             '  natural_scroll {}'.format(settings["touchpad-natural-scroll"]),
-             '  scroll_factor {}'.format(settings["touchpad-scroll-factor"]),
-             '  scroll_method {}'.format(settings["touchpad-scroll-method"]),
-             '  left_handed {}'.format(settings["touchpad-left-handed"]),
-             '  tap {}'.format(settings["touchpad-tap"]),
-             '  tap_button_map {}'.format(settings["touchpad-tap-button-map"]),
-             '  drag {}'.format(settings["touchpad-drag"]), '  drag_lock {}'.format(settings["touchpad-drag-lock"]),
-             '  dwt {}'.format(settings["touchpad-dwt"]),
-             '  middle_emulation {}'.format(settings["touchpad-middle-emulation"])]
-    lines.append('}')
+        lines = ['input "type:pointer" {', '  accel_profile {}'.format(settings["pointer-accel-profile"]),
+                 '  pointer_accel {}'.format(settings["pointer-pointer-accel"]),
+                 '  natural_scroll {}'.format(settings["pointer-natural-scroll"]),
+                 '  scroll_factor {}'.format(settings["pointer-scroll-factor"]),
+                 '  left_handed {}'.format(settings["pointer-left-handed"])]
+        lines.append('}')
 
-    save_list_to_text_file(lines, os.path.join(config_home, "sway/touchpad"))
+        save_list_to_text_file(lines, os.path.join(config_home, "sway/pointer"))
 
-    reload()
+    if settings["touchpad-use-settings"] == "true":
+        lines = ['input "type:touchpad" {', '  accel_profile {}'.format(settings["touchpad-accel-profile"]),
+                 '  pointer_accel {}'.format(settings["touchpad-pointer-accel"]),
+                 '  natural_scroll {}'.format(settings["touchpad-natural-scroll"]),
+                 '  scroll_factor {}'.format(settings["touchpad-scroll-factor"]),
+                 '  scroll_method {}'.format(settings["touchpad-scroll-method"]),
+                 '  left_handed {}'.format(settings["touchpad-left-handed"]),
+                 '  tap {}'.format(settings["touchpad-tap"]),
+                 '  tap_button_map {}'.format(settings["touchpad-tap-button-map"]),
+                 '  drag {}'.format(settings["touchpad-drag"]), '  drag_lock {}'.format(settings["touchpad-drag-lock"]),
+                 '  dwt {}'.format(settings["touchpad-dwt"]),
+                 '  middle_emulation {}'.format(settings["touchpad-middle-emulation"])]
+        lines.append('}')
+
+        save_list_to_text_file(lines, os.path.join(config_home, "sway/touchpad"))
+
+    #reload()
 
 
 def load_settings():
