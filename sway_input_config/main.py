@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import sys
 from PySide2.QtWidgets import (QApplication, QWidget, QVBoxLayout, QComboBox,
                                QDialog, QCheckBox, QHBoxLayout, QSpinBox,
@@ -8,7 +9,8 @@ from PySide2.QtWidgets import (QApplication, QWidget, QVBoxLayout, QComboBox,
                                QMainWindow, QTabWidget, QDoubleSpinBox, QStyle)
 from PySide2.QtCore import Qt
 from PySide2.QtGui import QPixmap
-from sway_input_config.utils import *
+from sway_input_config.utils import (get_data_dir, load_json, save_json,
+                                     save_list_to_text_file, reload)
 
 data_dir = ""
 config_home = os.getenv('XDG_CONFIG_HOME') if os.getenv('XDG_CONFIG_HOME') else os.path.join(
@@ -548,7 +550,7 @@ def save_to_config():
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/touchpad"))
 
-    #reload()
+    reload()
 
 
 def load_settings():
