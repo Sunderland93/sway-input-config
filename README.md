@@ -19,7 +19,7 @@ Input devices configurator for [SwayWM](https://swaywm.org/), written in Python 
 * python3-i3ipc
 
 `git clone https://github.com/Sunderland93/sway-input-config.git`
-`cd sway-input-config && sudo ./install.sh`
+`cd sway-input-config && python setup.py install`
 
 Add the following lines to your Sway config (usually in `~/.config/sway/config`):
 

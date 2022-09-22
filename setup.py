@@ -12,6 +12,10 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     package_data={"": ["data/*"]},
+    data_files=[
+        ('share/applications', ['sway-input-config.desktop']),
+        ('share/pixmaps', ['sway-input-config.svg']),
+    ],
     install_requires=[],
     entry_points={
         'gui_scripts': [
