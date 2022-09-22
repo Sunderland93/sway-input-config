@@ -3,7 +3,7 @@
 import os
 import sys
 from PySide2.QtWidgets import (QApplication, QWidget, QVBoxLayout, QComboBox,
-                               QDialog, QCheckBox, QHBoxLayout, QSpinBox,
+                               QDialog, QCheckBox, QHBoxLayout, QSpinBox, QSlider,
                                QPushButton, QDialogButtonBox, QFormLayout,
                                QGridLayout, QGroupBox, QLineEdit, QLabel,
                                QMainWindow, QTabWidget, QDoubleSpinBox, QStyle)
@@ -167,21 +167,35 @@ class KeyboardTab(QWidget):
                 self.shortcutName.setCurrentText(key)
         self.shortcutName.activated.connect(self.set_shortcut)
 
+        self.repeatDelaySlider = QSlider(Qt.Orientation.Horizontal)
+        self.repeatDelaySlider.setRange(1, 6000)
+        self.repeatDelaySlider.setPageStep(50)
+        self.repeatDelaySlider.setValue(settings["keyboard-repeat-delay"])
+
         self.repeatDelay = QSpinBox()
         self.repeatDelayLabel = QLabel("Repeat delay:")
         self.repeatDelay.setToolTip("Amount of time a key must be held before it starts repeating.")
         self.repeatDelay.setRange(1, 6000)
         self.repeatDelay.setSingleStep(1)
-        self.repeatDelay.setValue(settings["keyboard-repeat-delay"])
-        self.repeatDelay.valueChanged.connect(self.on_repeat_delay_value_changed)
+        self.repeatDelay.setValue(self.repeatDelaySlider.value())
+        self.repeatDelay.valueChanged.connect(self.repeatDelaySlider.setValue)
+        self.repeatDelaySlider.sliderMoved.connect(self.repeatDelay.setValue)
+        self.repeatDelaySlider.valueChanged.connect(self.on_repeat_delay_value_changed)
+
+        self.repeatRateSlider = QSlider(Qt.Orientation.Horizontal)
+        self.repeatRateSlider.setRange(1, 4000)
+        self.repeatRateSlider.setPageStep(50)
+        self.repeatRateSlider.setValue(settings["keyboard-repeat-rate"])
 
         self.repeatRate = QSpinBox()
         self.repeatRateLabel = QLabel("Repeat rate:")
         self.repeatRate.setToolTip("Frequency of key repeats once the repeat_delay has passed.")
         self.repeatRate.setRange(1, 4000)
         self.repeatDelay.setSingleStep(1)
-        self.repeatRate.setValue(settings["keyboard-repeat-rate"])
-        self.repeatRate.valueChanged.connect(self.on_repeat_rate_value_changed)
+        self.repeatRate.setValue(self.repeatRateSlider.value())
+        self.repeatRate.valueChanged.connect(self.repeatRateSlider.setValue)
+        self.repeatRateSlider.sliderMoved.connect(self.repeatRate.setValue)
+        self.repeatRateSlider.valueChanged.connect(self.on_repeat_rate_value_changed)
 
         self.caps_lock = QCheckBox()
         self.caps_lockLabel = QLabel("CapsLock:")
@@ -208,9 +222,11 @@ class KeyboardTab(QWidget):
         self.gridLayout.addWidget(self.shortcutLabel, 2, 0, 1, 1)
         self.gridLayout.addWidget(self.shortcutName, 2, 1, 1, 1)
         self.gridLayout.addWidget(self.repeatDelayLabel, 3, 0, 1, 1)
-        self.gridLayout.addWidget(self.repeatDelay, 3, 1, 1, 1)
+        self.gridLayout.addWidget(self.repeatDelaySlider, 3, 1, 1, 1)
+        self.gridLayout.addWidget(self.repeatDelay, 3, 2, 1, 1)
         self.gridLayout.addWidget(self.repeatRateLabel, 4, 0, 1, 1)
-        self.gridLayout.addWidget(self.repeatRate, 4, 1, 1, 1)
+        self.gridLayout.addWidget(self.repeatRateSlider, 4, 1, 1, 1)
+        self.gridLayout.addWidget(self.repeatRate, 4, 2, 1, 1)
         self.gridLayout.addWidget(self.caps_lockLabel, 5, 0, 1, 1)
         self.gridLayout.addWidget(self.caps_lock, 5, 1, 1, 1)
         self.gridLayout.addWidget(self.num_lockLabel, 6, 0, 1, 1)
