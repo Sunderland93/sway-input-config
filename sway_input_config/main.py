@@ -191,7 +191,7 @@ class KeyboardTab(QWidget):
         self.repeatRateLabel = QLabel("Repeat rate:")
         self.repeatRate.setToolTip("Frequency of key repeats once the repeat_delay has passed.")
         self.repeatRate.setRange(1, 4000)
-        self.repeatDelay.setSingleStep(1)
+        self.repeatRate.setSingleStep(1)
         self.repeatRate.setValue(self.repeatRateSlider.value())
         self.repeatRate.valueChanged.connect(self.repeatRateSlider.setValue)
         self.repeatRateSlider.sliderMoved.connect(self.repeatRate.setValue)
