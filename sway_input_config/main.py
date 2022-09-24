@@ -4,7 +4,7 @@ import os
 import sys
 from PySide2.QtWidgets import (QApplication, QWidget, QVBoxLayout, QComboBox,
                                QDialog, QCheckBox, QHBoxLayout, QSpinBox, QSlider,
-                               QPushButton, QDialogButtonBox, QFormLayout,
+                               QPushButton, QDialogButtonBox, QFormLayout, QRadioButton,
                                QGridLayout, QGroupBox, QLineEdit, QLabel,
                                QMainWindow, QTabWidget, QDoubleSpinBox, QStyle)
 from PySide2.QtCore import Qt
@@ -177,6 +177,7 @@ class KeyboardTab(QWidget):
         self.repeatDelay.setToolTip("Amount of time a key must be held before it starts repeating.")
         self.repeatDelay.setRange(1, 6000)
         self.repeatDelay.setSingleStep(1)
+        self.repeatDelay.setSuffix(" ms")
         self.repeatDelay.setValue(self.repeatDelaySlider.value())
         self.repeatDelay.valueChanged.connect(self.repeatDelaySlider.setValue)
         self.repeatDelaySlider.sliderMoved.connect(self.repeatDelay.setValue)
@@ -192,6 +193,7 @@ class KeyboardTab(QWidget):
         self.repeatRate.setToolTip("Frequency of key repeats once the repeat_delay has passed.")
         self.repeatRate.setRange(1, 4000)
         self.repeatRate.setSingleStep(1)
+        self.repeatRate.setSuffix(" repeats/s")
         self.repeatRate.setValue(self.repeatRateSlider.value())
         self.repeatRate.valueChanged.connect(self.repeatRateSlider.setValue)
         self.repeatRateSlider.sliderMoved.connect(self.repeatRate.setValue)
@@ -232,6 +234,7 @@ class KeyboardTab(QWidget):
         self.gridLayout.addWidget(self.num_lockLabel, 6, 0, 1, 1)
         self.gridLayout.addWidget(self.num_lock, 6, 1, 1, 1)
         self.vbox2.addLayout(self.gridLayout)
+        self.vbox2.addStretch()
         self.vbox2.addWidget(self.KeyBoardUseSettings, 0, Qt.AlignRight)
         self.groupBox.setLayout(self.vbox2)
         self.setLayout(self.vbox)
@@ -279,10 +282,10 @@ class MouseTab(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.formLayout = QFormLayout()
-        self.groupBox = QGroupBox("Pointer device settings")
+        self.gridLayout = QGridLayout()
         self.vbox = QVBoxLayout()
         self.vbox2 = QVBoxLayout()
+        self.groupBox = QGroupBox("Pointer device settings")
         self.vbox.addWidget(self.groupBox)
 
         self.PointerUseSettings = QCheckBox("Use this settings")
@@ -290,45 +293,69 @@ class MouseTab(QWidget):
             self.PointerUseSettings.setChecked(True)
         self.PointerUseSettings.toggled.connect(self.pointer_use_settings)
 
-        self.accelProfile = QComboBox()
-        self.accelProfile.setToolTip("Sets the pointer acceleration profile.")
-        for item in ["flat", "adaptive"]:
-            self.accelProfile.addItem(item)
-        self.accelProfile.activated.connect(self.on_accel_profile_text_changed)
-
-        self.accel = QDoubleSpinBox(decimals=1)
+        # Acceleration
+        self.accel = QSlider(Qt.Orientation.Horizontal)
         self.accel.setToolTip("Changes the pointer acceleration. [<-1|1>]")
-        self.accel.setRange(-1, 1)
-        self.accel.setSingleStep(0.1)
-        self.accel.setValue(settings["pointer-pointer-accel"])
+        self.accel_label = QLabel("Pointer speed:")
+        self.accel.setTickPosition(QSlider.TicksBelow)
+        self.accel.setRange(-10, 10)
+        self.accel.setSingleStep(1)
+        self.accel.setPageStep(1)
+        self.accel.setTickInterval(1)
+        self.accel.setValue(float(settings["pointer-pointer-accel"]) * 10)
         self.accel.valueChanged.connect(self.on_accel_value_changed)
 
-        self.natScroll = QComboBox()
-        self.natScroll.setToolTip("Enables or disables natural (inverted) scrolling.")
-        for item in ["disabled", "enabled"]:
-            self.natScroll.addItem(item)
-        self.natScroll.activated.connect(self.on_nat_scroll_text_changed)
+        # Acceleration profile
+        self.Flat = QRadioButton("Flat")
+        self.Flat.setToolTip("Cursor moves the same distance as the mouse movement.")
+        self.profile_label = QLabel("Acceleration profile:")
+        self.Adaptive = QRadioButton("Adaptive")
+        self.Adaptive.setToolTip("Cursor travel distance depends on the mouse movement speed.")
+        if settings["pointer-accel-profile"] == "flat":
+            self.Flat.setChecked(True)
+        else:
+            self.Adaptive.setChecked(True)
+        self.Flat.clicked.connect(self.on_accel_profile_changed)
+        self.Adaptive.clicked.connect(self.on_accel_profile_changed)
 
-        self.scrollFactor = QDoubleSpinBox(decimals=1)
+        self.natScroll = QCheckBox("Invert scroll direction")
+        self.natScroll.setToolTip("Touchscreen like scrolling.")
+        self.natScroll_label = QLabel("Natural scroll:")
+        if settings["pointer-natural-scroll"] == "true":
+            self.natScroll.setChecked(True)
+        self.natScroll.toggled.connect(self.on_nat_scroll_checked)
+
+        self.scrollFactor = QSlider(Qt.Orientation.Horizontal)
         self.scrollFactor.setToolTip("Scroll speed will be scaled by the given value.")
-        self.scrollFactor.setRange(0.1, 10)
-        self.scrollFactor.setSingleStep(0.1)
-        self.scrollFactor.setValue(settings["pointer-scroll-factor"])
+        self.scrollFactor_label = QLabel("Scrolling speed:")
+        self.scrollFactor.setTickPosition(QSlider.TicksBelow)
+        self.scrollFactor.setTickInterval(9)
+        self.scrollFactor.setRange(1, 100)
+        self.scrollFactor.setSingleStep(1)
+        self.scrollFactor.setValue(float(settings["pointer-scroll-factor"]) * 10)
         self.scrollFactor.valueChanged.connect(self.on_scroll_value_changed)
 
-        self.leftHanded = QComboBox()
+        self.leftHanded = QCheckBox()
         self.leftHanded.setToolTip("Enables or disables left handed mode.")
-        for item in ["disabled", "enabled"]:
-            self.leftHanded.addItem(item)
-        self.leftHanded.activated.connect(self.on_left_handed_text_changed)
+        self.leftHanded_label = QLabel("Left handed mode:")
+        if settings["pointer-left-handed"] == "true":
+            self.leftHanded.setChecked(True)
+        self.leftHanded.toggled.connect(self.on_left_handed_checked)
 
-        self.formLayout.addRow(QLabel("Acceleration profile:"), self.accelProfile)
-        self.formLayout.addRow(QLabel("Acceleration:"), self.accel)
-        self.formLayout.addRow(QLabel("Natural scroll:"), self.natScroll)
-        self.formLayout.addRow(QLabel("Scroll factor:"), self.scrollFactor)
-        self.formLayout.addRow(QLabel("Left handed:"), self.leftHanded)
+        self.gridLayout.addWidget(self.leftHanded_label, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.leftHanded, 0, 2, 1, 1)
+        self.gridLayout.addWidget(self.accel_label, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.accel, 1, 2, 1, 1)
+        self.gridLayout.addWidget(self.profile_label, 2, 1, 1, 1)
+        self.gridLayout.addWidget(self.Flat, 2, 2, 1, 1)
+        self.gridLayout.addWidget(self.Adaptive, 3, 2, 1, 1)
+        self.gridLayout.addWidget(self.natScroll_label, 4, 1, 1, 1)
+        self.gridLayout.addWidget(self.natScroll, 4, 2, 1, 1)
+        self.gridLayout.addWidget(self.scrollFactor_label, 5, 1, 1, 1)
+        self.gridLayout.addWidget(self.scrollFactor, 5, 2, 1, 1)
 
-        self.vbox2.addLayout(self.formLayout)
+        self.vbox2.addLayout(self.gridLayout)
+        self.vbox2.addStretch()
         self.vbox2.addWidget(self.PointerUseSettings, 0, Qt.AlignRight)
         self.groupBox.setLayout(self.vbox2)
         self.setLayout(self.vbox)
@@ -339,20 +366,29 @@ class MouseTab(QWidget):
         else:
             settings["pointer-use-settings"] = "false"
 
-    def on_accel_profile_text_changed(self):
-        settings["pointer-accel-profile"] = self.accelProfile.currentText()
+    def on_accel_profile_changed(self):
+        if self.Flat.isChecked():
+            settings["pointer-accel-profile"] = "flat"
+        else:
+            settings["pointer-accel-profile"] = "adaptive"
 
     def on_accel_value_changed(self):
-        settings["pointer-pointer-accel"] = self.accel.value()
+        settings["pointer-pointer-accel"] = self.accel.value() / 10
 
-    def on_nat_scroll_text_changed(self):
-        settings["pointer-natural-scroll"] = self.natScroll.currentText()
+    def on_nat_scroll_checked(self):
+        if self.natScroll.isChecked() == True:
+            settings["pointer-natural-scroll"] = "true"
+        else:
+            settings["pointer-natural-scroll"] = "false"
 
     def on_scroll_value_changed(self):
-        settings["pointer-scroll-factor"] = self.scrollFactor.value()
+        settings["pointer-scroll-factor"] = self.scrollFactor.value() / 10
 
-    def on_left_handed_text_changed(self):
-        settings["pointer-left-handed"] = self.leftHanded.currentText()
+    def on_left_handed_checked(self):
+        if self.leftHanded.isChecked() == True:
+            settings["pointer-left-handed"] = "true"
+        else:
+            settings["pointer-left-handed"] = "false"
 
 
 class TouchpadTab(QWidget):
