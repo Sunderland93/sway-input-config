@@ -3,10 +3,11 @@
 import os
 import sys
 from PySide2.QtWidgets import (QApplication, QWidget, QVBoxLayout, QComboBox,
-                               QDialog, QCheckBox, QHBoxLayout, QSpinBox, QSlider,
-                               QPushButton, QDialogButtonBox, QFormLayout, QRadioButton,
-                               QGridLayout, QGroupBox, QLineEdit, QLabel,
-                               QMainWindow, QTabWidget, QDoubleSpinBox, QStyle)
+                               QDialog, QCheckBox, QHBoxLayout, QSpinBox,
+                               QSlider, QPushButton, QDialogButtonBox,
+                               QFormLayout, QRadioButton, QGridLayout,
+                               QGroupBox, QLineEdit, QLabel,
+                               QMainWindow, QTabWidget, QStyle)
 from PySide2.QtCore import Qt
 from PySide2.QtGui import QPixmap
 from sway_input_config.utils import (get_data_dir, load_json, save_json,
@@ -38,7 +39,7 @@ layout_list = ["af", "al", "am", "ara", "at", "au", "az", "ba", "bd", "be", "bg"
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setFixedSize(620, 400)
+        self.setFixedSize(700, 600)
         self.mainWindow = QWidget()
         self.vbox = QVBoxLayout(self.mainWindow)
         self.hbox = QHBoxLayout()
@@ -396,8 +397,7 @@ class TouchpadTab(QWidget):
         super().__init__()
 
         self.gridLayout = QGridLayout()
-        self.formLayout2 = QFormLayout()
-        self.formLayout3 = QFormLayout()
+        self.formLayout = QFormLayout()
         self.vbox = QVBoxLayout()
         self.vbox2 = QVBoxLayout()
         self.groupBox = QGroupBox("Touchpad settings")
@@ -408,153 +408,216 @@ class TouchpadTab(QWidget):
             self.TouchPadUseSettings.setChecked(True)
         self.TouchPadUseSettings.toggled.connect(self.touchpad_use_settings)
 
-        self.accelProfile = QComboBox()
-        self.accelProfile.setToolTip("Sets the pointer acceleration profile.")
-        for item in ["flat", "adaptive"]:
-            self.accelProfile.addItem(item)
-        self.accelProfile.setCurrentText(settings["touchpad-accel-profile"])
-        self.accelProfile.activated.connect(self.on_accel_profile_text_changed)
+        # Acceleration profile
+        self.Flat = QRadioButton("Flat")
+        self.Flat.setToolTip("Cursor moves the same distance as the mouse movement.")
+        self.Adaptive = QRadioButton("Adaptive")
+        self.Adaptive.setToolTip("Cursor travel distance depends on the mouse movement speed.")
+        if settings["touchpad-accel-profile"] == "flat":
+            self.Flat.setChecked(True)
+        else:
+            self.Adaptive.setChecked(True)
+        self.Flat.clicked.connect(self.on_accel_profile_changed)
+        self.Adaptive.clicked.connect(self.on_accel_profile_changed)
 
-        self.accel = QDoubleSpinBox(decimals=1)
+        # Acceleration
+        self.accel = QSlider(Qt.Orientation.Horizontal)
         self.accel.setToolTip("Changes the pointer acceleration. [<-1|1>]")
-        self.accel.setRange(-1, 1)
-        self.accel.setSingleStep(0.1)
-        self.accel.setValue(settings["touchpad-pointer-accel"])
+        self.accel.setTickPosition(QSlider.TicksBelow)
+        self.accel.setRange(-10, 10)
+        self.accel.setSingleStep(1)
+        self.accel.setPageStep(1)
+        self.accel.setTickInterval(1)
+        self.accel.setValue(float(settings["touchpad-pointer-accel"]) * 10)
         self.accel.valueChanged.connect(self.on_accel_value_changed)
 
-        self.scrollFactor = QDoubleSpinBox(decimals=1)
+        # Scrolling speed
+        self.scrollFactor = QSlider(Qt.Orientation.Horizontal)
         self.scrollFactor.setToolTip("Scroll speed will be scaled by the given value.")
-        self.scrollFactor.setRange(0.1, 10)
-        self.scrollFactor.setSingleStep(0.1)
-        self.scrollFactor.setValue(settings["touchpad-scroll-factor"])
-        self.scrollFactor.valueChanged.connect(self.on_scroll_factor_changed)
+        self.scrollFactor.setTickPosition(QSlider.TicksBelow)
+        self.scrollFactor.setTickInterval(9)
+        self.scrollFactor.setRange(1, 100)
+        self.scrollFactor.setSingleStep(1)
+        self.scrollFactor.setValue(float(settings["touchpad-scroll-factor"]) * 10)
+        self.scrollFactor.valueChanged.connect(self.on_scroll_value_changed)
 
-        self.natScroll = QComboBox()
-        self.natScroll.setToolTip("Enables or disables natural (inverted) scrolling.")
-        for item in ["disabled", "enabled"]:
-            self.natScroll.addItem(item)
-        self.natScroll.setCurrentText(settings["touchpad-natural-scroll"])
-        self.natScroll.activated.connect(self.on_nat_scroll_text_changed)
+        # Natural scrolling
+        self.natScroll = QCheckBox("Invert scroll direction")
+        self.natScroll.setToolTip("Touchscreen like scrolling.")
+        if settings["touchpad-natural-scroll"] == "enabled":
+            self.natScroll.setChecked(True)
+        self.natScroll.toggled.connect(self.on_nat_scroll_checked)
 
-        self.scrollMethod = QComboBox()
-        self.scrollMethod.setToolTip("Changes the scroll method.")
-        for item in ["two_finger", "edge", "on_button_down", "none"]:
-            self.scrollMethod.addItem(item)
-        self.scrollMethod.setCurrentText(settings["touchpad-scroll-method"])
+        # Scrolling method
+        self.method1 = QRadioButton("Two fingers")
+        self.method2 = QRadioButton("Touchpad edges")
+        self.method3 = QRadioButton("On button down")
+        self.method4 = QRadioButton("No scroll")
+        if settings["touchpad-scroll-method"] == "two_finger":
+            self.method1.setChecked(True)
+        elif settings["touchpad-scroll-method"] == "edge":
+            self.method2.setChecked(True)
+        elif settings["touchpad-scroll-method"] == "on_button_down":
+            self.method3.setChecked(True)
+        else:
+            self.method4.setChecked(True)
+        self.method1.clicked.connect(self.on_scroll_method_checked)
+        self.method2.clicked.connect(self.on_scroll_method_checked)
+        self.method3.clicked.connect(self.on_scroll_method_checked)
+        self.method4.clicked.connect(self.on_scroll_method_checked)
 
-        self.leftHanded = QComboBox()
+        # Left handed mode
+        self.leftHanded = QCheckBox("Left handed mode")
         self.leftHanded.setToolTip("Enables or disables left handed mode.")
-        for item in ["disabled", "enabled"]:
-            self.leftHanded.addItem(item)
-        self.leftHanded.setCurrentText(settings["touchpad-left-handed"])
-        self.leftHanded.activated.connect(self.on_left_handed_text_changed)
+        if settings["touchpad-left-handed"] == "enabled":
+            self.leftHanded.setChecked(True)
+        self.leftHanded.toggled.connect(self.on_left_handed_checked)
 
-        self.tap = QComboBox()
-        self.tap.setToolTip("Enables or disables tap-to-click.")
-        for item in ["enabled", "disabled"]:
-            self.tap.addItem(item)
-        self.tap.setCurrentText(settings["touchpad-tap"])
-        self.tap.activated.connect(self.on_tap_text_changed)
+        # Multi tapping
+        self.lrm = QRadioButton("Two-tap right, three middle")
+        self.lmr = QRadioButton("Two-tap middle, three right")
+        if settings["touchpad-tap-button-map"] == "lrm":
+            self.lrm.setChecked(True)
+        else:
+            self.lmr.setChecked(True)
+        self.lrm.clicked.connect(self.on_multi_tap_checked)
+        self.lmr.clicked.connect(self.on_multi_tap_checked)
 
-        self.tapBtnMap = QComboBox()
-        self.tapBtnMap.setToolTip("'lrm' treats 1 finger as left click, 2 fingers as right click, "
-                                  "and 3 fingers as middle click.\n'lmr' treats 1 finger as left click, "
-                                  "2 fingers as middle click, and 3 fingers as right click.")
-        for item in ["lrm", "lmr"]:
-            self.tapBtnMap.addItem(item)
-        self.tapBtnMap.setCurrentText(settings["touchpad-tap-button-map"])
-        self.tapBtnMap.activated.connect(self.on_tap_btn_map_text_changed)
-
-        self.middleEmu = QComboBox()
+        # Middle button emulation
+        self.middleEmu = QCheckBox("Press anywhere with three fingers")
         self.middleEmu.setToolTip("Enables or disables middle click emulation.")
-        for item in ["enabled", "disable"]:
-            self.middleEmu.addItem(item)
-        self.middleEmu.setCurrentText(settings["touchpad-middle-emulation"])
-        self.middleEmu.activated.connect(self.on_middle_emu_text_changed)
+        if settings["touchpad-middle-emulation"] == "enabled":
+            self.middleEmu.setChecked(True)
+        self.middleEmu.toggled.connect(self.on_middle_emu_checked)
 
-        self.drag = QComboBox()
+        # Tap-to-click
+        self.tap_click = QCheckBox("Tap-to-click")
+        self.tap_click.setToolTip("Enables or disables tap-to-click.")
+        if settings["touchpad-tap"] == "enabled":
+            self.tap_click.setChecked(True)
+        self.tap_click.toggled.connect(self.on_tap_click_checked)
+
+        # Tap-and-drag
+        self.drag = QCheckBox("Tap-and-drag")
         self.drag.setToolTip("Enables or disables tap-and-drag.")
-        for item in ["enabled", "disabled"]:
-            self.drag.addItem(item)
-        self.drag.setCurrentText(settings["touchpad-drag"])
-        self.drag.activated.connect(self.on_drag_text_changed)
+        if settings["touchpad-drag"] == "enabled":
+            self.drag.setChecked(True)
+        self.drag.toggled.connect(self.on_tapdrag_checked)
 
-        self.dragLock = QComboBox()
+        # Tap-and-drag lock
+        self.dragLock = QCheckBox("Tap-and-drag lock")
         self.dragLock.setToolTip("Enables or disables drag lock.")
-        for item in ["disabled", "enabled"]:
-            self.dragLock.addItem(item)
-        self.dragLock.setCurrentText(settings["touchpad-drag-lock"])
-        self.dragLock.activated.connect(self.on_draglock_text_changed)
+        if settings["touchpad-drag-lock"] == "enabled":
+            self.dragLock.setChecked(True)
+        self.dragLock.toggled.connect(self.on_draglock_checked)
 
-        self.DWT = QComboBox()
+        # Disable while typing
+        self.DWT = QCheckBox("Disable while typing")
         self.DWT.setToolTip("Enables or disables disable-while-typing.")
-        for item in ["enabled", "disabled"]:
-            self.DWT.addItem(item)
-        self.DWT.setCurrentText(settings["touchpad-dwt"])
-        self.DWT.activated.connect(self.on_dwt_text_changed)
+        if settings["touchpad-dwt"] == "enabled":
+            self.DWT.setChecked(True)
+        self.DWT.toggled.connect(self.on_dwt_checked)
 
-        self.formLayout2.addRow(QLabel("Acceleration profile:"), self.accelProfile)
-        self.formLayout2.addRow(QLabel("Acceleration:"), self.accel)
-        self.formLayout2.addRow(QLabel("Scroll factor:"), self.scrollFactor)
-        self.formLayout2.addRow(QLabel("Natural scroll:"), self.natScroll)
-        self.formLayout2.addRow(QLabel("Scroll method:"), self.scrollMethod)
-        self.formLayout2.addRow(QLabel("Left handed:"), self.leftHanded)
+        self.formLayout.addRow(QLabel("General:"), self.DWT)
+        self.formLayout.addRow(QLabel(), self.leftHanded)
+        self.formLayout.addRow(QLabel("Pointer speed:"), self.accel)
+        self.formLayout.addRow(QLabel("Tapping:"), self.tap_click)
+        self.formLayout.addRow(QLabel(), self.drag)
+        self.formLayout.addRow(QLabel(), self.dragLock)
+        self.formLayout.addRow(QLabel("Two-finger tap:"), self.lrm)
+        self.formLayout.addRow(QLabel(), self.lmr)
+        self.formLayout.addRow(QLabel("Scrolling:"), self.method1)
+        self.formLayout.addRow(QLabel(), self.method2)
+        self.formLayout.addRow(QLabel(), self.method3)
+        self.formLayout.addRow(QLabel(), self.method4)
+        self.formLayout.addRow(QLabel(), self.natScroll)
+        self.formLayout.addRow(QLabel("Scrolling speed:"), self.scrollFactor)
+        self.formLayout.addRow(QLabel("Middle-click:"), self.middleEmu)
 
-        self.formLayout3.addRow(QLabel("Tap:"), self.tap)
-        self.formLayout3.addRow(QLabel("Tap button map:"), self.tapBtnMap)
-        self.formLayout3.addRow(QLabel("Middle emulation:"), self.middleEmu)
-        self.formLayout3.addRow(QLabel("Drag:"), self.drag)
-        self.formLayout3.addRow(QLabel("Drag lock:"), self.dragLock)
-        self.formLayout3.addRow(QLabel("DWT:"), self.DWT)
-
-        self.gridLayout.addLayout(self.formLayout2, 0, 0, 1, 1)
-        self.gridLayout.addLayout(self.formLayout3, 0, 1, 1, 1)
+        self.gridLayout.setColumnStretch(0, 1)
+        self.gridLayout.addLayout(self.formLayout, 0, 1, 1, 1)
+        self.gridLayout.setColumnStretch(2, 1)
         self.vbox2.addLayout(self.gridLayout)
+        self.vbox2.addStretch()
         self.vbox2.addWidget(self.TouchPadUseSettings, 0, Qt.AlignRight)
         self.groupBox.setLayout(self.vbox2)
         self.setLayout(self.vbox)
 
     def touchpad_use_settings(self):
-        if self.TouchPadUseSettings.isChecked() == True:
+        if self.TouchPadUseSettings.isChecked() is True:
             settings["touchpad-use-settings"] = "true"
         else:
             settings["touchpad-use-settings"] = "false"
 
     def on_accel_value_changed(self):
-        settings["touchpad-pointer-accel"] = self.accel.value()
+        settings["touchpad-pointer-accel"] = self.accel.value() / 10
 
-    def on_scroll_factor_changed(self):
-        settings["touchpad-scroll-factor"] = self.scrollFactor.value()
+    def on_scroll_value_changed(self):
+        settings["touchpad-scroll-factor"] = self.scrollFactor.value() / 10
 
-    def on_accel_profile_text_changed(self):
-        settings["touchpad-accel-profile"] = self.accelProfile.currentText()
+    def on_accel_profile_changed(self):
+        if self.Flat.isChecked():
+            settings["touchpad-accel-profile"] = "flat"
+        else:
+            settings["touchpad-accel-profile"] = "adaptive"
 
-    def on_nat_scroll_text_changed(self):
-        settings["touchpad-natural-scroll"] = self.natScroll.currentText()
+    def on_nat_scroll_checked(self):
+        if self.natScroll.isChecked() is True:
+            settings["touchpad-natural-scroll"] = "enabled"
+        else:
+            settings["touchpad-natural-scroll"] = "disabled"
 
-    def on_scroll_method_text_changed(self):
-        settings["touchpad-scroll-method"] = self.scrollMethod.currentText()
+    def on_scroll_method_checked(self):
+        if self.method1.isChecked() is True:
+            settings["touchpad-scroll-method"] = "two_finger"
+        elif self.method2.isChecked() is True:
+            settings["touchpad-scroll-method"] = "edge"
+        elif self.method3.isChecked() is True:
+            settings["touchpad-scroll-method"] = "on_button_down"
+        else:
+            settings["touchpad-scroll-method"] = "none"
 
-    def on_left_handed_text_changed(self):
-        settings["touchpad-left-handed"] = self.leftHanded.currentText()
+    def on_left_handed_checked(self):
+        if self.leftHanded.isChecked():
+            settings["touchpad-left-handed"] = "enabled"
+        else:
+            settings["touchpad-left-handed"] = "disabled"
 
-    def on_tap_text_changed(self):
-        settings["touchpad-tap"] = self.tap.currentText()
+    def on_tap_click_checked(self):
+        if self.tap_click.isChecked():
+            settings["touchpad-tap"] = "enabled"
+        else:
+            settings["touchpad-tap"] = "disabled"
 
-    def on_tap_btn_map_text_changed(self):
-        settings["touchpad-tap-button-map"] = self.tapBtnMap.currentText()
+    def on_multi_tap_checked(self):
+        if self.lrm.isChecked():
+            settings["touchpad-tap-button-map"] = "lrm"
+        else:
+            settings["touchpad-tap-button-map"] = "lmr"
 
-    def on_middle_emu_text_changed(self):
-        settings["touchpad-middle-emulation"] = self.middleEmu.currentText()
+    def on_middle_emu_checked(self):
+        if self.middleEmu.isChecked():
+            settings["touchpad-middle-emulation"] = "enabled"
+        else:
+            settings["touchpad-middle-emulation"] = "disabled"
 
-    def on_drag_text_changed(self):
-        settings["touchpad-drag"] = self.drag.currentText()
+    def on_tapdrag_checked(self):
+        if self.drag.isChecked():
+            settings["touchpad-drag"] = "enabled"
+        else:
+            settings["touchpad-drag"] = "disabled"
 
-    def on_draglock_text_changed(self):
-        settings["touchpad-drag-lock"] = self.dragLock.currentText()
+    def on_draglock_checked(self):
+        if self.dragLock.isChecked():
+            settings["touchpad-drag-lock"] = "enabled"
+        else:
+            settings["touchpad-drag-lock"] = "disabled"
 
-    def on_dwt_text_changed(self):
-        settings["touchpad-dwt"] = self.DWT.currentText()
+    def on_dwt_checked(self):
+        if self.DWT.isChecked():
+            settings["touchpad-dwt"] = "enabled"
+        else:
+            settings["touchpad-dwt"] = "disabled"
 
 
 def save_to_config():
