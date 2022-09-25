@@ -515,6 +515,7 @@ class TouchpadTab(QWidget):
         # Tap-and-drag
         self.drag = QCheckBox("Tap-and-drag")
         self.drag.setToolTip("Enables or disables tap-and-drag.")
+        self.drag.setEnabled(False)
         if settings["touchpad-drag"] == "enabled":
             self.drag.setChecked(True)
         self.drag.toggled.connect(self.on_tapdrag_checked)
@@ -522,6 +523,7 @@ class TouchpadTab(QWidget):
         # Tap-and-drag lock
         self.dragLock = QCheckBox("Tap-and-drag lock")
         self.dragLock.setToolTip("Enables or disables drag lock.")
+        self.dragLock.setEnabled(False)
         if settings["touchpad-drag-lock"] == "enabled":
             self.dragLock.setChecked(True)
         self.dragLock.toggled.connect(self.on_draglock_checked)
@@ -603,8 +605,12 @@ class TouchpadTab(QWidget):
     def on_tap_click_checked(self):
         if self.tap_click.isChecked():
             settings["touchpad-tap"] = "enabled"
+            self.drag.setEnabled(True)
+            self.dragLock.setEnabled(True)
         else:
             settings["touchpad-tap"] = "disabled"
+            self.drag.setEnabled(False)
+            self.dragLock.setEnabled(False)
 
     def on_multi_tap_checked(self):
         if self.lrm.isChecked():
