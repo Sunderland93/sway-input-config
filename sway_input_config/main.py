@@ -284,6 +284,7 @@ class MouseTab(QWidget):
         super().__init__()
 
         self.gridLayout = QGridLayout()
+        self.formLayout = QFormLayout()
         self.vbox = QVBoxLayout()
         self.vbox2 = QVBoxLayout()
         self.groupBox = QGroupBox("Pointer device settings")
@@ -319,6 +320,7 @@ class MouseTab(QWidget):
         self.Flat.clicked.connect(self.on_accel_profile_changed)
         self.Adaptive.clicked.connect(self.on_accel_profile_changed)
 
+        # Natural scrolling
         self.natScroll = QCheckBox("Invert scroll direction")
         self.natScroll.setToolTip("Touchscreen like scrolling.")
         self.natScroll_label = QLabel("Natural scroll:")
@@ -326,6 +328,7 @@ class MouseTab(QWidget):
             self.natScroll.setChecked(True)
         self.natScroll.toggled.connect(self.on_nat_scroll_checked)
 
+        # Scrolling speed
         self.scrollFactor = QSlider(Qt.Orientation.Horizontal)
         self.scrollFactor.setToolTip("Scroll speed will be scaled by the given value.")
         self.scrollFactor_label = QLabel("Scrolling speed:")
@@ -336,25 +339,31 @@ class MouseTab(QWidget):
         self.scrollFactor.setValue(float(settings["pointer-scroll-factor"]) * 10)
         self.scrollFactor.valueChanged.connect(self.on_scroll_value_changed)
 
-        self.leftHanded = QCheckBox()
+        # Left handed mode
+        self.leftHanded = QCheckBox("Left handed mode")
         self.leftHanded.setToolTip("Enables or disables left handed mode.")
-        self.leftHanded_label = QLabel("Left handed mode:")
         if settings["pointer-left-handed"] == "true":
             self.leftHanded.setChecked(True)
         self.leftHanded.toggled.connect(self.on_left_handed_checked)
 
-        self.gridLayout.addWidget(self.leftHanded_label, 0, 1, 1, 1)
-        self.gridLayout.addWidget(self.leftHanded, 0, 2, 1, 1)
-        self.gridLayout.addWidget(self.accel_label, 1, 1, 1, 1)
-        self.gridLayout.addWidget(self.accel, 1, 2, 1, 1)
-        self.gridLayout.addWidget(self.profile_label, 2, 1, 1, 1)
-        self.gridLayout.addWidget(self.Flat, 2, 2, 1, 1)
-        self.gridLayout.addWidget(self.Adaptive, 3, 2, 1, 1)
-        self.gridLayout.addWidget(self.natScroll_label, 4, 1, 1, 1)
-        self.gridLayout.addWidget(self.natScroll, 4, 2, 1, 1)
-        self.gridLayout.addWidget(self.scrollFactor_label, 5, 1, 1, 1)
-        self.gridLayout.addWidget(self.scrollFactor, 5, 2, 1, 1)
+        # Middle click by pressing left and right
+        self.middle = QCheckBox("Press left and right buttons for middle click")
+        self.middle.setToolTip("Enables or disables middle click emulation.")
+        if settings["pointer-middle-emulation"] == "enabled":
+            self.middle.setChecked(True)
+        self.middle.toggled.connect(self.on_middle_checked)
 
+        self.formLayout.addRow(QLabel("General:"), self.leftHanded)
+        self.formLayout.addRow(QLabel(), self.middle)
+        self.formLayout.addRow(QLabel("Pointer speed:"), self.accel)
+        self.formLayout.addRow(QLabel("Acceleration profile:"), self.Flat)
+        self.formLayout.addRow(QLabel(), self.Adaptive)
+        self.formLayout.addRow(QLabel("Scrolling:"), self.natScroll)
+        self.formLayout.addRow(QLabel("Scrolling speed:"), self.scrollFactor)
+
+        self.gridLayout.setColumnStretch(0, 1)
+        self.gridLayout.addLayout(self.formLayout, 0, 1, 1, 1)
+        self.gridLayout.setColumnStretch(2, 1)
         self.vbox2.addLayout(self.gridLayout)
         self.vbox2.addStretch()
         self.vbox2.addWidget(self.PointerUseSettings, 0, Qt.AlignRight)
@@ -362,7 +371,7 @@ class MouseTab(QWidget):
         self.setLayout(self.vbox)
 
     def pointer_use_settings(self):
-        if self.PointerUseSettings.isChecked() == True:
+        if self.PointerUseSettings.isChecked() is True:
             settings["pointer-use-settings"] = "true"
         else:
             settings["pointer-use-settings"] = "false"
@@ -377,7 +386,7 @@ class MouseTab(QWidget):
         settings["pointer-pointer-accel"] = self.accel.value() / 10
 
     def on_nat_scroll_checked(self):
-        if self.natScroll.isChecked() == True:
+        if self.natScroll.isChecked() is True:
             settings["pointer-natural-scroll"] = "true"
         else:
             settings["pointer-natural-scroll"] = "false"
@@ -386,10 +395,16 @@ class MouseTab(QWidget):
         settings["pointer-scroll-factor"] = self.scrollFactor.value() / 10
 
     def on_left_handed_checked(self):
-        if self.leftHanded.isChecked() == True:
+        if self.leftHanded.isChecked() is True:
             settings["pointer-left-handed"] = "true"
         else:
             settings["pointer-left-handed"] = "false"
+
+    def on_middle_checked(self):
+        if self.middle.isChecked():
+            settings["pointer-middle-emulation"] = "enabled"
+        else:
+            settings["pointer-middle-emulation"] = "disabled"
 
 
 class TouchpadTab(QWidget):
@@ -644,7 +659,8 @@ def save_to_config():
                  '  pointer_accel {}'.format(settings["pointer-pointer-accel"]),
                  '  natural_scroll {}'.format(settings["pointer-natural-scroll"]),
                  '  scroll_factor {}'.format(settings["pointer-scroll-factor"]),
-                 '  left_handed {}'.format(settings["pointer-left-handed"])]
+                 '  left_handed {}'.format(settings["pointer-left-handed"]),
+                 '  middle_emulation {}'.format(settings["pointer-middle-emulation"])]
         lines.append('}')
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/pointer"))

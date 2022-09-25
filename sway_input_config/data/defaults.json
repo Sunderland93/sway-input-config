@@ -13,6 +13,7 @@
     "pointer-natural-scroll": "disabled",
     "pointer-scroll-factor": 1.0,
     "pointer-left-handed": "disabled",
+    "pointer-middle-emulation": "disabled",
     "touchpad-use-settings": false,
     "touchpad-accel-profile": "flat",
     "touchpad-pointer-accel": 0.0,
