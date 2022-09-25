@@ -39,7 +39,7 @@ layout_list = ["af", "al", "am", "ara", "at", "au", "az", "ba", "bd", "be", "bg"
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setFixedSize(700, 600)
+        self.setFixedSize(700, 650)
         self.mainWindow = QWidget()
         self.vbox = QVBoxLayout(self.mainWindow)
         self.hbox = QHBoxLayout()
@@ -499,7 +499,7 @@ class TouchpadTab(QWidget):
         self.lmr.clicked.connect(self.on_multi_tap_checked)
 
         # Middle button emulation
-        self.middleEmu = QCheckBox("Press anywhere with three fingers")
+        self.middleEmu = QCheckBox("Press left and right buttons for middle click")
         self.middleEmu.setToolTip("Enables or disables middle click emulation.")
         if settings["touchpad-middle-emulation"] == "enabled":
             self.middleEmu.setChecked(True)
@@ -535,7 +535,10 @@ class TouchpadTab(QWidget):
 
         self.formLayout.addRow(QLabel("General:"), self.DWT)
         self.formLayout.addRow(QLabel(), self.leftHanded)
+        self.formLayout.addRow(QLabel(), self.middleEmu)
         self.formLayout.addRow(QLabel("Pointer speed:"), self.accel)
+        self.formLayout.addRow(QLabel("Acceleration profile:"), self.Flat)
+        self.formLayout.addRow(QLabel(), self.Adaptive)
         self.formLayout.addRow(QLabel("Tapping:"), self.tap_click)
         self.formLayout.addRow(QLabel(), self.drag)
         self.formLayout.addRow(QLabel(), self.dragLock)
@@ -547,7 +550,6 @@ class TouchpadTab(QWidget):
         self.formLayout.addRow(QLabel(), self.method4)
         self.formLayout.addRow(QLabel(), self.natScroll)
         self.formLayout.addRow(QLabel("Scrolling speed:"), self.scrollFactor)
-        self.formLayout.addRow(QLabel("Middle-click:"), self.middleEmu)
 
         self.gridLayout.setColumnStretch(0, 1)
         self.gridLayout.addLayout(self.formLayout, 0, 1, 1, 1)
