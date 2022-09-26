@@ -241,7 +241,7 @@ class KeyboardTab(QWidget):
         self.setLayout(self.vbox)
 
     def keyboard_use_settings(self):
-        if self.KeyBoardUseSettings.isChecked() == True:
+        if self.KeyBoardUseSettings.isChecked() is True:
             settings["keyboard-use-settings"] = "true"
         else:
             settings["keyboard-use-settings"] = "false"
