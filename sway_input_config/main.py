@@ -488,16 +488,6 @@ class TouchpadTab(QWidget):
             self.leftHanded.setChecked(True)
         self.leftHanded.toggled.connect(self.on_left_handed_checked)
 
-        # Multi tapping
-        self.lrm = QRadioButton("Two-tap right, three middle")
-        self.lmr = QRadioButton("Two-tap middle, three right")
-        if settings["touchpad-tap-button-map"] == "lrm":
-            self.lrm.setChecked(True)
-        else:
-            self.lmr.setChecked(True)
-        self.lrm.clicked.connect(self.on_multi_tap_checked)
-        self.lmr.clicked.connect(self.on_multi_tap_checked)
-
         # Middle button emulation
         self.middleEmu = QCheckBox("Press left and right buttons for middle click")
         self.middleEmu.setToolTip("Enables or disables middle click emulation.")
@@ -533,6 +523,22 @@ class TouchpadTab(QWidget):
         if settings["touchpad-drag-lock"] == "enabled":
             self.dragLock.setChecked(True)
         self.dragLock.toggled.connect(self.on_draglock_checked)
+
+        # Multi tapping
+        self.lrm = QRadioButton("Two-tap right, three middle")
+        self.lmr = QRadioButton("Two-tap middle, three right")
+        if settings["touchpad-tap"] == "enabled":
+            self.lrm.setEnabled(True)
+            self.lmr.setEnabled(True)
+        else:
+            self.lrm.setEnabled(False)
+            self.lmr.setEnabled(False)
+        if settings["touchpad-tap-button-map"] == "lrm":
+            self.lrm.setChecked(True)
+        else:
+            self.lmr.setChecked(True)
+        self.lrm.clicked.connect(self.on_multi_tap_checked)
+        self.lmr.clicked.connect(self.on_multi_tap_checked)
 
         # Disable while typing
         self.DWT = QCheckBox("Disable while typing")
@@ -613,10 +619,14 @@ class TouchpadTab(QWidget):
             settings["touchpad-tap"] = "enabled"
             self.drag.setEnabled(True)
             self.dragLock.setEnabled(True)
+            self.lrm.setEnabled(True)
+            self.lmr.setEnabled(True)
         else:
             settings["touchpad-tap"] = "disabled"
             self.drag.setEnabled(False)
             self.dragLock.setEnabled(False)
+            self.lrm.setEnabled(False)
+            self.lmr.setEnabled(False)
 
     def on_multi_tap_checked(self):
         if self.lrm.isChecked():
