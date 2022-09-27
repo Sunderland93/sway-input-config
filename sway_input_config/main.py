@@ -24,6 +24,7 @@ sway_config = os.path.join(config_home, "sway", "config")
 
 dir_name = os.path.dirname(__file__)
 shortcut_list = os.path.join(dir_name, "data/shortcuts.json")
+kbd_model_list = os.path.join(dir_name, "data/kbd_model.json")
 
 layout_list = ["af", "al", "am", "ara", "at", "au", "az", "ba", "bd", "be", "bg",
                "br", "brai", "bt", "bw", "by", "ca", "cd", "ch", "cm", "cn", "cz",
@@ -168,6 +169,17 @@ class KeyboardTab(QWidget):
                 self.shortcutName.setCurrentText(key)
         self.shortcutName.activated.connect(self.set_shortcut)
 
+        self.kbdModel = QComboBox()
+        self.kbdModel.setStyleSheet("QComboBox { combobox-popup: 0; }")
+        self.kbdModel_label = QLabel("Keyboard model:")
+        model_list = load_json(kbd_model_list)
+        for item in model_list:
+            self.kbdModel.addItem(item)
+        for key, value in model_list.items():
+            if value == settings["keyboard-model"]:
+                self.kbdModel.setCurrentText(key)
+        self.kbdModel.activated.connect(self.set_model)
+
         self.repeatDelaySlider = QSlider(Qt.Orientation.Horizontal)
         self.repeatDelaySlider.setRange(1, 6000)
         self.repeatDelaySlider.setPageStep(50)
@@ -224,16 +236,18 @@ class KeyboardTab(QWidget):
         self.gridLayout.addWidget(self.variantName, 1, 1, 1, 1)
         self.gridLayout.addWidget(self.shortcutLabel, 2, 0, 1, 1)
         self.gridLayout.addWidget(self.shortcutName, 2, 1, 1, 1)
-        self.gridLayout.addWidget(self.repeatDelayLabel, 3, 0, 1, 1)
-        self.gridLayout.addWidget(self.repeatDelaySlider, 3, 1, 1, 1)
-        self.gridLayout.addWidget(self.repeatDelay, 3, 2, 1, 1)
-        self.gridLayout.addWidget(self.repeatRateLabel, 4, 0, 1, 1)
-        self.gridLayout.addWidget(self.repeatRateSlider, 4, 1, 1, 1)
-        self.gridLayout.addWidget(self.repeatRate, 4, 2, 1, 1)
-        self.gridLayout.addWidget(self.caps_lockLabel, 5, 0, 1, 1)
-        self.gridLayout.addWidget(self.caps_lock, 5, 1, 1, 1)
-        self.gridLayout.addWidget(self.num_lockLabel, 6, 0, 1, 1)
-        self.gridLayout.addWidget(self.num_lock, 6, 1, 1, 1)
+        self.gridLayout.addWidget(self.kbdModel_label, 3, 0, 1, 1)
+        self.gridLayout.addWidget(self.kbdModel, 3, 1, 1, 1)
+        self.gridLayout.addWidget(self.repeatDelayLabel, 4, 0, 1, 1)
+        self.gridLayout.addWidget(self.repeatDelaySlider, 4, 1, 1, 1)
+        self.gridLayout.addWidget(self.repeatDelay, 4, 2, 1, 1)
+        self.gridLayout.addWidget(self.repeatRateLabel, 5, 0, 1, 1)
+        self.gridLayout.addWidget(self.repeatRateSlider, 5, 1, 1, 1)
+        self.gridLayout.addWidget(self.repeatRate, 5, 2, 1, 1)
+        self.gridLayout.addWidget(self.caps_lockLabel, 6, 0, 1, 1)
+        self.gridLayout.addWidget(self.caps_lock, 6, 1, 1, 1)
+        self.gridLayout.addWidget(self.num_lockLabel, 7, 0, 1, 1)
+        self.gridLayout.addWidget(self.num_lock, 7, 1, 1, 1)
         self.vbox2.addLayout(self.gridLayout)
         self.vbox2.addStretch()
         self.vbox2.addWidget(self.KeyBoardUseSettings, 0, Qt.AlignRight)
@@ -250,6 +264,11 @@ class KeyboardTab(QWidget):
         data = load_json("data/shortcut.json")
         for key in data.keys():
             settings["keyboard-shortcut"] = data[self.shortcutName.currentText()]
+
+    def set_model(self):
+        model_data = load_json("data/kbd_model.json")
+        for key in model_data.keys():
+            settings["keyboard-model"] = model_data[self.kbdModel.currentText()]
 
     def add_layout(self):
         layout = self.layoutList.currentText()
@@ -669,6 +688,7 @@ def save_to_config():
             lines.append('  xkb_variant {}'.format(settings["keyboard-variant"]))
         if settings["keyboard-shortcut"]:
             lines.append('  xkb_options {}'.format(settings["keyboard-shortcut"]))
+        lines.append('  xkb_model {}'.format(settings["keyboard-model"]))
         lines.append('  repeat_delay {}'.format(settings["keyboard-repeat-delay"]))
         lines.append('  repeat_rate {}'.format(settings["keyboard-repeat-rate"]))
         lines.append('  xkb_capslock {}'.format(settings["keyboard-capslock"]))
