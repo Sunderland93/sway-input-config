@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
         self.desc.setText(self.desc_text[0])
 
         self.copyright = QLabel()
-        self.copyright_text = ["Version: 1.0.0.\n"
+        self.copyright_text = ["Version: 1.1.0.\n"
                                "Licensed under the GNU GPLv3.\n"
                                "Copyright: 2022 Aleksey Samoilov"]
         self.copyright.setText(self.copyright_text[0])
