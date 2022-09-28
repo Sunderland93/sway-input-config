@@ -37,6 +37,7 @@ Configuration file is located in `~/.config/sway-input-config/settings`. It's a 
   "keyboard-layout": "us",
   "keyboard-variant": "",
   "keyboard-shortcut": "",
+  "keyboard-model": "pc105",
   "keyboard-repeat-delay": 300,
   "keyboard-repeat-rate": 40,
   "keyboard-capslock": "disabled",
