@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="KeyboardTab">
        <attribute name="title">
@@ -212,6 +212,15 @@
            </item>
            <item row="3" column="1">
             <widget class="QSlider" name="repeatDelaySlider">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>6000</number>
+             </property>
+             <property name="pageStep">
+              <number>50</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -219,6 +228,15 @@
            </item>
            <item row="4" column="1">
             <widget class="QSlider" name="repeatRateSlider">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>4000</number>
+             </property>
+             <property name="pageStep">
+              <number>50</number>
+             </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -775,7 +793,7 @@
               </spacer>
              </item>
              <item>
-              <widget class="QCheckBox" name="checkBox">
+              <widget class="QCheckBox" name="TouchPadUseSettings">
                <property name="text">
                 <string>Use this settings</string>
                </property>
