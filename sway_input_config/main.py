@@ -261,12 +261,12 @@ class KeyboardTab(QWidget):
             settings["keyboard-use-settings"] = "false"
 
     def set_shortcut(self):
-        data = load_json("data/shortcut.json")
+        data = load_json(shortcut_list)
         for key in data.keys():
             settings["keyboard-shortcut"] = data[self.shortcutName.currentText()]
 
     def set_model(self):
-        model_data = load_json("data/kbd_model.json")
+        model_data = load_json(kbd_model_list)
         for key in model_data.keys():
             settings["keyboard-model"] = model_data[self.kbdModel.currentText()]
 
