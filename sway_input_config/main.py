@@ -144,6 +144,11 @@ class MainWindow(QMainWindow):
             self.ui.DWT.setChecked(True)
         self.ui.DWT.toggled.connect(self.on_dwt_checked)
 
+        # Disable while trackpointing
+        if settings["touchpad-dwtp"] == "enabled":
+            self.ui.DWTP.setChecked(True)
+        self.ui.DWTP.toggled.connect(self.on_dwtp_checked)
+
         # Left handed mode
         if settings["touchpad-left-handed"] == "enabled":
             self.ui.touchLeftHanded.setChecked(True)
@@ -308,6 +313,12 @@ class MainWindow(QMainWindow):
         else:
             settings["touchpad-dwt"] = "disabled"
 
+    def on_dwtp_checked(self):
+        if self.ui.DWTP.isChecked():
+            settings["touchpad-dwtp"] = "enabled"
+        else:
+            settings["touchpad-dwtp"] = "disabled"
+
     def on_touch_left_handed_checked(self):
         if self.ui.touchLeftHanded.isChecked():
             settings["touchpad-left-handed"] = "enabled"
@@ -393,6 +404,7 @@ class MainWindow(QMainWindow):
     def cancel(self):
         self.close()
 
+
 class AboutDialog(QDialog):
     def __init__(self):
         super().__init__()
@@ -406,6 +418,7 @@ class AboutDialog(QDialog):
 
     def cancel(self):
         self.close()
+
 
 def save_to_config():
     if settings["keyboard-use-settings"] == "true":
@@ -449,6 +462,7 @@ def save_to_config():
                  '  tap_button_map {}'.format(settings["touchpad-tap-button-map"]),
                  '  drag {}'.format(settings["touchpad-drag"]), '  drag_lock {}'.format(settings["touchpad-drag-lock"]),
                  '  dwt {}'.format(settings["touchpad-dwt"]),
+                 '  dwtp {}'.format(settings["touchpad-dwtp"]),
                  '  middle_emulation {}'.format(settings["touchpad-middle-emulation"])]
         lines.append('}')
 

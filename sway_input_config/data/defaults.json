@@ -27,5 +27,6 @@
     "touchpad-drag": "enabled",
     "touchpad-drag-lock": "disabled",
     "touchpad-dwt": "enabled",
+    "touchpad-dwtp": "enabled",
     "touchpad-middle-emulation": "enabled"
 }

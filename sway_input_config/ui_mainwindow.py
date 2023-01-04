@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.4
+## Created by: Qt User Interface Compiler version 5.15.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -333,17 +333,17 @@ class Ui_MainWindow(object):
         self.touchLeftHanded = QCheckBox(self.groupBox_3)
         self.touchLeftHanded.setObjectName(u"touchLeftHanded")
 
-        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.touchLeftHanded)
+        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.touchLeftHanded)
 
         self.touchMiddle = QCheckBox(self.groupBox_3)
         self.touchMiddle.setObjectName(u"touchMiddle")
 
-        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.touchMiddle)
+        self.formLayout_2.setWidget(3, QFormLayout.FieldRole, self.touchMiddle)
 
         self.label_7 = QLabel(self.groupBox_3)
         self.label_7.setObjectName(u"label_7")
 
-        self.formLayout_2.setWidget(3, QFormLayout.LabelRole, self.label_7)
+        self.formLayout_2.setWidget(4, QFormLayout.LabelRole, self.label_7)
 
         self.touchAccel = QSlider(self.groupBox_3)
         self.touchAccel.setObjectName(u"touchAccel")
@@ -354,92 +354,92 @@ class Ui_MainWindow(object):
         self.touchAccel.setTickPosition(QSlider.TicksBelow)
         self.touchAccel.setTickInterval(1)
 
-        self.formLayout_2.setWidget(3, QFormLayout.FieldRole, self.touchAccel)
+        self.formLayout_2.setWidget(4, QFormLayout.FieldRole, self.touchAccel)
 
         self.label_8 = QLabel(self.groupBox_3)
         self.label_8.setObjectName(u"label_8")
 
-        self.formLayout_2.setWidget(4, QFormLayout.LabelRole, self.label_8)
+        self.formLayout_2.setWidget(5, QFormLayout.LabelRole, self.label_8)
 
         self.touchFlat = QRadioButton(self.groupBox_3)
         self.touchFlat.setObjectName(u"touchFlat")
 
-        self.formLayout_2.setWidget(4, QFormLayout.FieldRole, self.touchFlat)
+        self.formLayout_2.setWidget(5, QFormLayout.FieldRole, self.touchFlat)
 
         self.touchAdaptive = QRadioButton(self.groupBox_3)
         self.touchAdaptive.setObjectName(u"touchAdaptive")
 
-        self.formLayout_2.setWidget(5, QFormLayout.FieldRole, self.touchAdaptive)
+        self.formLayout_2.setWidget(6, QFormLayout.FieldRole, self.touchAdaptive)
 
         self.label_9 = QLabel(self.groupBox_3)
         self.label_9.setObjectName(u"label_9")
 
-        self.formLayout_2.setWidget(6, QFormLayout.LabelRole, self.label_9)
+        self.formLayout_2.setWidget(7, QFormLayout.LabelRole, self.label_9)
 
         self.tap_click = QCheckBox(self.groupBox_3)
         self.tap_click.setObjectName(u"tap_click")
 
-        self.formLayout_2.setWidget(6, QFormLayout.FieldRole, self.tap_click)
+        self.formLayout_2.setWidget(7, QFormLayout.FieldRole, self.tap_click)
 
         self.drag = QCheckBox(self.groupBox_3)
         self.drag.setObjectName(u"drag")
 
-        self.formLayout_2.setWidget(7, QFormLayout.FieldRole, self.drag)
+        self.formLayout_2.setWidget(8, QFormLayout.FieldRole, self.drag)
 
         self.drag_lock = QCheckBox(self.groupBox_3)
         self.drag_lock.setObjectName(u"drag_lock")
 
-        self.formLayout_2.setWidget(8, QFormLayout.FieldRole, self.drag_lock)
+        self.formLayout_2.setWidget(9, QFormLayout.FieldRole, self.drag_lock)
 
         self.label_10 = QLabel(self.groupBox_3)
         self.label_10.setObjectName(u"label_10")
 
-        self.formLayout_2.setWidget(9, QFormLayout.LabelRole, self.label_10)
+        self.formLayout_2.setWidget(10, QFormLayout.LabelRole, self.label_10)
 
         self.lrm = QRadioButton(self.groupBox_3)
         self.lrm.setObjectName(u"lrm")
 
-        self.formLayout_2.setWidget(9, QFormLayout.FieldRole, self.lrm)
+        self.formLayout_2.setWidget(10, QFormLayout.FieldRole, self.lrm)
 
         self.lmr = QRadioButton(self.groupBox_3)
         self.lmr.setObjectName(u"lmr")
 
-        self.formLayout_2.setWidget(10, QFormLayout.FieldRole, self.lmr)
+        self.formLayout_2.setWidget(11, QFormLayout.FieldRole, self.lmr)
 
         self.label_11 = QLabel(self.groupBox_3)
         self.label_11.setObjectName(u"label_11")
 
-        self.formLayout_2.setWidget(11, QFormLayout.LabelRole, self.label_11)
+        self.formLayout_2.setWidget(12, QFormLayout.LabelRole, self.label_11)
 
         self.method1 = QRadioButton(self.groupBox_3)
         self.method1.setObjectName(u"method1")
 
-        self.formLayout_2.setWidget(11, QFormLayout.FieldRole, self.method1)
+        self.formLayout_2.setWidget(12, QFormLayout.FieldRole, self.method1)
 
         self.method2 = QRadioButton(self.groupBox_3)
         self.method2.setObjectName(u"method2")
 
-        self.formLayout_2.setWidget(12, QFormLayout.FieldRole, self.method2)
+        self.formLayout_2.setWidget(13, QFormLayout.FieldRole, self.method2)
 
         self.method3 = QRadioButton(self.groupBox_3)
         self.method3.setObjectName(u"method3")
 
-        self.formLayout_2.setWidget(13, QFormLayout.FieldRole, self.method3)
+        self.formLayout_2.setWidget(14, QFormLayout.FieldRole, self.method3)
 
         self.method4 = QRadioButton(self.groupBox_3)
         self.method4.setObjectName(u"method4")
 
-        self.formLayout_2.setWidget(14, QFormLayout.FieldRole, self.method4)
+        self.formLayout_2.setWidget(15, QFormLayout.FieldRole, self.method4)
 
         self.touchNatScroll = QCheckBox(self.groupBox_3)
         self.touchNatScroll.setObjectName(u"touchNatScroll")
 
-        self.formLayout_2.setWidget(15, QFormLayout.FieldRole, self.touchNatScroll)
+        self.formLayout_2.setWidget(16, QFormLayout.FieldRole, self.touchNatScroll)
 
         self.label_12 = QLabel(self.groupBox_3)
         self.label_12.setObjectName(u"label_12")
 
-        self.formLayout_2.setWidget(16, QFormLayout.LabelRole, self.label_12)
+        self.formLayout_2.setWidget(17, QFormLayout.LabelRole, self.label_12)
 
         self.touchScrollFactor = QSlider(self.groupBox_3)
         self.touchScrollFactor.setObjectName(u"touchScrollFactor")
@@ -450,7 +450,12 @@ class Ui_MainWindow(object):
         self.touchScrollFactor.setTickPosition(QSlider.TicksBelow)
         self.touchScrollFactor.setTickInterval(9)
 
-        self.formLayout_2.setWidget(16, QFormLayout.FieldRole, self.touchScrollFactor)
+        self.formLayout_2.setWidget(17, QFormLayout.FieldRole, self.touchScrollFactor)
+
+        self.DWTP = QCheckBox(self.groupBox_3)
+        self.DWTP.setObjectName(u"DWTP")
+
+        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.DWTP)
 
 
         self.horizontalLayout_8.addLayout(self.formLayout_2)
@@ -609,6 +614,7 @@ class Ui_MainWindow(object):
         self.method4.setText(QCoreApplication.translate("MainWindow", u"No scroll", None))
         self.touchNatScroll.setText(QCoreApplication.translate("MainWindow", u"Invert scroll direction", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Scrolling speed:", None))
+        self.DWTP.setText(QCoreApplication.translate("MainWindow", u"Disable while trackpointing", None))
         self.TouchPadUseSettings.setText(QCoreApplication.translate("MainWindow", u"Use this settings", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TouchpadTab), QCoreApplication.translate("MainWindow", u"Touchpad", None))
     # retranslateUi

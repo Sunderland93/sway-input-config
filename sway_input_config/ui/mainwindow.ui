@@ -563,28 +563,28 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
+               <item row="2" column="1">
                 <widget class="QCheckBox" name="touchLeftHanded">
                  <property name="text">
                   <string>Left handed mode</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1">
+               <item row="3" column="1">
                 <widget class="QCheckBox" name="touchMiddle">
                  <property name="text">
                   <string>Press left and right buttons for middle click</string>
                  </property>
                 </widget>
                </item>
-               <item row="3" column="0">
+               <item row="4" column="0">
                 <widget class="QLabel" name="label_7">
                  <property name="text">
                   <string>Pointer speed:</string>
                  </property>
                 </widget>
                </item>
-               <item row="3" column="1">
+               <item row="4" column="1">
                 <widget class="QSlider" name="touchAccel">
                  <property name="minimum">
                   <number>-10</number>
@@ -606,126 +606,126 @@
                  </property>
                 </widget>
                </item>
-               <item row="4" column="0">
+               <item row="5" column="0">
                 <widget class="QLabel" name="label_8">
                  <property name="text">
                   <string>Acceleration profile:</string>
                  </property>
                 </widget>
                </item>
-               <item row="4" column="1">
+               <item row="5" column="1">
                 <widget class="QRadioButton" name="touchFlat">
                  <property name="text">
                   <string>Flat</string>
                  </property>
                 </widget>
                </item>
-               <item row="5" column="1">
+               <item row="6" column="1">
                 <widget class="QRadioButton" name="touchAdaptive">
                  <property name="text">
                   <string>Adaptive</string>
                  </property>
                 </widget>
                </item>
-               <item row="6" column="0">
+               <item row="7" column="0">
                 <widget class="QLabel" name="label_9">
                  <property name="text">
                   <string>Tapping:</string>
                  </property>
                 </widget>
                </item>
-               <item row="6" column="1">
+               <item row="7" column="1">
                 <widget class="QCheckBox" name="tap_click">
                  <property name="text">
                   <string>Tap-to-click</string>
                  </property>
                 </widget>
                </item>
-               <item row="7" column="1">
+               <item row="8" column="1">
                 <widget class="QCheckBox" name="drag">
                  <property name="text">
                   <string>Tap-and-drag</string>
                  </property>
                 </widget>
                </item>
-               <item row="8" column="1">
+               <item row="9" column="1">
                 <widget class="QCheckBox" name="drag_lock">
                  <property name="text">
                   <string>Tap-and-drag lock</string>
                  </property>
                 </widget>
                </item>
-               <item row="9" column="0">
+               <item row="10" column="0">
                 <widget class="QLabel" name="label_10">
                  <property name="text">
                   <string>Two-finger tap:</string>
                  </property>
                 </widget>
                </item>
-               <item row="9" column="1">
+               <item row="10" column="1">
                 <widget class="QRadioButton" name="lrm">
                  <property name="text">
                   <string>Two-type right, three middle</string>
                  </property>
                 </widget>
                </item>
-               <item row="10" column="1">
+               <item row="11" column="1">
                 <widget class="QRadioButton" name="lmr">
                  <property name="text">
                   <string>Two-tap middle, three right</string>
                  </property>
                 </widget>
                </item>
-               <item row="11" column="0">
+               <item row="12" column="0">
                 <widget class="QLabel" name="label_11">
                  <property name="text">
                   <string>Scrolling</string>
                  </property>
                 </widget>
                </item>
-               <item row="11" column="1">
+               <item row="12" column="1">
                 <widget class="QRadioButton" name="method1">
                  <property name="text">
                   <string>Two fingers</string>
                  </property>
                 </widget>
                </item>
-               <item row="12" column="1">
+               <item row="13" column="1">
                 <widget class="QRadioButton" name="method2">
                  <property name="text">
                   <string>Touchpad edges</string>
                  </property>
                 </widget>
                </item>
-               <item row="13" column="1">
+               <item row="14" column="1">
                 <widget class="QRadioButton" name="method3">
                  <property name="text">
                   <string>On button down</string>
                  </property>
                 </widget>
                </item>
-               <item row="14" column="1">
+               <item row="15" column="1">
                 <widget class="QRadioButton" name="method4">
                  <property name="text">
                   <string>No scroll</string>
                  </property>
                 </widget>
                </item>
-               <item row="15" column="1">
+               <item row="16" column="1">
                 <widget class="QCheckBox" name="touchNatScroll">
                  <property name="text">
                   <string>Invert scroll direction</string>
                  </property>
                 </widget>
                </item>
-               <item row="16" column="0">
+               <item row="17" column="0">
                 <widget class="QLabel" name="label_12">
                  <property name="text">
                   <string>Scrolling speed:</string>
                  </property>
                 </widget>
                </item>
-               <item row="16" column="1">
+               <item row="17" column="1">
                 <widget class="QSlider" name="touchScrollFactor">
                  <property name="minimum">
                   <number>1</number>
@@ -744,6 +744,13 @@
                  </property>
                  <property name="tickInterval">
                   <number>9</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QCheckBox" name="DWTP">
+                 <property name="text">
+                  <string>Disable while trackpointing</string>
                  </property>
                 </widget>
                </item>
