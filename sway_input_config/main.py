@@ -483,6 +483,7 @@ def load_settings():
 
 def main():
     app = QApplication(["Sway Input Configurator"])
+    app.setDesktopFileName("sway-input-config")
 
     global data_dir
     data_dir = get_data_dir()
