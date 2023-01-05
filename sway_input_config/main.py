@@ -8,6 +8,7 @@ from sway_input_config.utils import (get_data_dir, load_json, save_json,
                                      save_list_to_text_file, reload)
 from ui_mainwindow import Ui_MainWindow
 from ui_about import Ui_about
+from ui_selectlayout import Ui_SelectKeyboardLayoutDialog
 
 data_dir = ""
 config_home = os.getenv('XDG_CONFIG_HOME') if os.getenv('XDG_CONFIG_HOME') else os.path.join(
@@ -21,16 +22,7 @@ sway_config = os.path.join(config_home, "sway", "config")
 dir_name = os.path.dirname(__file__)
 shortcut_list = os.path.join(dir_name, "data/shortcuts.json")
 kbd_model_list = os.path.join(dir_name, "data/kbd_model.json")
-
-layout_list = ["af", "al", "am", "ara", "at", "au", "az", "ba", "bd", "be", "bg",
-               "br", "brai", "bt", "bw", "by", "ca", "cd", "ch", "cm", "cn", "cz",
-               "de", "dk", "dz", "ee", "epo", "es", "et", "fi", "fo", "fr", "gb",
-               "ge", "gh", "gn", "gr", "hr", "hu", "id", "ie", "il", "in", "iq", "ir",
-               "is", "it", "jp", "jv", "ke", "kg", "kh", "kr", "kz", "la", "latam",
-               "lk", "lt", "lv", "ma", "mao", "md", "me", "mk", "ml", "mm", "mn", "mt",
-               "mv", "my", "ng", "nl", "no", "np", "ph", "pk", "pl", "pt", "ro", "rs",
-               "ru", "se", "si", "sk", "sn", "sy", "tg", "th", "tj", "tm", "tr", "tw",
-               "tz", "ua", "us", "uz", "vn", "za"]
+layout_list = os.path.join(dir_name, "data/layouts.json")
 
 
 class MainWindow(QMainWindow):
@@ -51,6 +43,9 @@ class MainWindow(QMainWindow):
         if settings["keyboard-use-settings"] == "true":
             self.ui.KeyBoardUseSettings.setChecked(True)
         self.ui.KeyBoardUseSettings.toggled.connect(self.keyboard_use_settings)
+
+        # Add layout
+        self.ui.addBtn.clicked.connect(self.select_keyboard_layout)
 
         # Keyboard shortcut option
         shortcut_data = load_json(shortcut_list)
@@ -237,6 +232,10 @@ class MainWindow(QMainWindow):
         else:
             settings["keyboard-use-settings"] = "false"
 
+    def select_keyboard_layout(self):
+        self.select_dialog = SelectKeyboardLayout()
+        self.select_dialog.show()
+
     def set_shortcut(self):
         data = load_json("data/shortcut.json")
         for key in data.keys():
@@ -419,6 +418,22 @@ class AboutDialog(QDialog):
     def cancel(self):
         self.close()
 
+
+
+class SelectKeyboardLayout(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.select_layout = Ui_SelectKeyboardLayoutDialog()
+        self.select_layout.setupUi(self)
+
+        layout = load_json(layout_list)
+        for item in layout:
+            self.select_layout.layouts.addItem(item)
+
+        self.select_layout.buttonBox.rejected.connect(self.cancel)
+
+    def cancel(self):
+        self.close()
 
 def save_to_config():
     if settings["keyboard-use-settings"] == "true":
