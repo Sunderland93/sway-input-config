@@ -25,16 +25,7 @@ sway_config = os.path.join(config_home, "sway", "config")
 dir_name = os.path.dirname(__file__)
 shortcut_list = os.path.join(dir_name, "data/shortcuts.json")
 kbd_model_list = os.path.join(dir_name, "data/kbd_model.json")
-
-layout_list = ["af", "al", "am", "ara", "at", "au", "az", "ba", "bd", "be", "bg",
-               "br", "brai", "bt", "bw", "by", "ca", "cd", "ch", "cm", "cn", "cz",
-               "de", "dk", "dz", "ee", "epo", "es", "et", "fi", "fo", "fr", "gb",
-               "ge", "gh", "gn", "gr", "hr", "hu", "id", "ie", "il", "in", "iq", "ir",
-               "is", "it", "jp", "jv", "ke", "kg", "kh", "kr", "kz", "la", "latam",
-               "lk", "lt", "lv", "ma", "mao", "md", "me", "mk", "ml", "mm", "mn", "mt",
-               "mv", "my", "ng", "nl", "no", "np", "ph", "pk", "pl", "pt", "ro", "rs",
-               "ru", "se", "si", "sk", "sn", "sy", "tg", "th", "tj", "tm", "tr", "tw",
-               "tz", "ua", "us", "uz", "vn", "za"]
+layouts_list = os.path.join(dir_name, "data/layouts.json")
 
 
 class MainWindow(QMainWindow):
@@ -139,12 +130,17 @@ class KeyboardTab(QWidget):
 
         self.layoutList = QComboBox()
         self.layoutList.setStyleSheet("QComboBox { combobox-popup: 0; }")
-        for item in layout_list:
-            self.layoutList.addItem(item)
+        layout = load_json(layouts_list)
+        for key, value in layout.items():
+            self.layoutList.addItem(key)
 
         self.layoutName = QLineEdit()
         self.layoutLabel = QLabel("Layout:")
-        self.layoutName.setText(settings["keyboard-layout"])
+        layout = load_json(layouts_list)
+        layout_list = []
+        for key, value in layout.items():
+            layout_list.append('{}'.format(','.join(settings["keyboard-layout"])))
+        self.layoutName.setText(layout_list[0])
 
         self.addBtn = QPushButton("Add")
         self.addBtn.setToolTip("Add selected layout to the list")
@@ -154,7 +150,9 @@ class KeyboardTab(QWidget):
         self.labelVariant = QLabel("Variant:")
         self.variantName.setToolTip("Variant of the keyboard like 'dvorak' or 'colemak'.")
         self.variantName.setMaxLength(30)
-        self.variantName.setText(settings["keyboard-variant"])
+        variant_list = []
+        variant_list.append('{}'.format(','.join(settings["keyboard-variant"])))
+        self.variantName.setText(variant_list[0])
         self.variantName.textChanged.connect(self.on_variant_changed)
 
         self.shortcutName = QComboBox()
@@ -271,9 +269,12 @@ class KeyboardTab(QWidget):
             settings["keyboard-model"] = model_data[self.kbdModel.currentText()]
 
     def add_layout(self):
+        layout_data = load_json(layouts_list)
         layout = self.layoutList.currentText()
-        self.layoutName.insert(",")
-        self.layoutName.insert(layout)
+        for key, value in layout_data.items():
+            if key in layout:
+                self.layoutName.insert(",")
+                self.layoutName.insert(value)
         settings["keyboard-layout"] = self.layoutName.text()
 
     def on_variant_changed(self):
@@ -683,9 +684,9 @@ def save_to_config():
 
         lines = ['input "type:keyboard" {']
         if settings["keyboard-layout"]:
-            lines.append('  xkb_layout {}'.format(settings["keyboard-layout"]))
+            lines.append('  xkb_layout {}'.format(','.join(settings["keyboard-layout"])))
         if settings["keyboard-variant"]:
-            lines.append('  xkb_variant {}'.format(settings["keyboard-variant"]))
+            lines.append('  xkb_variant {}'.format(','.join(settings["keyboard-variant"])))
         if settings["keyboard-shortcut"]:
             lines.append('  xkb_options {}'.format(settings["keyboard-shortcut"]))
         lines.append('  xkb_model {}'.format(settings["keyboard-model"]))
