@@ -2,6 +2,7 @@ import json
 import os
 from i3ipc import Connection
 
+
 def get_data_dir():
     data_dir = ""
     home = os.getenv("HOME")

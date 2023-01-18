@@ -1,7 +1,11 @@
 {
     "keyboard-use-settings": false,
-    "keyboard-layout": "us",
-    "keyboard-variant": "",
+    "keyboard-layout": [
+     "us"
+    ],
+    "keyboard-variant": [
+     ""
+    ],
     "keyboard-shortcut": "",
     "keyboard-model": "pc105",
     "keyboard-repeat-delay": 300,

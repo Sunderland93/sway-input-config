@@ -2,8 +2,10 @@
 
 import os
 import sys
-from PySide2.QtWidgets import QApplication, QMainWindow, QDialogButtonBox, QDialog
+from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
+                               QDialog, QTreeWidgetItem, QListWidgetItem)
 from PySide2.QtGui import QPixmap
+from PySide2.QtCore import Qt
 from sway_input_config.utils import (get_data_dir, load_json, save_json,
                                      save_list_to_text_file, reload)
 from ui_mainwindow import Ui_MainWindow
@@ -23,6 +25,7 @@ dir_name = os.path.dirname(__file__)
 shortcut_list = os.path.join(dir_name, "data/shortcuts.json")
 kbd_model_list = os.path.join(dir_name, "data/kbd_model.json")
 layout_list = os.path.join(dir_name, "data/layouts.json")
+variant_list = os.path.join(dir_name, "data/variants.json")
 
 
 class MainWindow(QMainWindow):
@@ -37,24 +40,34 @@ class MainWindow(QMainWindow):
         self.btnApply.clicked.connect(self.on_clicked_apply)
         self.ui.buttonBox.helpRequested.connect(self.on_clicked_about)
 
-        #### Keyboard Settings ####
+        # Keyboard Settings #
 
         # Use this settings
         if settings["keyboard-use-settings"] == "true":
             self.ui.KeyBoardUseSettings.setChecked(True)
         self.ui.KeyBoardUseSettings.toggled.connect(self.keyboard_use_settings)
 
-        # Add layout
-        self.ui.addBtn.clicked.connect(self.select_keyboard_layout)
+        # Keyboard layout staff
+        layouts_data = load_json(layout_list)
+        variants_data = load_json(variant_list)
+        for key, values in layouts_data.items():
+            if values in settings["keyboard-layout"]:
+                self.layout_item = QTreeWidgetItem(self.ui.layouts)
+                self.layout_item.setData(0, Qt.DisplayRole, key)
+                self.layout_item.setData(0, Qt.UserRole, values)
+                self.ui.layouts.addTopLevelItem(self.layout_item)
+                for key, values in variants_data.items():
+                    if key in self.layout_item.data(0, Qt.DisplayRole):
+                        for d in values:
+                            for key, value in d.items():
+                                if value in settings["keyboard-variant"]:
+                                    self.layout_item.setData(1, Qt.DisplayRole, key)
+                                    self.layout_item.setData(1, Qt.UserRole, value)
 
-        # Keyboard shortcut option
-        shortcut_data = load_json(shortcut_list)
-        for item in shortcut_data:
-            self.ui.shortcutName.addItem(item)
-        for key, value in shortcut_data.items():
-            if value == settings["keyboard-shortcut"]:
-                self.ui.shortcutName.setCurrentText(key)
-        self.ui.shortcutName.activated.connect(self.set_shortcut)
+        self.ui.addBtn.clicked.connect(self.on_add_keyboard_layout)
+        self.ui.rmBtn.clicked.connect(self.on_remove_layout)
+        self.ui.upBtn.clicked.connect(self.on_move_up)
+        self.ui.downBtn.clicked.connect(self.on_move_down)
 
         # Keyboard model option
         model_list = load_json(kbd_model_list)
@@ -64,6 +77,15 @@ class MainWindow(QMainWindow):
             if value == settings["keyboard-model"]:
                 self.ui.kbdModel.setCurrentText(key)
         self.ui.kbdModel.activated.connect(self.set_model)
+
+        # Keyboard shortcut option
+        shortcut_data = load_json(shortcut_list)
+        for item in shortcut_data:
+            self.ui.shortcutName.addItem(item)
+        for key, value in shortcut_data.items():
+            if value == settings["keyboard-shortcut"]:
+                self.ui.shortcutName.setCurrentText(key)
+        self.ui.shortcutName.activated.connect(self.set_shortcut)
 
         # Repeat delay
         self.ui.repeatDelaySlider.setValue(settings["keyboard-repeat-delay"])
@@ -89,7 +111,7 @@ class MainWindow(QMainWindow):
             self.ui.num_lock.setChecked(True)
         self.ui.num_lock.toggled.connect(self.on_num_lock_checked)
 
-        #### Mouse Settings ####
+        # Mouse Settings #
 
         # Use this settings
         if settings["pointer-use-settings"] == "true":
@@ -127,7 +149,7 @@ class MainWindow(QMainWindow):
         self.ui.pointerScrollFactor.setValue(float(settings["pointer-scroll-factor"]) * 10)
         self.ui.pointerScrollFactor.valueChanged.connect(self.on_pointer_scroll_value_changed)
 
-        #### Touchapd Settings ####
+        # Touchapd Settings #
 
         # Use this settings
         if settings["touchpad-use-settings"] == "true":
@@ -232,9 +254,55 @@ class MainWindow(QMainWindow):
         else:
             settings["keyboard-use-settings"] = "false"
 
-    def select_keyboard_layout(self):
-        self.select_dialog = SelectKeyboardLayout()
-        self.select_dialog.show()
+    def on_add_keyboard_layout(self):
+        self.dlg = SelectKeyboardLayout()
+        if self.dlg.exec() == QDialog.Accepted:
+            lay_key = self.dlg.select_layout.layouts.currentItem().data(Qt.DisplayRole)
+            lay_value = self.dlg.select_layout.layouts.currentItem().data(Qt.UserRole)
+            var_key = self.dlg.select_layout.variants.currentItem().data(Qt.DisplayRole)
+            var_value = self.dlg.select_layout.variants.currentItem().data(Qt.UserRole)
+            self.item = QTreeWidgetItem(self.ui.layouts)
+            self.item.setData(0, Qt.DisplayRole, lay_key)
+            self.item.setData(0, Qt.UserRole, lay_value)
+            self.item.setData(1, Qt.DisplayRole, var_key)
+            self.item.setData(1, Qt.UserRole, var_value)
+            self.ui.layouts.addTopLevelItem(self.item)
+
+    def on_remove_layout(self):
+        if self.ui.layouts.topLevelItemCount() > 1:
+            item = self.ui.layouts.currentItem()
+            pos = self.ui.layouts.indexOfTopLevelItem(item)
+            self.ui.layouts.takeTopLevelItem(pos)
+
+    def on_move_up(self):
+        item = self.ui.layouts.currentItem()
+        pos = self.ui.layouts.indexOfTopLevelItem(item)
+        if pos > 0:
+            self.ui.layouts.takeTopLevelItem(pos)
+            self.ui.layouts.insertTopLevelItem(pos - 1, item)
+            self.ui.layouts.setCurrentItem(item)
+
+    def on_move_down(self):
+        item = self.ui.layouts.currentItem()
+        pos = self.ui.layouts.indexOfTopLevelItem(item)
+        if pos < self.ui.layouts.topLevelItemCount() - 1:
+            self.ui.layouts.takeTopLevelItem(pos)
+            self.ui.layouts.insertTopLevelItem(pos + 1, item)
+            self.ui.layouts.setCurrentItem(item)
+
+    def set_keyboard_layout(self):
+        n = self.ui.layouts.topLevelItemCount()
+        layouts = []
+        variants = []
+        row = 0
+        if n > 0:
+            while row < n:
+                item = self.ui.layouts.topLevelItem(row)
+                layouts.append(item.data(0, Qt.UserRole))
+                variants.append(item.data(1, Qt.UserRole))
+                row += 1
+        settings["keyboard-layout"] = layouts
+        settings["keyboard-variant"] = variants
 
     def set_shortcut(self):
         data = load_json("data/shortcut.json")
@@ -395,10 +463,12 @@ class MainWindow(QMainWindow):
         self.about.show()
 
     def on_clicked_apply(self):
+        self.set_keyboard_layout()
         save_to_config()
         f = os.path.join(data_dir, "settings")
         print("Saving {}".format(f))
         save_json(settings, f)
+        reload()
 
     def cancel(self):
         self.close()
@@ -419,7 +489,6 @@ class AboutDialog(QDialog):
         self.close()
 
 
-
 class SelectKeyboardLayout(QDialog):
     def __init__(self):
         super().__init__()
@@ -427,22 +496,52 @@ class SelectKeyboardLayout(QDialog):
         self.select_layout.setupUi(self)
 
         layout = load_json(layout_list)
-        for item in layout:
+        for key, value in layout.items():
+            item = QListWidgetItem(key)
+            item.setData(Qt.UserRole, value)
+            item.setData(Qt.DisplayRole, key)
             self.select_layout.layouts.addItem(item)
+        custom_item = QListWidgetItem("A user defined custom layout")
+        custom_item.setData(Qt.UserRole, "custom")
+        custom_vitem = QListWidgetItem("None")
+        custom_vitem.setData(Qt.UserRole, "")
+        self.select_layout.layouts.addItem(custom_item)
+        self.select_layout.variants.addItem(custom_vitem)
+        self.select_layout.layouts.setCurrentItem(self.select_layout.layouts.item(0))
+        self.select_layout.variants.setCurrentItem(self.select_layout.variants.item(0))
 
+        self.select_layout.layouts.currentItemChanged.connect(self.on_layout_changed)
         self.select_layout.buttonBox.rejected.connect(self.cancel)
+        self.select_layout.buttonBox.accepted.connect(self.on_add_layout)
+
+    def on_layout_changed(self):
+        item = self.select_layout.layouts.currentItem()
+        self.select_layout.variants.clear()
+        variant = load_json(variant_list)
+        for key, value in variant.items():
+            if key in item.data(Qt.DisplayRole):
+                for v in value:
+                    for key, value in v.items():
+                        vitem = QListWidgetItem(key)
+                        vitem.setData(Qt.UserRole, value)
+                        self.select_layout.variants.addItem(vitem)
+        self.select_layout.variants.setCurrentItem(self.select_layout.variants.item(0))
+
+    def on_add_layout(self):
+        self.accept()
 
     def cancel(self):
         self.close()
+
 
 def save_to_config():
     if settings["keyboard-use-settings"] == "true":
 
         lines = ['input "type:keyboard" {']
         if settings["keyboard-layout"]:
-            lines.append('  xkb_layout {}'.format(settings["keyboard-layout"]))
+            lines.append('  xkb_layout {}'.format(','.join(settings["keyboard-layout"])))
         if settings["keyboard-variant"]:
-            lines.append('  xkb_variant {}'.format(settings["keyboard-variant"]))
+            lines.append('  xkb_variant {}'.format(','.join(settings["keyboard-variant"])))
         if settings["keyboard-shortcut"]:
             lines.append('  xkb_options {}'.format(settings["keyboard-shortcut"]))
         lines.append('  xkb_model {}'.format(settings["keyboard-model"]))
@@ -482,8 +581,6 @@ def save_to_config():
         lines.append('}')
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/touchpad"))
-
-    reload()
 
 
 def load_settings():

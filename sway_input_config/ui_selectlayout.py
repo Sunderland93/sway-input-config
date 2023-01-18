@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'selectlayout.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.4
+## Created by: Qt User Interface Compiler version 5.15.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -17,7 +17,9 @@ class Ui_SelectKeyboardLayoutDialog(object):
     def setupUi(self, SelectKeyboardLayoutDialog):
         if not SelectKeyboardLayoutDialog.objectName():
             SelectKeyboardLayoutDialog.setObjectName(u"SelectKeyboardLayoutDialog")
-        SelectKeyboardLayoutDialog.resize(480, 384)
+        SelectKeyboardLayoutDialog.resize(480, 480)
+        SelectKeyboardLayoutDialog.setMinimumSize(QSize(480, 480))
+        SelectKeyboardLayoutDialog.setMaximumSize(QSize(480, 480))
         self.gridLayout = QGridLayout(SelectKeyboardLayoutDialog)
         self.gridLayout.setObjectName(u"gridLayout")
         self.label = QLabel(SelectKeyboardLayoutDialog)
@@ -56,7 +58,7 @@ class Ui_SelectKeyboardLayoutDialog(object):
 
     def retranslateUi(self, SelectKeyboardLayoutDialog):
         SelectKeyboardLayoutDialog.setWindowTitle(QCoreApplication.translate("SelectKeyboardLayoutDialog", u"Select a keyboard layout", None))
-        self.label.setText(QCoreApplication.translate("SelectKeyboardLayoutDialog", u"Keyboard layout", None))
+        self.label.setText(QCoreApplication.translate("SelectKeyboardLayoutDialog", u"Language", None))
         self.label_2.setText(QCoreApplication.translate("SelectKeyboardLayoutDialog", u"Variant", None))
     # retranslateUi
 
