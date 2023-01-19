@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'about.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.4
+## Created by: Qt User Interface Compiler version 5.15.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -17,6 +17,7 @@ class Ui_about(object):
     def setupUi(self, about):
         if not about.objectName():
             about.setObjectName(u"about")
+        about.setWindowModality(Qt.WindowModal)
         about.resize(450, 450)
         about.setMinimumSize(QSize(450, 450))
         about.setMaximumSize(QSize(450, 450))
@@ -39,6 +40,10 @@ class Ui_about(object):
 
         self.label_2 = QLabel(about)
         self.label_2.setObjectName(u"label_2")
+        self.label_2.setTextFormat(Qt.PlainText)
+        self.label_2.setAlignment(Qt.AlignCenter)
+        self.label_2.setWordWrap(True)
+        self.label_2.setMargin(0)
         self.label_2.setOpenExternalLinks(True)
 
         self.verticalLayout.addWidget(self.label_2)
@@ -79,7 +84,7 @@ class Ui_about(object):
     def retranslateUi(self, about):
         about.setWindowTitle(QCoreApplication.translate("about", u"About Sway Input Config", None))
         self.pixmap.setText("")
-        self.label_2.setText(QCoreApplication.translate("about", u"<html><head/><body><p align=\"center\">A simple input devices configurator for SwayWM, written in Python </p><p align=\"center\">and Qt5/PySide2. It uses standard libinput options to configure </p><p align=\"center\">keyboard, touchpad and pointer devices</p></body></html>", None))
-        self.label.setText(QCoreApplication.translate("about", u"<html><head/><body><p align=\"center\">Version: 1.2.0.</p><p align=\"center\">Licensed under the GNU GPLv3.</p><p align=\"center\">Copyright: 2022 Aleksey Samoilov<br/></p><p align=\"center\"><a href=\"https://github.com/Sunderland93/sway-input-config\"><span style=\" text-decoration: underline; color:#1d99f3;\">GitHub</span></a></p></body></html>", None))
+        self.label_2.setText(QCoreApplication.translate("about", u"A simple input devices configurator for SwayWM, written in Python and Qt5/PySide2. It uses standard libinput options to configure keyboard, touchpad and pointer devices", None))
+        self.label.setText(QCoreApplication.translate("about", u"<html><head/><body><p align=\"center\">Version: 1.2.0.</p><p align=\"center\">Licensed under the GNU GPLv3.</p><p align=\"center\">Copyright: 2022-2023 Aleksey Samoilov<br/></p><p align=\"center\"><a href=\"https://github.com/Sunderland93/sway-input-config\"><span style=\" text-decoration: underline; color:#1d99f3;\">GitHub</span></a></p></body></html>", None))
     # retranslateUi
 
