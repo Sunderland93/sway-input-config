@@ -3,14 +3,14 @@
 ################################################################################
 ## Form generated from reading UI file 'selectlayout.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.7
+## Created by: Qt User Interface Compiler version 5.15.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *  # type: ignore
-from PySide2.QtGui import *  # type: ignore
-from PySide2.QtWidgets import *  # type: ignore
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 
 
 class Ui_SelectKeyboardLayoutDialog(object):
@@ -20,6 +20,7 @@ class Ui_SelectKeyboardLayoutDialog(object):
         SelectKeyboardLayoutDialog.resize(520, 480)
         SelectKeyboardLayoutDialog.setMinimumSize(QSize(520, 480))
         SelectKeyboardLayoutDialog.setMaximumSize(QSize(520, 480))
+        SelectKeyboardLayoutDialog.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
         self.gridLayout = QGridLayout(SelectKeyboardLayoutDialog)
         self.gridLayout.setObjectName(u"gridLayout")
         self.label = QLabel(SelectKeyboardLayoutDialog)

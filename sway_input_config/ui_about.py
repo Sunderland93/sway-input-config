@@ -54,6 +54,9 @@ class Ui_about(object):
 
         self.label = QLabel(about)
         self.label.setObjectName(u"label")
+        self.label.setTextFormat(Qt.AutoText)
+        self.label.setAlignment(Qt.AlignCenter)
+        self.label.setWordWrap(True)
 
         self.verticalLayout.addWidget(self.label)
 
@@ -68,6 +71,16 @@ class Ui_about(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.buttonBox = QDialogButtonBox(about)
         self.buttonBox.setObjectName(u"buttonBox")
+#if QT_CONFIG(whatsthis)
+        self.buttonBox.setWhatsThis(u"")
+#endif // QT_CONFIG(whatsthis)
+#if QT_CONFIG(accessibility)
+        self.buttonBox.setAccessibleName(u"")
+#endif // QT_CONFIG(accessibility)
+#if QT_CONFIG(accessibility)
+        self.buttonBox.setAccessibleDescription(u"")
+#endif // QT_CONFIG(accessibility)
+        self.buttonBox.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
         self.buttonBox.setStandardButtons(QDialogButtonBox.Close)
 
         self.horizontalLayout.addWidget(self.buttonBox)

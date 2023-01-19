@@ -3,14 +3,14 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.6
+## Created by: Qt User Interface Compiler version 5.15.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *  # type: ignore
-from PySide2.QtGui import *  # type: ignore
-from PySide2.QtWidgets import *  # type: ignore
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 
 
 class Ui_MainWindow(object):
@@ -20,6 +20,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 720)
         MainWindow.setMinimumSize(QSize(800, 720))
         MainWindow.setMaximumSize(QSize(800, 720))
+        MainWindow.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)

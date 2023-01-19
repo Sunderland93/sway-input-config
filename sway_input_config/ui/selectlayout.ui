@@ -25,6 +25,9 @@
   <property name="windowTitle">
    <string>Select a keyboard layout</string>
   </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QLabel" name="label">

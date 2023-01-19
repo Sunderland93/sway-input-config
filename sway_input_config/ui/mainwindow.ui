@@ -25,6 +25,9 @@
   <property name="windowTitle">
    <string>Sway Input Configurator</string>
   </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
