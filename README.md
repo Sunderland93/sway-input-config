@@ -18,6 +18,12 @@ Input devices configurator for [SwayWM](https://swaywm.org/), written in Python 
 * python3-setuptools
 * python3-i3ipc
 
+#### Dependencies (Arch Linux):
+* python
+* pyside2
+* python-setuptools
+* python-i3ipc
+
 `git clone https://github.com/Sunderland93/sway-input-config.git`
 `cd sway-input-config && python setup.py install`
 
@@ -34,19 +40,26 @@ include touchpad   # if you don't have a touchpad, don't add this line
 Configuration file is located in `~/.config/sway-input-config/settings`. It's a JSON-file:
 ```json
 {
-  "keyboard-layout": "us",
-  "keyboard-variant": "",
+  "keyboard-layout": [
+   "us"
+  ],
+  "keyboard-variant": [
+   ""
+  ],
   "keyboard-shortcut": "",
+  "keyboard-identifier": "",
   "keyboard-model": "pc105",
   "keyboard-repeat-delay": 300,
   "keyboard-repeat-rate": 40,
   "keyboard-capslock": "disabled",
   "keyboard-numlock": "disabled",
+  "pointer-identifier": "",
   "pointer-accel-profile": "flat",
   "pointer-pointer-accel": 0.0,
   "pointer-natural-scroll": "disabled",
   "pointer-scroll-factor": 1.0,
   "pointer-left-handed": "disabled",
+  "touchpad-identifier": "",
   "touchpad-accel-profile": "flat",
   "touchpad-pointer-accel": 0.0,
   "touchpad-natural-scroll": "disabled",
