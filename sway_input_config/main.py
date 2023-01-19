@@ -8,9 +8,9 @@ from PySide2.QtGui import QPixmap
 from PySide2.QtCore import Qt
 from sway_input_config.utils import (list_inputs_by_type, get_data_dir, load_json, save_json,
                                      save_list_to_text_file, reload)
-from ui_mainwindow import Ui_MainWindow
-from ui_about import Ui_about
-from ui_selectlayout import Ui_SelectKeyboardLayoutDialog
+from sway_input_config.ui_mainwindow import Ui_MainWindow
+from sway_input_config.ui_about import Ui_about
+from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
 
 data_dir = ""
 config_home = os.getenv('XDG_CONFIG_HOME') if os.getenv('XDG_CONFIG_HOME') else os.path.join(

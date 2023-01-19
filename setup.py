@@ -11,7 +11,7 @@ setup(
     url='https://github.com/Sunderland93/sway-input-config',
     packages=find_packages(),
     include_package_data=True,
-    package_data={"": ["data/*"]},
+    package_data={"": ["data/*", "ui/*"]},
     data_files=[
         ('share/applications', ['sway-input-config.desktop']),
         ('share/pixmaps', ['sway-input-config.svg']),
