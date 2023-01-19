@@ -14,6 +14,7 @@ def list_inputs_by_type(input_type=""):
 
     return inputs
 
+
 def get_data_dir():
     data_dir = ""
     home = os.getenv("HOME")
@@ -53,6 +54,6 @@ def save_list_to_text_file(data, file_path):
     text_file.close()
 
 
-def reload():
+def reload_sway_config():
     i3 = Connection()
     i3.command('reload')

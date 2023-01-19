@@ -7,7 +7,7 @@ from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
 from PySide2.QtGui import QPixmap
 from PySide2.QtCore import Qt
 from sway_input_config.utils import (list_inputs_by_type, get_data_dir, load_json, save_json,
-                                     save_list_to_text_file, reload)
+                                     save_list_to_text_file, reload_sway_config)
 from sway_input_config.ui_mainwindow import Ui_MainWindow
 from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
@@ -501,7 +501,7 @@ class MainWindow(QMainWindow):
         f = os.path.join(data_dir, "settings")
         print("Saving {}".format(f))
         save_json(settings, f)
-        reload()
+        reload_sway_config()
 
     def cancel(self):
         self.close()
