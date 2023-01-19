@@ -1,0 +1,23 @@
+Source: sway-input-config
+Section: x11
+Priority: optional
+Maintainer: Aleksey Samoilov <samoilov.lex@gmail.com>
+Rules-Requires-Root: no
+Build-Depends:
+ debhelper-compat (= 13), dh-python, python3-setuptools, python3
+Standards-Version: 4.6.1
+Homepage: https://github.com/Sunderland93/sway-input-config
+
+Package: sway-input-config
+Architecture: any
+Depends:
+ ${python3:Depends},
+ ${misc:Depends},
+ python3-i3ipc,
+ python3-pyside2.qtwidgets,
+ python3-pyside2.qtcore,
+ python3-pyside2.qtgui
+Description: Input devices configurator for Sway
+ Input devices configurator for SwayWM, written in Python and Qt5/PySide2,
+ inspired by nwg-shell-config. It uses standard libinput options
+ to configure keyboard, touchpad and pointer devices.
