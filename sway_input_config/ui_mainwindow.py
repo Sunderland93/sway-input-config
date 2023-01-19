@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.7
+## Created by: Qt User Interface Compiler version 5.15.6
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -26,6 +26,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
+        self.tabWidget.setStyleSheet(u"combobox-popup: 0")
         self.KeyboardTab = QWidget()
         self.KeyboardTab.setObjectName(u"KeyboardTab")
         self.verticalLayout_4 = QVBoxLayout(self.KeyboardTab)
@@ -168,6 +169,7 @@ class Ui_MainWindow(object):
 
         self.kbdID = QComboBox(self.groupBox)
         self.kbdID.setObjectName(u"kbdID")
+        self.kbdID.setStyleSheet(u"combobox-popup: 0")
 
         self.gridLayout_2.addWidget(self.kbdID, 1, 1, 1, 1)
 
@@ -286,6 +288,7 @@ class Ui_MainWindow(object):
 
         self.pointerID = QComboBox(self.groupBox_2)
         self.pointerID.setObjectName(u"pointerID")
+        self.pointerID.setStyleSheet(u"combobox-popup: 0")
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.pointerID)
 

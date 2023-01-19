@@ -6,7 +6,7 @@ from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
                                QDialog, QTreeWidgetItem, QListWidgetItem)
 from PySide2.QtGui import QPixmap
 from PySide2.QtCore import Qt
-from sway_input_config.utils import (get_data_dir, load_json, save_json,
+from sway_input_config.utils import (list_inputs_by_type, get_data_dir, load_json, save_json,
                                      save_list_to_text_file, reload)
 from ui_mainwindow import Ui_MainWindow
 from ui_about import Ui_about
@@ -69,6 +69,14 @@ class MainWindow(QMainWindow):
         self.ui.upBtn.clicked.connect(self.on_move_up)
         self.ui.downBtn.clicked.connect(self.on_move_down)
 
+        # Keyboard ID #
+        keyboards = list_inputs_by_type(input_type="keyboard")
+        self.ui.kbdID.addItem("")
+        for item in keyboards:
+            self.ui.kbdID.addItem(item)
+        self.ui.kbdID.setCurrentText(settings["keyboard-identifier"])
+        self.ui.kbdID.activated.connect(self.set_kbd_identifier)
+
         # Keyboard model option
         model_list = load_json(kbd_model_list)
         for item in model_list:
@@ -118,6 +126,14 @@ class MainWindow(QMainWindow):
             self.ui.PointerUseSettings.setChecked(True)
         self.ui.PointerUseSettings.toggled.connect(self.pointer_use_settings)
 
+        # Pointer ID #
+        pointers = list_inputs_by_type(input_type="pointer")
+        self.ui.pointerID.addItem("")
+        for item in pointers:
+            self.ui.pointerID.addItem(item)
+        self.ui.pointerID.setCurrentText(settings["pointer-identifier"])
+        self.ui.pointerID.activated.connect(self.set_pointer_identifier)
+
         # Left handed mode
         if settings["pointer-left-handed"] == "true":
             self.ui.pointerLeftHanded.setChecked(True)
@@ -155,6 +171,14 @@ class MainWindow(QMainWindow):
         if settings["touchpad-use-settings"] == "true":
             self.ui.TouchPadUseSettings.setChecked(True)
         self.ui.TouchPadUseSettings.toggled.connect(self.touchpad_use_settings)
+
+        # Toucpad ID #
+        touchpads = list_inputs_by_type(input_type="touchpad")
+        self.ui.touchpadID.addItem("")
+        for item in touchpads:
+            self.ui.touchpadID.addItem(item)
+        self.ui.touchpadID.setCurrentText(settings["touchpad-identifier"])
+        self.ui.touchpadID.activated.connect(self.set_touchpad_identifier)
 
         # Disable while typing
         if settings["touchpad-dwt"] == "enabled":
@@ -304,15 +328,18 @@ class MainWindow(QMainWindow):
         settings["keyboard-layout"] = layouts
         settings["keyboard-variant"] = variants
 
-    def set_shortcut(self):
-        data = load_json("data/shortcut.json")
-        for key in data.keys():
-            settings["keyboard-shortcut"] = data[self.ui.shortcutName.currentText()]
+    def set_kbd_identifier(self):
+        settings["keyboard-identifier"] = self.ui.kbdID.currentText()
 
     def set_model(self):
         model_data = load_json("data/kbd_model.json")
         for key in model_data.keys():
             settings["keyboard-model"] = model_data[self.ui.kbdModel.currentText()]
+
+    def set_shortcut(self):
+        data = load_json("data/shortcut.json")
+        for key in data.keys():
+            settings["keyboard-shortcut"] = data[self.ui.shortcutName.currentText()]
 
     def on_repeat_delay_value_changed(self):
         settings["keyboard-repeat-delay"] = self.ui.repeatDelay.value()
@@ -337,6 +364,9 @@ class MainWindow(QMainWindow):
             settings["pointer-use-settings"] = "true"
         else:
             settings["pointer-use-settings"] = "false"
+
+    def set_pointer_identifier(self):
+        settings["pointer-identifier"] = self.ui.pointerID.currentText()
 
     def on_pointer_left_handed_checked(self):
         if self.ui.pointerLeftHanded.isChecked() is True:
@@ -373,6 +403,9 @@ class MainWindow(QMainWindow):
             settings["touchpad-use-settings"] = "true"
         else:
             settings["touchpad-use-settings"] = "false"
+
+    def set_touchpad_identifier(self):
+        settings["touchpad-identifier"] = self.ui.touchpadID.currentText()
 
     def on_dwt_checked(self):
         if self.ui.DWT.isChecked():
@@ -537,7 +570,8 @@ class SelectKeyboardLayout(QDialog):
 def save_to_config():
     if settings["keyboard-use-settings"] == "true":
 
-        lines = ['input "type:keyboard" {']
+        lines = ['input "type:keyboard" {'] if not settings["keyboard-identifier"] else [
+            'input "%s" {' % settings["keyboard-identifier"]]
         if settings["keyboard-layout"]:
             lines.append('  xkb_layout {}'.format(','.join(settings["keyboard-layout"])))
         if settings["keyboard-variant"]:
@@ -555,29 +589,34 @@ def save_to_config():
 
     if settings["pointer-use-settings"] == "true":
 
-        lines = ['input "type:pointer" {', '  accel_profile {}'.format(settings["pointer-accel-profile"]),
-                 '  pointer_accel {}'.format(settings["pointer-pointer-accel"]),
-                 '  natural_scroll {}'.format(settings["pointer-natural-scroll"]),
-                 '  scroll_factor {}'.format(settings["pointer-scroll-factor"]),
-                 '  left_handed {}'.format(settings["pointer-left-handed"]),
-                 '  middle_emulation {}'.format(settings["pointer-middle-emulation"])]
+        lines = ['input "type:pointer" {'] if not settings["pointer-identifier"] else [
+            'input "%s" {' % settings["pointer-identifier"]]
+        lines.append('  accel_profile {}'.format(settings["pointer-accel-profile"])),
+        lines.append('  pointer_accel {}'.format(settings["pointer-pointer-accel"])),
+        lines.append('  natural_scroll {}'.format(settings["pointer-natural-scroll"])),
+        lines.append('  scroll_factor {}'.format(settings["pointer-scroll-factor"])),
+        lines.append('  left_handed {}'.format(settings["pointer-left-handed"])),
+        lines.append('  middle_emulation {}'.format(settings["pointer-middle-emulation"]))
         lines.append('}')
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/pointer"))
 
     if settings["touchpad-use-settings"] == "true":
-        lines = ['input "type:touchpad" {', '  accel_profile {}'.format(settings["touchpad-accel-profile"]),
-                 '  pointer_accel {}'.format(settings["touchpad-pointer-accel"]),
-                 '  natural_scroll {}'.format(settings["touchpad-natural-scroll"]),
-                 '  scroll_factor {}'.format(settings["touchpad-scroll-factor"]),
-                 '  scroll_method {}'.format(settings["touchpad-scroll-method"]),
-                 '  left_handed {}'.format(settings["touchpad-left-handed"]),
-                 '  tap {}'.format(settings["touchpad-tap"]),
-                 '  tap_button_map {}'.format(settings["touchpad-tap-button-map"]),
-                 '  drag {}'.format(settings["touchpad-drag"]), '  drag_lock {}'.format(settings["touchpad-drag-lock"]),
-                 '  dwt {}'.format(settings["touchpad-dwt"]),
-                 '  dwtp {}'.format(settings["touchpad-dwtp"]),
-                 '  middle_emulation {}'.format(settings["touchpad-middle-emulation"])]
+        lines = ['input "type:touchpad" {'] if not settings["touchpad-identifier"] else [
+            'input "%s" {' % settings["touchpad-identifier"]]
+        lines.append('  accel_profile {}'.format(settings["touchpad-accel-profile"])),
+        lines.append('  pointer_accel {}'.format(settings["touchpad-pointer-accel"])),
+        lines.append('  natural_scroll {}'.format(settings["touchpad-natural-scroll"])),
+        lines.append('  scroll_factor {}'.format(settings["touchpad-scroll-factor"])),
+        lines.append('  scroll_method {}'.format(settings["touchpad-scroll-method"])),
+        lines.append('  left_handed {}'.format(settings["touchpad-left-handed"])),
+        lines.append('  tap {}'.format(settings["touchpad-tap"])),
+        lines.append('  tap_button_map {}'.format(settings["touchpad-tap-button-map"])),
+        lines.append('  drag {}'.format(settings["touchpad-drag"])),
+        lines.append('  drag_lock {}'.format(settings["touchpad-drag-lock"])),
+        lines.append('  dwt {}'.format(settings["touchpad-dwt"])),
+        lines.append('  dwtp {}'.format(settings["touchpad-dwtp"])),
+        lines.append('  middle_emulation {}'.format(settings["touchpad-middle-emulation"]))
         lines.append('}')
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/touchpad"))
