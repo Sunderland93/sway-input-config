@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>720</height>
+    <height>715</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>800</width>
-    <height>720</height>
+    <height>715</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>800</width>
-    <height>720</height>
+    <height>715</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -49,22 +49,6 @@
            <string>Keyboard Settings</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="5" column="2">
-            <widget class="QSpinBox" name="repeatRate">
-             <property name="toolTip">
-              <string>Frequency of key repeats once the repeat_delay has passed.</string>
-             </property>
-             <property name="suffix">
-              <string> repeats/s</string>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>4000</number>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0" colspan="4">
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
@@ -98,36 +82,43 @@
              </item>
             </layout>
            </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="repeatRateLabel">
+           <item row="7" column="0">
+            <widget class="QLabel" name="num_lockLabel">
              <property name="text">
-              <string>Repeat rate:</string>
+              <string>NumLock:</string>
              </property>
             </widget>
            </item>
-           <item row="6" column="1">
-            <widget class="QCheckBox" name="caps_lock">
+           <item row="4" column="0">
+            <widget class="QLabel" name="repeatDelayLabel">
+             <property name="text">
+              <string>Repeat delay:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="QSpinBox" name="repeatRate">
              <property name="toolTip">
-              <string>Initially enables or disables CapsLock on startup.</string>
+              <string>Frequency of key repeats once the repeat_delay has passed.</string>
              </property>
-             <property name="text">
-              <string/>
+             <property name="suffix">
+              <string> repeats/s</string>
              </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <widget class="QSlider" name="repeatRateSlider">
              <property name="minimum">
               <number>1</number>
              </property>
              <property name="maximum">
               <number>4000</number>
              </property>
-             <property name="pageStep">
-              <number>50</number>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QComboBox" name="shortcutName">
+             <property name="toolTip">
+              <string>Keyboard shortcut to switch between layouts.</string>
              </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+             <property name="styleSheet">
+              <string notr="true">combobox-popup: 0;</string>
              </property>
             </widget>
            </item>
@@ -147,10 +138,17 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QComboBox" name="kbdModel">
-             <property name="styleSheet">
-              <string notr="true">combobox-popup: 0;</string>
+           <item row="6" column="0">
+            <widget class="QLabel" name="caps_lockLabel">
+             <property name="text">
+              <string>CapsLock:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="kbdModel_label">
+             <property name="text">
+              <string>Keyboard model:</string>
              </property>
             </widget>
            </item>
@@ -161,6 +159,30 @@
              </property>
              <property name="text">
               <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="kbdID_label">
+             <property name="text">
+              <string>Keyboard identifier:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QCheckBox" name="caps_lock">
+             <property name="toolTip">
+              <string>Initially enables or disables CapsLock on startup.</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QComboBox" name="kbdModel">
+             <property name="styleSheet">
+              <string notr="true">combobox-popup: 0;</string>
              </property>
             </widget>
            </item>
@@ -221,10 +243,40 @@
              </item>
             </layout>
            </item>
-           <item row="6" column="0">
-            <widget class="QLabel" name="caps_lockLabel">
+           <item row="5" column="0">
+            <widget class="QLabel" name="repeatRateLabel">
              <property name="text">
-              <string>CapsLock:</string>
+              <string>Repeat rate:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="shortcutLabel">
+             <property name="text">
+              <string>Keyboard shortcut:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QSlider" name="repeatDelaySlider">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>6000</number>
+             </property>
+             <property name="pageStep">
+              <number>50</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QComboBox" name="kbdID">
+             <property name="styleSheet">
+              <string notr="true">combobox-popup: 0</string>
              </property>
             </widget>
            </item>
@@ -255,71 +307,19 @@
              </item>
             </layout>
            </item>
-           <item row="7" column="0">
-            <widget class="QLabel" name="num_lockLabel">
-             <property name="text">
-              <string>NumLock:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="kbdModel_label">
-             <property name="text">
-              <string>Keyboard model:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="QSlider" name="repeatDelaySlider">
+           <item row="5" column="1">
+            <widget class="QSlider" name="repeatRateSlider">
              <property name="minimum">
               <number>1</number>
              </property>
              <property name="maximum">
-              <number>6000</number>
+              <number>4000</number>
              </property>
              <property name="pageStep">
               <number>50</number>
              </property>
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="repeatDelayLabel">
-             <property name="text">
-              <string>Repeat delay:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QComboBox" name="kbdID">
-             <property name="styleSheet">
-              <string notr="true">combobox-popup: 0</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QComboBox" name="shortcutName">
-             <property name="toolTip">
-              <string>Keyboard shortcut to switch between layouts.</string>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">combobox-popup: 0;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="shortcutLabel">
-             <property name="text">
-              <string>Keyboard shortcut:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="kbdID_label">
-             <property name="text">
-              <string>Keyboard identifier:</string>
              </property>
             </widget>
            </item>

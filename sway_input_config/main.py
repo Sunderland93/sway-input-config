@@ -3,7 +3,8 @@
 import os
 import sys
 from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
-                               QDialog, QTreeWidgetItem, QListWidgetItem)
+                               QDialog, QTreeWidgetItem, QListWidgetItem,
+                               QListView)
 from PySide2.QtGui import QPixmap
 from PySide2.QtCore import Qt
 from sway_input_config.utils import (list_inputs_by_type, get_data_dir, load_json, save_json,
@@ -71,28 +72,40 @@ class MainWindow(QMainWindow):
 
         # Keyboard ID #
         keyboards = list_inputs_by_type(input_type="keyboard")
+        kbd_view = QListView(self.ui.kbdID)
+        self.ui.kbdID.setView(kbd_view)
         self.ui.kbdID.addItem("")
         for item in keyboards:
             self.ui.kbdID.addItem(item)
+        kbd_view.setTextElideMode(Qt.ElideNone)
+        kbd_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.ui.kbdID.setCurrentText(settings["keyboard-identifier"])
         self.ui.kbdID.activated.connect(self.set_kbd_identifier)
 
         # Keyboard model option
         model_list = load_json(kbd_model_list)
         for item in model_list:
+            model_view = QListView(self.ui.kbdModel)
+            self.ui.kbdModel.setView(model_view)
             self.ui.kbdModel.addItem(item)
         for key, value in model_list.items():
             if value == settings["keyboard-model"]:
                 self.ui.kbdModel.setCurrentText(key)
+        model_view.setTextElideMode(Qt.ElideNone)
+        model_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.ui.kbdModel.activated.connect(self.set_model)
 
         # Keyboard shortcut option
         shortcut_data = load_json(shortcut_list)
         for item in shortcut_data:
+            shortcut_view = QListView(self.ui.shortcutName)
+            self.ui.shortcutName.setView(shortcut_view)
             self.ui.shortcutName.addItem(item)
         for key, value in shortcut_data.items():
             if value == settings["keyboard-shortcut"]:
                 self.ui.shortcutName.setCurrentText(key)
+        shortcut_view.setTextElideMode(Qt.ElideNone)
+        shortcut_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.ui.shortcutName.activated.connect(self.set_shortcut)
 
         # Repeat delay
@@ -128,9 +141,13 @@ class MainWindow(QMainWindow):
 
         # Pointer ID #
         pointers = list_inputs_by_type(input_type="pointer")
+        pointers_view = QListView(self.ui.pointerID)
+        self.ui.pointerID.setView(pointers_view)
         self.ui.pointerID.addItem("")
         for item in pointers:
             self.ui.pointerID.addItem(item)
+        pointers_view.setTextElideMode(Qt.ElideNone)
+        pointers_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.ui.pointerID.setCurrentText(settings["pointer-identifier"])
         self.ui.pointerID.activated.connect(self.set_pointer_identifier)
 
@@ -174,9 +191,13 @@ class MainWindow(QMainWindow):
 
         # Toucpad ID #
         touchpads = list_inputs_by_type(input_type="touchpad")
+        touchpads_view = QListView(self.ui.touchpadID)
+        self.ui.touchpadID.setView(touchpads_view)
         self.ui.touchpadID.addItem("")
         for item in touchpads:
             self.ui.touchpadID.addItem(item)
+        touchpads_view.setTextElideMode(Qt.ElideNone)
+        touchpads_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.ui.touchpadID.setCurrentText(settings["touchpad-identifier"])
         self.ui.touchpadID.activated.connect(self.set_touchpad_identifier)
 

@@ -3,23 +3,23 @@
 ################################################################################
 ## Form generated from reading UI file 'mainwindow.ui'
 ##
-## Created by: Qt User Interface Compiler version 5.15.3
+## Created by: Qt User Interface Compiler version 5.15.6
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
+from PySide2.QtCore import *  # type: ignore
+from PySide2.QtGui import *  # type: ignore
+from PySide2.QtWidgets import *  # type: ignore
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(800, 720)
-        MainWindow.setMinimumSize(QSize(800, 720))
-        MainWindow.setMaximumSize(QSize(800, 720))
+        MainWindow.resize(800, 715)
+        MainWindow.setMinimumSize(QSize(800, 715))
+        MainWindow.setMaximumSize(QSize(800, 715))
         MainWindow.setLocale(QLocale(QLocale.English, QLocale.UnitedStates))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -36,13 +36,6 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName(u"groupBox")
         self.gridLayout_2 = QGridLayout(self.groupBox)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.repeatRate = QSpinBox(self.groupBox)
-        self.repeatRate.setObjectName(u"repeatRate")
-        self.repeatRate.setMinimum(1)
-        self.repeatRate.setMaximum(4000)
-
-        self.gridLayout_2.addWidget(self.repeatRate, 5, 2, 1, 1)
-
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.layouts = QTreeWidget(self.groupBox)
@@ -58,24 +51,28 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addLayout(self.horizontalLayout_2, 0, 0, 1, 4)
 
-        self.repeatRateLabel = QLabel(self.groupBox)
-        self.repeatRateLabel.setObjectName(u"repeatRateLabel")
+        self.num_lockLabel = QLabel(self.groupBox)
+        self.num_lockLabel.setObjectName(u"num_lockLabel")
 
-        self.gridLayout_2.addWidget(self.repeatRateLabel, 5, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.num_lockLabel, 7, 0, 1, 1)
 
-        self.caps_lock = QCheckBox(self.groupBox)
-        self.caps_lock.setObjectName(u"caps_lock")
+        self.repeatDelayLabel = QLabel(self.groupBox)
+        self.repeatDelayLabel.setObjectName(u"repeatDelayLabel")
 
-        self.gridLayout_2.addWidget(self.caps_lock, 6, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.repeatDelayLabel, 4, 0, 1, 1)
 
-        self.repeatRateSlider = QSlider(self.groupBox)
-        self.repeatRateSlider.setObjectName(u"repeatRateSlider")
-        self.repeatRateSlider.setMinimum(1)
-        self.repeatRateSlider.setMaximum(4000)
-        self.repeatRateSlider.setPageStep(50)
-        self.repeatRateSlider.setOrientation(Qt.Horizontal)
+        self.repeatRate = QSpinBox(self.groupBox)
+        self.repeatRate.setObjectName(u"repeatRate")
+        self.repeatRate.setMinimum(1)
+        self.repeatRate.setMaximum(4000)
 
-        self.gridLayout_2.addWidget(self.repeatRateSlider, 5, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.repeatRate, 5, 2, 1, 1)
+
+        self.shortcutName = QComboBox(self.groupBox)
+        self.shortcutName.setObjectName(u"shortcutName")
+        self.shortcutName.setStyleSheet(u"combobox-popup: 0;")
+
+        self.gridLayout_2.addWidget(self.shortcutName, 3, 1, 1, 1)
 
         self.repeatDelay = QSpinBox(self.groupBox)
         self.repeatDelay.setObjectName(u"repeatDelay")
@@ -84,16 +81,36 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.repeatDelay, 4, 2, 1, 1)
 
-        self.kbdModel = QComboBox(self.groupBox)
-        self.kbdModel.setObjectName(u"kbdModel")
-        self.kbdModel.setStyleSheet(u"combobox-popup: 0;")
+        self.caps_lockLabel = QLabel(self.groupBox)
+        self.caps_lockLabel.setObjectName(u"caps_lockLabel")
 
-        self.gridLayout_2.addWidget(self.kbdModel, 2, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.caps_lockLabel, 6, 0, 1, 1)
+
+        self.kbdModel_label = QLabel(self.groupBox)
+        self.kbdModel_label.setObjectName(u"kbdModel_label")
+
+        self.gridLayout_2.addWidget(self.kbdModel_label, 2, 0, 1, 1)
 
         self.num_lock = QCheckBox(self.groupBox)
         self.num_lock.setObjectName(u"num_lock")
 
         self.gridLayout_2.addWidget(self.num_lock, 7, 1, 1, 1)
+
+        self.kbdID_label = QLabel(self.groupBox)
+        self.kbdID_label.setObjectName(u"kbdID_label")
+
+        self.gridLayout_2.addWidget(self.kbdID_label, 1, 0, 1, 1)
+
+        self.caps_lock = QCheckBox(self.groupBox)
+        self.caps_lock.setObjectName(u"caps_lock")
+
+        self.gridLayout_2.addWidget(self.caps_lock, 6, 1, 1, 1)
+
+        self.kbdModel = QComboBox(self.groupBox)
+        self.kbdModel.setObjectName(u"kbdModel")
+        self.kbdModel.setStyleSheet(u"combobox-popup: 0;")
+
+        self.gridLayout_2.addWidget(self.kbdModel, 2, 1, 1, 1)
 
         self.verticalLayout_5 = QVBoxLayout()
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
@@ -124,10 +141,30 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addLayout(self.verticalLayout_5, 0, 4, 1, 1)
 
-        self.caps_lockLabel = QLabel(self.groupBox)
-        self.caps_lockLabel.setObjectName(u"caps_lockLabel")
+        self.repeatRateLabel = QLabel(self.groupBox)
+        self.repeatRateLabel.setObjectName(u"repeatRateLabel")
 
-        self.gridLayout_2.addWidget(self.caps_lockLabel, 6, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.repeatRateLabel, 5, 0, 1, 1)
+
+        self.shortcutLabel = QLabel(self.groupBox)
+        self.shortcutLabel.setObjectName(u"shortcutLabel")
+
+        self.gridLayout_2.addWidget(self.shortcutLabel, 3, 0, 1, 1)
+
+        self.repeatDelaySlider = QSlider(self.groupBox)
+        self.repeatDelaySlider.setObjectName(u"repeatDelaySlider")
+        self.repeatDelaySlider.setMinimum(1)
+        self.repeatDelaySlider.setMaximum(6000)
+        self.repeatDelaySlider.setPageStep(50)
+        self.repeatDelaySlider.setOrientation(Qt.Horizontal)
+
+        self.gridLayout_2.addWidget(self.repeatDelaySlider, 4, 1, 1, 1)
+
+        self.kbdID = QComboBox(self.groupBox)
+        self.kbdID.setObjectName(u"kbdID")
+        self.kbdID.setStyleSheet(u"combobox-popup: 0")
+
+        self.gridLayout_2.addWidget(self.kbdID, 1, 1, 1, 1)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
@@ -144,51 +181,14 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addLayout(self.horizontalLayout_3, 9, 0, 1, 5)
 
-        self.num_lockLabel = QLabel(self.groupBox)
-        self.num_lockLabel.setObjectName(u"num_lockLabel")
+        self.repeatRateSlider = QSlider(self.groupBox)
+        self.repeatRateSlider.setObjectName(u"repeatRateSlider")
+        self.repeatRateSlider.setMinimum(1)
+        self.repeatRateSlider.setMaximum(4000)
+        self.repeatRateSlider.setPageStep(50)
+        self.repeatRateSlider.setOrientation(Qt.Horizontal)
 
-        self.gridLayout_2.addWidget(self.num_lockLabel, 7, 0, 1, 1)
-
-        self.kbdModel_label = QLabel(self.groupBox)
-        self.kbdModel_label.setObjectName(u"kbdModel_label")
-
-        self.gridLayout_2.addWidget(self.kbdModel_label, 2, 0, 1, 1)
-
-        self.repeatDelaySlider = QSlider(self.groupBox)
-        self.repeatDelaySlider.setObjectName(u"repeatDelaySlider")
-        self.repeatDelaySlider.setMinimum(1)
-        self.repeatDelaySlider.setMaximum(6000)
-        self.repeatDelaySlider.setPageStep(50)
-        self.repeatDelaySlider.setOrientation(Qt.Horizontal)
-
-        self.gridLayout_2.addWidget(self.repeatDelaySlider, 4, 1, 1, 1)
-
-        self.repeatDelayLabel = QLabel(self.groupBox)
-        self.repeatDelayLabel.setObjectName(u"repeatDelayLabel")
-
-        self.gridLayout_2.addWidget(self.repeatDelayLabel, 4, 0, 1, 1)
-
-        self.kbdID = QComboBox(self.groupBox)
-        self.kbdID.setObjectName(u"kbdID")
-        self.kbdID.setStyleSheet(u"combobox-popup: 0")
-
-        self.gridLayout_2.addWidget(self.kbdID, 1, 1, 1, 1)
-
-        self.shortcutName = QComboBox(self.groupBox)
-        self.shortcutName.setObjectName(u"shortcutName")
-        self.shortcutName.setStyleSheet(u"combobox-popup: 0;")
-
-        self.gridLayout_2.addWidget(self.shortcutName, 3, 1, 1, 1)
-
-        self.shortcutLabel = QLabel(self.groupBox)
-        self.shortcutLabel.setObjectName(u"shortcutLabel")
-
-        self.gridLayout_2.addWidget(self.shortcutLabel, 3, 0, 1, 1)
-
-        self.kbdID_label = QLabel(self.groupBox)
-        self.kbdID_label.setObjectName(u"kbdID_label")
-
-        self.gridLayout_2.addWidget(self.kbdID_label, 1, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.repeatRateSlider, 5, 1, 1, 1)
 
 
         self.verticalLayout_4.addWidget(self.groupBox)
@@ -547,26 +547,33 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Sway Input Configurator", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Keyboard Settings", None))
+        ___qtreewidgetitem = self.layouts.headerItem()
+        ___qtreewidgetitem.setText(1, QCoreApplication.translate("MainWindow", u"Variant", None));
+        ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"Layout", None));
+        self.num_lockLabel.setText(QCoreApplication.translate("MainWindow", u"NumLock:", None))
+        self.repeatDelayLabel.setText(QCoreApplication.translate("MainWindow", u"Repeat delay:", None))
 #if QT_CONFIG(tooltip)
         self.repeatRate.setToolTip(QCoreApplication.translate("MainWindow", u"Frequency of key repeats once the repeat_delay has passed.", None))
 #endif // QT_CONFIG(tooltip)
         self.repeatRate.setSuffix(QCoreApplication.translate("MainWindow", u" repeats/s", None))
-        ___qtreewidgetitem = self.layouts.headerItem()
-        ___qtreewidgetitem.setText(1, QCoreApplication.translate("MainWindow", u"Variant", None));
-        ___qtreewidgetitem.setText(0, QCoreApplication.translate("MainWindow", u"Layout", None));
-        self.repeatRateLabel.setText(QCoreApplication.translate("MainWindow", u"Repeat rate:", None))
 #if QT_CONFIG(tooltip)
-        self.caps_lock.setToolTip(QCoreApplication.translate("MainWindow", u"Initially enables or disables CapsLock on startup.", None))
+        self.shortcutName.setToolTip(QCoreApplication.translate("MainWindow", u"Keyboard shortcut to switch between layouts.", None))
 #endif // QT_CONFIG(tooltip)
-        self.caps_lock.setText("")
 #if QT_CONFIG(tooltip)
         self.repeatDelay.setToolTip(QCoreApplication.translate("MainWindow", u"Amount of time a key must be held before it starts repeating.", None))
 #endif // QT_CONFIG(tooltip)
         self.repeatDelay.setSuffix(QCoreApplication.translate("MainWindow", u" ms", None))
+        self.caps_lockLabel.setText(QCoreApplication.translate("MainWindow", u"CapsLock:", None))
+        self.kbdModel_label.setText(QCoreApplication.translate("MainWindow", u"Keyboard model:", None))
 #if QT_CONFIG(tooltip)
         self.num_lock.setToolTip(QCoreApplication.translate("MainWindow", u"Initially enables or disables NumLock on startup.", None))
 #endif // QT_CONFIG(tooltip)
         self.num_lock.setText("")
+        self.kbdID_label.setText(QCoreApplication.translate("MainWindow", u"Keyboard identifier:", None))
+#if QT_CONFIG(tooltip)
+        self.caps_lock.setToolTip(QCoreApplication.translate("MainWindow", u"Initially enables or disables CapsLock on startup.", None))
+#endif // QT_CONFIG(tooltip)
+        self.caps_lock.setText("")
 #if QT_CONFIG(tooltip)
         self.addBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Add layout to the list", None))
 #endif // QT_CONFIG(tooltip)
@@ -583,16 +590,9 @@ class Ui_MainWindow(object):
         self.downBtn.setToolTip(QCoreApplication.translate("MainWindow", u"Move selected layout down.", None))
 #endif // QT_CONFIG(tooltip)
         self.downBtn.setText(QCoreApplication.translate("MainWindow", u"Down", None))
-        self.caps_lockLabel.setText(QCoreApplication.translate("MainWindow", u"CapsLock:", None))
-        self.KeyBoardUseSettings.setText(QCoreApplication.translate("MainWindow", u"Use this settings", None))
-        self.num_lockLabel.setText(QCoreApplication.translate("MainWindow", u"NumLock:", None))
-        self.kbdModel_label.setText(QCoreApplication.translate("MainWindow", u"Keyboard model:", None))
-        self.repeatDelayLabel.setText(QCoreApplication.translate("MainWindow", u"Repeat delay:", None))
-#if QT_CONFIG(tooltip)
-        self.shortcutName.setToolTip(QCoreApplication.translate("MainWindow", u"Keyboard shortcut to switch between layouts.", None))
-#endif // QT_CONFIG(tooltip)
+        self.repeatRateLabel.setText(QCoreApplication.translate("MainWindow", u"Repeat rate:", None))
         self.shortcutLabel.setText(QCoreApplication.translate("MainWindow", u"Keyboard shortcut:", None))
-        self.kbdID_label.setText(QCoreApplication.translate("MainWindow", u"Keyboard identifier:", None))
+        self.KeyBoardUseSettings.setText(QCoreApplication.translate("MainWindow", u"Use this settings", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.KeyboardTab), QCoreApplication.translate("MainWindow", u"Keyboard", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Pointer device settings", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"General:", None))
