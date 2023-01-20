@@ -1,14 +1,20 @@
 {
     "keyboard-use-settings": false,
-    "keyboard-layout": "us",
-    "keyboard-variant": "",
+    "keyboard-layout": [
+     "us"
+    ],
+    "keyboard-variant": [
+     ""
+    ],
     "keyboard-shortcut": "",
+    "keyboard-identifier": "",
     "keyboard-model": "pc105",
     "keyboard-repeat-delay": 300,
     "keyboard-repeat-rate": 40,
     "keyboard-capslock": "disabled",
     "keyboard-numlock": "disabled",
     "pointer-use-settings": false,
+    "pointer-identifier": "",
     "pointer-accel-profile": "flat",
     "pointer-pointer-accel": 0.0,
     "pointer-natural-scroll": "disabled",
@@ -16,6 +22,7 @@
     "pointer-left-handed": "disabled",
     "pointer-middle-emulation": "disabled",
     "touchpad-use-settings": false,
+    "touchpad-identifier": "",
     "touchpad-accel-profile": "flat",
     "touchpad-pointer-accel": 0.0,
     "touchpad-natural-scroll": "disabled",
@@ -27,5 +34,6 @@
     "touchpad-drag": "enabled",
     "touchpad-drag-lock": "disabled",
     "touchpad-dwt": "enabled",
+    "touchpad-dwtp": "enabled",
     "touchpad-middle-emulation": "enabled"
 }

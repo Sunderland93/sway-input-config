@@ -2,6 +2,19 @@ import json
 import os
 from i3ipc import Connection
 
+
+def list_inputs_by_type(input_type=""):
+    inputs = []
+
+    i3 = Connection()
+    all_inputs = i3.get_inputs()
+    for i in all_inputs:
+        if i.type == input_type or not input_type:
+            inputs.append(i.identifier)
+
+    return inputs
+
+
 def get_data_dir():
     data_dir = ""
     home = os.getenv("HOME")
@@ -41,6 +54,6 @@ def save_list_to_text_file(data, file_path):
     text_file.close()
 
 
-def reload():
+def reload_sway_config():
     i3 = Connection()
     i3.command('reload')
