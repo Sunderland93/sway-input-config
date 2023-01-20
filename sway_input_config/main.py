@@ -353,12 +353,12 @@ class MainWindow(QMainWindow):
         settings["keyboard-identifier"] = self.ui.kbdID.currentText()
 
     def set_model(self):
-        model_data = load_json("data/kbd_model.json")
+        model_data = load_json(kbd_model_list)
         for key in model_data.keys():
             settings["keyboard-model"] = model_data[self.ui.kbdModel.currentText()]
 
     def set_shortcut(self):
-        data = load_json("data/shortcut.json")
+        data = load_json(shortcut_list)
         for key in data.keys():
             settings["keyboard-shortcut"] = data[self.ui.shortcutName.currentText()]
 
