@@ -530,7 +530,7 @@ class Ui_MainWindow(object):
 
         self.buttonBox = QDialogButtonBox(self.centralwidget)
         self.buttonBox.setObjectName(u"buttonBox")
-        self.buttonBox.setStandardButtons(QDialogButtonBox.Apply|QDialogButtonBox.Close|QDialogButtonBox.Help)
+        self.buttonBox.setStandardButtons(QDialogButtonBox.Apply|QDialogButtonBox.Close|QDialogButtonBox.Help|QDialogButtonBox.RestoreDefaults)
 
         self.verticalLayout_2.addWidget(self.buttonBox)
 

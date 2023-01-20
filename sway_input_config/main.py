@@ -27,6 +27,7 @@ shortcut_list = os.path.join(dir_name, "data/shortcuts.json")
 kbd_model_list = os.path.join(dir_name, "data/kbd_model.json")
 layout_list = os.path.join(dir_name, "data/layouts.json")
 variant_list = os.path.join(dir_name, "data/variants.json")
+default_settings = os.path.join(dir_name, "data/defaults.json")
 
 
 class MainWindow(QMainWindow):
@@ -39,6 +40,8 @@ class MainWindow(QMainWindow):
         self.ui.buttonBox.rejected.connect(self.cancel)
         self.btnApply = self.ui.buttonBox.button(QDialogButtonBox.Apply)
         self.btnApply.clicked.connect(self.on_clicked_apply)
+        self.btnReset = self.ui.buttonBox.button(QDialogButtonBox.RestoreDefaults)
+        self.btnReset.clicked.connect(self.on_clicked_reset)
         self.ui.buttonBox.helpRequested.connect(self.on_clicked_about)
 
         # Keyboard Settings #
@@ -97,9 +100,10 @@ class MainWindow(QMainWindow):
 
         # Keyboard shortcut option
         shortcut_data = load_json(shortcut_list)
+        shortcut_view = QListView(self.ui.shortcutName)
+        self.ui.shortcutName.setView(shortcut_view)
+        self.ui.shortcutName.addItem("")
         for item in shortcut_data:
-            shortcut_view = QListView(self.ui.shortcutName)
-            self.ui.shortcutName.setView(shortcut_view)
             self.ui.shortcutName.addItem(item)
         for key, value in shortcut_data.items():
             if value == settings["keyboard-shortcut"]:
@@ -298,6 +302,61 @@ class MainWindow(QMainWindow):
             settings["keyboard-use-settings"] = "true"
         else:
             settings["keyboard-use-settings"] = "false"
+
+    def on_clicked_reset(self):
+        defaults = load_json(default_settings)
+        layouts_data = load_json(layout_list)
+        variants_data = load_json(variant_list)
+        model_list = load_json(kbd_model_list)
+        self.ui.layouts.clear()
+        for key, values in layouts_data.items():
+            if values in defaults["keyboard-layout"]:
+                self.layout_item = QTreeWidgetItem(self.ui.layouts)
+                self.layout_item.setData(0, Qt.DisplayRole, key)
+                self.layout_item.setData(0, Qt.UserRole, values)
+                self.ui.layouts.addTopLevelItem(self.layout_item)
+                for key, values in variants_data.items():
+                    if key in self.layout_item.data(0, Qt.DisplayRole):
+                        for d in values:
+                            for key, value in d.items():
+                                if value in defaults["keyboard-variant"]:
+                                    self.layout_item.setData(1, Qt.DisplayRole, key)
+                                    self.layout_item.setData(1, Qt.UserRole, value)
+        for key, value in model_list.items():
+            if value == defaults["keyboard-model"]:
+                self.ui.kbdModel.setCurrentText(key)
+        self.ui.shortcutName.setCurrentText(defaults["keyboard-shortcut"])
+        self.ui.kbdID.setCurrentText(defaults["keyboard-identifier"])
+        self.ui.repeatDelaySlider.setValue(defaults["keyboard-repeat-delay"])
+        self.ui.repeatDelay.setValue(self.ui.repeatDelaySlider.value())
+        self.ui.repeatRateSlider.setValue(defaults["keyboard-repeat-rate"])
+        self.ui.repeatRate.setValue(self.ui.repeatRateSlider.value())
+        self.ui.caps_lock.setChecked(False)
+        self.ui.num_lock.setChecked(False)
+
+        self.ui.pointerID.setCurrentText(defaults["pointer-identifier"])
+        self.ui.pointerLeftHanded.setChecked(False)
+        self.ui.pointerMiddle.setChecked(False)
+        self.ui.pointerAccel.setValue(float(defaults["pointer-pointer-accel"]) * 10)
+        self.ui.pointerFlat.setChecked(True)
+        self.ui.pointerNatScroll.setChecked(False)
+        self.ui.pointerScrollFactor.setValue(float(defaults["pointer-scroll-factor"]) * 10)
+
+        self.ui.touchpadID.setCurrentText(defaults["touchpad-identifier"])
+        self.ui.DWT.setChecked(True)
+        self.ui.DWTP.setChecked(True)
+        self.ui.touchLeftHanded.setChecked(False)
+        self.ui.touchMiddle.setChecked(True)
+        self.ui.touchAccel.setValue(float(defaults["touchpad-pointer-accel"]) * 10)
+        self.ui.touchFlat.setChecked(True)
+        self.ui.tap_click.setChecked(True)
+        self.ui.drag.setEnabled(True)
+        self.ui.drag_lock.setChecked(False)
+        self.ui.lrm.setEnabled(True)
+        self.ui.lmr.setEnabled(True)
+        self.ui.method1.setChecked(True)
+        self.ui.touchNatScroll.setChecked(False)
+        self.ui.touchScrollFactor.setValue(float(defaults["touchpad-scroll-factor"]) * 10)
 
     def on_add_keyboard_layout(self):
         self.dlg = SelectKeyboardLayout()
@@ -644,13 +703,12 @@ def save_to_config():
 
 
 def load_settings():
-    defaults_file = os.path.join(dir_name, "data/defaults.json")
     settings_file = os.path.join(data_dir, "settings")
     global settings
     if os.path.isfile(settings_file):
         print("Loading settings from {}".format(settings_file))
         settings = load_json(settings_file)
-        defaults = load_json(defaults_file)
+        defaults = load_json(default_settings)
         missing = 0
         for key in defaults:
             if key not in settings:
