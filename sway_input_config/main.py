@@ -666,6 +666,9 @@ def save_to_config():
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/keyboard"))
 
+    elif os.path.exists(os.path.join(config_home, "sway/keyboard")):
+        os.unlink(os.path.join(config_home, "sway/keyboard"))
+
     if settings["pointer-use-settings"] == "true":
 
         lines = ['input "type:pointer" {'] if not settings["pointer-identifier"] else [
@@ -679,6 +682,9 @@ def save_to_config():
         lines.append('}')
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/pointer"))
+
+    elif os.path.exists(os.path.join(config_home, "sway/pointer")):
+        os.unlink(os.path.join(config_home, "sway/pointer"))
 
     if settings["touchpad-use-settings"] == "true":
         lines = ['input "type:touchpad" {'] if not settings["touchpad-identifier"] else [
@@ -699,6 +705,9 @@ def save_to_config():
         lines.append('}')
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/touchpad"))
+
+    elif os.path.exists(os.path.join(config_home, "sway/touchpad")):
+        os.unlink(os.path.join(config_home, "sway/touchpad"))
 
 
 def load_settings():
