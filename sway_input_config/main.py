@@ -652,9 +652,8 @@ def save_to_config():
 
         lines = ['input "type:keyboard" {'] if not settings["keyboard-identifier"] else [
             'input "%s" {' % settings["keyboard-identifier"]]
-        if settings["keyboard-layout"]:
-            lines.append('  xkb_layout {}'.format(','.join(settings["keyboard-layout"])))
-        if settings["keyboard-variant"]:
+        lines.append('  xkb_layout {}'.format(','.join(settings["keyboard-layout"])))
+        if settings["keyboard-variant"] != [""]:
             lines.append('  xkb_variant {}'.format(','.join(settings["keyboard-variant"])))
         if settings["keyboard-shortcut"]:
             lines.append('  xkb_options {}'.format(settings["keyboard-shortcut"]))
