@@ -1,9 +1,11 @@
-sway-input-config (1.2.0-1~lunar) lunar; urgency=medium
+sway-input-config (1.2.0-1) lunar; urgency=medium
 
   * New UI using Qt Designer's forms.
   * New keyboard layout/variant selection widget
   * New disable while trackpointing option for touchpad (introduced in libinput 1.6 and Sway 1.8)
   * New option to configure input device ID's (for per-device settings)
+  * Added option to restore default settings
+  * Config files for Sway now automatic added or removed depending on selection of "Use this settings" option
 
  -- Aleksey Samoilov <samoilov.lex@gmail.com>  Thu, 19 Jan 2023 19:48:01 +0400
 
