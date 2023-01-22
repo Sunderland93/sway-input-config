@@ -27,14 +27,6 @@ Input devices configurator for [SwayWM](https://swaywm.org/), written in Python 
 `git clone https://github.com/Sunderland93/sway-input-config.git`
 `cd sway-input-config && python setup.py install`
 
-Add the following lines to your Sway config (usually in `~/.config/sway/config`):
-
-```text
-include keyboard
-include pointer
-include touchpad   # if you don't have a touchpad, don't add this line
-```
-
 ## Settings:
 
 Configuration file is located in `~/.config/sway-input-config/settings`. It's a JSON-file:

@@ -8,7 +8,7 @@ from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
 from PySide2.QtGui import QPixmap
 from PySide2.QtCore import Qt
 from sway_input_config.utils import (list_inputs_by_type, get_data_dir, load_json, save_json,
-                                     save_list_to_text_file, reload_sway_config)
+                                     save_list_to_text_file, load_text_file, reload_sway_config)
 from sway_input_config.ui_mainwindow import Ui_MainWindow
 from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
@@ -666,8 +666,25 @@ def save_to_config():
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/keyboard"))
 
-    elif os.path.exists(os.path.join(config_home, "sway/keyboard")):
-        os.unlink(os.path.join(config_home, "sway/keyboard"))
+        config = load_text_file(sway_config).splitlines()
+        new_config = []
+        for line in config:
+            if "include keyboard" not in line:
+                new_config.append(line)
+        new_config.append("include keyboard")
+        save_list_to_text_file(new_config, sway_config)
+
+    else:
+        config = load_text_file(sway_config).splitlines()
+        old_config = []
+        for line in config:
+            old_config.append(line)
+        if "include keyboard" in old_config:
+            old_config.remove("include keyboard")
+        save_list_to_text_file(old_config, sway_config)
+
+        if os.path.exists(os.path.join(config_home, "sway/keyboard")):
+            os.unlink(os.path.join(config_home, "sway/keyboard"))
 
     if settings["pointer-use-settings"] == "true":
 
@@ -683,8 +700,25 @@ def save_to_config():
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/pointer"))
 
-    elif os.path.exists(os.path.join(config_home, "sway/pointer")):
-        os.unlink(os.path.join(config_home, "sway/pointer"))
+        config = load_text_file(sway_config).splitlines()
+        new_config = []
+        for line in config:
+            if "include pointer" not in line:
+                new_config.append(line)
+        new_config.append("include pointer")
+        save_list_to_text_file(new_config, sway_config)
+
+    else:
+        config = load_text_file(sway_config).splitlines()
+        old_config = []
+        for line in config:
+            old_config.append(line)
+        if "include pointer" in old_config:
+            old_config.remove("include pointer")
+        save_list_to_text_file(old_config, sway_config)
+
+        if os.path.exists(os.path.join(config_home, "sway/pointer")):
+            os.unlink(os.path.join(config_home, "sway/pointer"))
 
     if settings["touchpad-use-settings"] == "true":
         lines = ['input "type:touchpad" {'] if not settings["touchpad-identifier"] else [
@@ -706,8 +740,25 @@ def save_to_config():
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/touchpad"))
 
-    elif os.path.exists(os.path.join(config_home, "sway/touchpad")):
-        os.unlink(os.path.join(config_home, "sway/touchpad"))
+        config = load_text_file(sway_config).splitlines()
+        new_config = []
+        for line in config:
+            if "include touchpad" not in line:
+                new_config.append(line)
+        new_config.append("include touchpad")
+        save_list_to_text_file(new_config, sway_config)
+
+    else:
+        config = load_text_file(sway_config).splitlines()
+        old_config = []
+        for line in config:
+            old_config.append(line)
+        if "include touchpad" in old_config:
+            old_config.remove("include touchpad")
+        save_list_to_text_file(old_config, sway_config)
+
+        if os.path.exists(os.path.join(config_home, "sway/touchpad")):
+            os.unlink(os.path.join(config_home, "sway/touchpad"))
 
 
 def load_settings():
@@ -728,7 +779,7 @@ def load_settings():
             save_json(settings, settings_file)
     else:
         print("Loading default settings")
-        defaults = load_json(defaults_file)
+        defaults = load_json(default_settings)
         save_json(defaults, settings_file)
         settings = load_json(settings_file)
 

@@ -33,6 +33,16 @@ def get_data_dir():
     return data_dir
 
 
+def load_text_file(path):
+    try:
+        with open(path, 'r') as file:
+            data = file.read()
+            return data
+    except Exception as e:
+        print(e)
+        return None
+
+
 def load_json(path):
     try:
         with open(path, 'r') as f:
