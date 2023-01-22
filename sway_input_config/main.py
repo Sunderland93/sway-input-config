@@ -7,21 +7,27 @@ from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
                                QListView)
 from PySide2.QtGui import QPixmap
 from PySide2.QtCore import Qt
-from sway_input_config.utils import (list_inputs_by_type, get_data_dir, load_json, save_json,
-                                     save_list_to_text_file, load_text_file, reload_sway_config)
+from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
+                                     load_json, save_json,
+                                     save_list_to_text_file,
+                                     load_text_file, reload_sway_config)
 from sway_input_config.ui_mainwindow import Ui_MainWindow
 from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
 
 data_dir = ""
-config_home = os.getenv('XDG_CONFIG_HOME') if os.getenv('XDG_CONFIG_HOME') else os.path.join(
-    os.getenv("HOME"), ".config/")
 
-data_home = os.getenv('XDG_DATA_HOME') if os.getenv('XDG_DATA_HOME') else os.path.join(
-    os.getenv("HOME"), ".config/")
+if os.getenv('XDG_CONFIG_HOME'):
+    config_home = os.getenv('XDG_CONFIG_HOME')
+else:
+    config_home = os.path.join(os.getenv("HOME"), ".config/")
+
+if os.getenv('XDG_DATA_HOME'):
+    data_home = os.getenv('XDG_DATA_HOME')
+else:
+    data_home = os.path.join(os.getenv("HOME"), ".config/")
 
 sway_config = os.path.join(config_home, "sway", "config")
-
 dir_name = os.path.dirname(__file__)
 shortcut_list = os.path.join(dir_name, "data/shortcuts.json")
 kbd_model_list = os.path.join(dir_name, "data/kbd_model.json")
