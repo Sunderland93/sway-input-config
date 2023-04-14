@@ -36,8 +36,6 @@ kbd_model_list = os.path.join(dir_name, "data/kbd_model.json")
 layout_list = os.path.join(dir_name, "data/layouts.json")
 variant_list = os.path.join(dir_name, "data/variants.json")
 default_settings = os.path.join(dir_name, "data/defaults.json")
-langs = "langs/lang_{}.qm".format(QLocale.system().name())
-langs_path = os.path.join(dir_name, langs)
 
 
 class MainWindow(QMainWindow):
@@ -804,7 +802,7 @@ def main():
     locale_ts = QTranslator()
     app_ts = QTranslator()
     locale_ts.load('qt_%s' % locale, QLibraryInfo.location(QLibraryInfo.TranslationsPath))
-    app_ts.load(langs_path)
+    app_ts.load('lang_%s' % locale, os.path.join(dir_name, "langs"))
     app.installTranslator(locale_ts)
     app.installTranslator(app_ts)
 
