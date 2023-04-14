@@ -15,6 +15,8 @@ from sway_input_config.ui_mainwindow import Ui_MainWindow
 from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
 
+version = "v1.3.0"
+
 data_dir = ""
 
 if os.getenv('XDG_CONFIG_HOME'):
@@ -604,7 +606,7 @@ class AboutDialog(QDialog):
         self.pixmap = QPixmap(os.path.join(dir_name, "data/logo_sic.png"))
         self.aboutDialog.pixmap.setPixmap(self.pixmap)
 
-        self.aboutDialog.version.setText("v1.3.0")
+        self.aboutDialog.version.setText(version)
 
         self.aboutDialog.buttonBox.rejected.connect(self.cancel)
 
