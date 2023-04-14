@@ -357,7 +357,7 @@
 <context>
     <name>SelectKeyboardLayout</name>
     <message>
-        <location filename="../main.py" line="625"/>
+        <location filename="../main.py" line="627"/>
         <source>A user defined custom layout</source>
         <translation>Пользовательская раскладка</translation>
     </message>
@@ -383,19 +383,14 @@
 <context>
     <name>about</name>
     <message>
-        <location filename="../ui_about.py" line="98"/>
+        <location filename="../ui_about.py" line="105"/>
         <source>About Sway Input Configurator</source>
         <translation>О программе Sway Input Configurator</translation>
     </message>
     <message>
-        <location filename="../ui_about.py" line="100"/>
+        <location filename="../ui_about.py" line="107"/>
         <source>A simple input devices configurator for SwayWM, written in Python and Qt5/PySide2. It uses standard libinput options to configure keyboard, touchpad and pointer devices</source>
         <translation>Простая утилита для настройки устройств ввода в SwayWM, написанная на Python и Qt5/PySide2. Используются стандартные опции библиотеки libinput для настройки клавиатуры, тачпада и указывающих устройств</translation>
-    </message>
-    <message>
-        <location filename="../ui_about.py" line="101"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Version: 1.3.0.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Licensed under the GNU GPLv3.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Copyright: 2022-2023 Aleksey Samoilov&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://github.com/Sunderland93/sway-input-config&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1d99f3;&quot;&gt;GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Версия: 1.3.0.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;По лицензии GNU GPLv3.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Copyright: 2022-2023 Aleksey Samoilov&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://github.com/Sunderland93/sway-input-config&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1d99f3;&quot;&gt;GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 </TS>

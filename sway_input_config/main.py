@@ -59,7 +59,7 @@ class MainWindow(QMainWindow):
             self.ui.KeyBoardUseSettings.setChecked(True)
         self.ui.KeyBoardUseSettings.toggled.connect(self.keyboard_use_settings)
 
-        # Keyboard layout staff
+        # Keyboard layout
         layouts_data = load_json(layout_list)
         variants_data = load_json(variant_list)
         for key, values in layouts_data.items():
@@ -603,6 +603,8 @@ class AboutDialog(QDialog):
 
         self.pixmap = QPixmap(os.path.join(dir_name, "data/logo_sic.png"))
         self.aboutDialog.pixmap.setPixmap(self.pixmap)
+
+        self.aboutDialog.version.setText("v1.3.0")
 
         self.aboutDialog.buttonBox.rejected.connect(self.cancel)
 

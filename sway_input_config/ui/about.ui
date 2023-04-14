@@ -99,9 +99,9 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="version">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Version: 1.3.0.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Licensed under the GNU GPLv3.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Copyright: 2022-2023 Aleksey Samoilov&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://github.com/Sunderland93/sway-input-config&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1d99f3;&quot;&gt;GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string notr="true"/>
        </property>
        <property name="textFormat">
         <enum>Qt::AutoText</enum>
@@ -111,6 +111,13 @@
        </property>
        <property name="wordWrap">
         <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Copyright: 2022-2023 Aleksey Samoilov&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Licensed under the GNU GPLv3&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;https://github.com/Sunderland93/sway-input-config&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#1397c3;&quot;&gt;Github&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>

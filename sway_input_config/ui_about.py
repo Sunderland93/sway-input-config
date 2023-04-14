@@ -52,11 +52,18 @@ class Ui_about(object):
 
         self.verticalLayout.addItem(self.verticalSpacer_2)
 
+        self.version = QLabel(about)
+        self.version.setObjectName(u"version")
+        self.version.setText(u"")
+        self.version.setTextFormat(Qt.AutoText)
+        self.version.setAlignment(Qt.AlignCenter)
+        self.version.setWordWrap(True)
+
+        self.verticalLayout.addWidget(self.version)
+
         self.label = QLabel(about)
         self.label.setObjectName(u"label")
-        self.label.setTextFormat(Qt.AutoText)
-        self.label.setAlignment(Qt.AlignCenter)
-        self.label.setWordWrap(True)
+        self.label.setText(u"<html><head/><body><p align=\"center\">Copyright: 2022-2023 Aleksey Samoilov</p><p align=\"center\">Licensed under the GNU GPLv3</p><p align=\"center\"><a href=\"https://github.com/Sunderland93/sway-input-config\"><span style=\" text-decoration: underline; color:#1397c3;\">Github</span></a></p></body></html>")
 
         self.verticalLayout.addWidget(self.label)
 
@@ -98,6 +105,5 @@ class Ui_about(object):
         about.setWindowTitle(QCoreApplication.translate("about", u"About Sway Input Configurator", None))
         self.pixmap.setText("")
         self.label_2.setText(QCoreApplication.translate("about", u"A simple input devices configurator for SwayWM, written in Python and Qt5/PySide2. It uses standard libinput options to configure keyboard, touchpad and pointer devices", None))
-        self.label.setText(QCoreApplication.translate("about", u"<html><head/><body><p align=\"center\">Version: 1.3.0.</p><p align=\"center\">Licensed under the GNU GPLv3.</p><p align=\"center\">Copyright: 2022-2023 Aleksey Samoilov<br/></p><p align=\"center\"><a href=\"https://github.com/Sunderland93/sway-input-config\"><span style=\" text-decoration: underline; color:#1d99f3;\">GitHub</span></a></p></body></html>", None))
     # retranslateUi
 
