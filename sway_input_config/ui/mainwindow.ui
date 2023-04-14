@@ -195,7 +195,7 @@
            <item row="1" column="0">
             <widget class="QLabel" name="kbdID_label">
              <property name="text">
-              <string>Keyboard identifier:</string>
+              <string>Keyboard ID:</string>
              </property>
             </widget>
            </item>
@@ -305,6 +305,9 @@
            </item>
            <item row="1" column="1">
             <widget class="QComboBox" name="kbdID">
+             <property name="toolTip">
+              <string>Keyboard identifier</string>
+             </property>
              <property name="styleSheet">
               <string notr="true">combobox-popup: 0</string>
              </property>
@@ -358,9 +361,9 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="MouseTab">
+      <widget class="QWidget" name="PointerTab">
        <attribute name="title">
-        <string>Mouse</string>
+        <string>Pointer device</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
@@ -523,13 +526,19 @@
                </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="pointerID_label">
+                 <property name="toolTip">
+                  <string/>
+                 </property>
                  <property name="text">
-                  <string>Pointer device identifier:</string>
+                  <string>Pointer device ID:</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="1">
                 <widget class="QComboBox" name="pointerID">
+                 <property name="toolTip">
+                  <string>Pointer device identifier</string>
+                 </property>
                  <property name="styleSheet">
                   <string notr="true">combobox-popup: 0</string>
                  </property>
@@ -634,6 +643,9 @@
                </item>
                <item row="1" column="1">
                 <widget class="QCheckBox" name="DWT">
+                 <property name="toolTip">
+                  <string>Disables touchpad while typing the text</string>
+                 </property>
                  <property name="text">
                   <string>Disable while typing</string>
                  </property>
@@ -641,6 +653,9 @@
                </item>
                <item row="3" column="1">
                 <widget class="QCheckBox" name="touchLeftHanded">
+                 <property name="toolTip">
+                  <string>Enables or disables left handed mode.</string>
+                 </property>
                  <property name="text">
                   <string>Left handed mode</string>
                  </property>
@@ -648,6 +663,9 @@
                </item>
                <item row="4" column="1">
                 <widget class="QCheckBox" name="touchMiddle">
+                 <property name="toolTip">
+                  <string>Enables or disables middle click emulation.</string>
+                 </property>
                  <property name="text">
                   <string>Press left and right buttons for middle click</string>
                  </property>
@@ -662,6 +680,9 @@
                </item>
                <item row="5" column="1">
                 <widget class="QSlider" name="touchAccel">
+                 <property name="toolTip">
+                  <string>Changes the pointer acceleration.</string>
+                 </property>
                  <property name="minimum">
                   <number>-10</number>
                  </property>
@@ -691,6 +712,9 @@
                </item>
                <item row="6" column="1">
                 <widget class="QRadioButton" name="touchFlat">
+                 <property name="toolTip">
+                  <string>Cursor moves the same distance as the mouse movement.</string>
+                 </property>
                  <property name="text">
                   <string>Flat</string>
                  </property>
@@ -698,6 +722,9 @@
                </item>
                <item row="7" column="1">
                 <widget class="QRadioButton" name="touchAdaptive">
+                 <property name="toolTip">
+                  <string>Cursor travel distance depends on the mouse movement speed.</string>
+                 </property>
                  <property name="text">
                   <string>Adaptive</string>
                  </property>
@@ -706,7 +733,7 @@
                <item row="8" column="0">
                 <widget class="QLabel" name="label_9">
                  <property name="text">
-                  <string>Tapping:</string>
+                  <string>Mouse buttons emulation:</string>
                  </property>
                 </widget>
                </item>
@@ -741,7 +768,7 @@
                <item row="11" column="1">
                 <widget class="QRadioButton" name="lrm">
                  <property name="text">
-                  <string>Two-type right, three middle</string>
+                  <string>Two-tap right, three middle</string>
                  </property>
                 </widget>
                </item>
@@ -755,7 +782,7 @@
                <item row="13" column="0">
                 <widget class="QLabel" name="label_11">
                  <property name="text">
-                  <string>Scrolling</string>
+                  <string>Scrolling:</string>
                  </property>
                 </widget>
                </item>
@@ -789,6 +816,9 @@
                </item>
                <item row="17" column="1">
                 <widget class="QCheckBox" name="touchNatScroll">
+                 <property name="toolTip">
+                  <string>Touchscreen like scrolling.</string>
+                 </property>
                  <property name="text">
                   <string>Invert scroll direction</string>
                  </property>
@@ -803,6 +833,9 @@
                </item>
                <item row="18" column="1">
                 <widget class="QSlider" name="touchScrollFactor">
+                 <property name="toolTip">
+                  <string>Scroll speed will be scaled by the given value.</string>
+                 </property>
                  <property name="minimum">
                   <number>1</number>
                  </property>
@@ -825,6 +858,9 @@
                </item>
                <item row="2" column="1">
                 <widget class="QCheckBox" name="DWTP">
+                 <property name="toolTip">
+                  <string>Disables touchpad while using trackpoint device</string>
+                 </property>
                  <property name="text">
                   <string>Disable while trackpointing</string>
                  </property>
@@ -833,12 +869,16 @@
                <item row="0" column="0">
                 <widget class="QLabel" name="touchpadID_label">
                  <property name="text">
-                  <string>Touchpad identifier:</string>
+                  <string>Touchpad ID:</string>
                  </property>
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QComboBox" name="touchpadID"/>
+                <widget class="QComboBox" name="touchpadID">
+                 <property name="toolTip">
+                  <string>Touchpad identifier</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
