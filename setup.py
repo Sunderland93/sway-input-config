@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='sway-input-config',
-    version='1.2.0',
+    version='1.3.0',
     description='input devices configurator for sway',
     license='GPL-3',
     author='Aleksey Samoilov',
