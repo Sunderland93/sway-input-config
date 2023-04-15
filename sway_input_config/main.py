@@ -8,6 +8,7 @@ from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
                                QListView)
 from PySide2.QtGui import QPixmap
 from PySide2.QtCore import Qt, QTranslator, QLocale, QLibraryInfo
+from shutil import copy2
 from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
                                      load_json, save_json,
                                      save_list_to_text_file,
@@ -804,11 +805,15 @@ def main():
                         "--version",
                         action="version",
                         version=app_version,
-                        help="display version information")
+                        help="display application version")
     parser.add_argument("-l",
                         "--locale",
                         default=QLocale.system().name(),
                         help="force application locale")
+    parser.add_argument("-r",
+                        "--restore",
+                        action="store_true",
+                        help="restore default settings")
     args = parser.parse_args()
 
     locale = args.locale
@@ -821,6 +826,12 @@ def main():
 
     global data_dir
     data_dir = get_data_dir()
+
+
+    if args.restore:
+        if input("\nRestore default settings? y/N ").upper() == "Y":
+            copy2(os.path.join(dir_name, "data/defaults.json"), os.path.join(data_dir, "settings"))
+            sys.exit(0)
 
     load_settings()
 
