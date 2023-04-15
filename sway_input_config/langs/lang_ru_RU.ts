@@ -2,6 +2,14 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru_RU" sourcelanguage="en">
 <context>
+    <name>AboutDialog</name>
+    <message>
+        <location filename="../main.py" line="608"/>
+        <source>Version: </source>
+        <translation>Версия: </translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
         <location filename="../ui_mainwindow.py" line="559"/>
@@ -357,7 +365,7 @@
 <context>
     <name>SelectKeyboardLayout</name>
     <message>
-        <location filename="../main.py" line="627"/>
+        <location filename="../main.py" line="628"/>
         <source>A user defined custom layout</source>
         <translation>Пользовательская раскладка</translation>
     </message>

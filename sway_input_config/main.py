@@ -16,7 +16,7 @@ from sway_input_config.ui_mainwindow import Ui_MainWindow
 from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
 
-version = "v1.3.0"
+app_version = "1.3.0"
 
 data_dir = ""
 
@@ -605,7 +605,7 @@ class AboutDialog(QDialog):
         self.pixmap = QPixmap(os.path.join(dir_name, "data/logo_sic.png"))
         self.aboutDialog.pixmap.setPixmap(self.pixmap)
 
-        self.aboutDialog.version.setText(version)
+        self.aboutDialog.version.setText(self.tr("Version: ") + app_version)
 
         self.aboutDialog.buttonBox.rejected.connect(self.cancel)
 
@@ -803,7 +803,7 @@ def main():
     parser.add_argument("-v",
                         "--version",
                         action="version",
-                        version=version,
+                        version=app_version,
                         help="display version information")
     parser.add_argument("-l",
                         "--locale",
