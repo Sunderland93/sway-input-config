@@ -26,8 +26,10 @@ Input device configurator for [SwayWM](https://swaywm.org/), written in Python a
 * python-i3ipc
 * qt5-translations
 
-`git clone https://github.com/Sunderland93/sway-input-config.git`
-`cd sway-input-config && python setup.py install`
+```
+git clone https://github.com/Sunderland93/sway-input-config.git
+cd sway-input-config && python setup.py install
+```
 
 ## Settings:
 
@@ -80,9 +82,11 @@ If you would like to translate Sway Input Configurator into your language, pleas
 
 * Clone the repository and generate translation:
 
-`git clone git@github.com:Sunderland93/sway-input-config.git`
-`cd sway-input-config`
-`./locale-gen.sh`
+```
+git clone git@github.com:Sunderland93/sway-input-config.git
+cd sway-input-config
+./locale-gen.sh
+```
 
 It creates `lang_*.ts` file in `sway_input_config/langs` based on your system locale. If you want to create translation other than your system locale, pass `yourlocale` option to `locale-gen` script (e.g for German, you can pass `de_DE`):
 
