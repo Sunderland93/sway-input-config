@@ -17,12 +17,14 @@ Input device configurator for [SwayWM](https://swaywm.org/), written in Python a
 * python3-pyside2.qtgui
 * python3-setuptools
 * python3-i3ipc
+* qttranslations5-l10n
 
 #### Dependencies (Arch Linux):
 * python
 * pyside2
 * python-setuptools
 * python-i3ipc
+* qt5-translations
 
 `git clone https://github.com/Sunderland93/sway-input-config.git`
 `cd sway-input-config && python setup.py install`
