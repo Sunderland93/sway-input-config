@@ -80,7 +80,7 @@ If you would like to translate Sway Input Configurator into your language, pleas
 
 * Clone the repository and generate translation:
 
-`git@github.com:Sunderland93/sway-input-config.git`
+`git clone git@github.com:Sunderland93/sway-input-config.git`
 `cd sway-input-config`
 `./locale-gen.sh`
 
