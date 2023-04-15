@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import os
 import sys
 from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
@@ -798,7 +799,19 @@ def main():
     app = QApplication(["Sway Input Configurator"])
     app.setDesktopFileName("sway-input-config")
 
-    locale = QLocale.system().name()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-v",
+                        "--version",
+                        action="version",
+                        version=version,
+                        help="display version information")
+    parser.add_argument("-l",
+                        "--locale",
+                        default=QLocale.system().name(),
+                        help="force application locale")
+    args = parser.parse_args()
+
+    locale = args.locale
     locale_ts = QTranslator()
     app_ts = QTranslator()
     locale_ts.load('qt_%s' % locale, QLibraryInfo.location(QLibraryInfo.TranslationsPath))
