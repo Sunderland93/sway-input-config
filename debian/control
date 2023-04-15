@@ -17,7 +17,7 @@ Depends:
  python3-pyside2.qtwidgets,
  python3-pyside2.qtcore,
  python3-pyside2.qtgui
-Description: Input devices configurator for Sway
- Input devices configurator for SwayWM, written in Python and Qt5/PySide2,
+Description: Input device configurator for Sway
+ Input device configurator for SwayWM, written in Python and Qt5/PySide2,
  inspired by nwg-shell-config. It uses standard libinput options
  to configure keyboard, touchpad and pointer devices.

@@ -397,8 +397,8 @@
     </message>
     <message>
         <location filename="../ui_about.py" line="107"/>
-        <source>A simple input devices configurator for SwayWM, written in Python and Qt5/PySide2. It uses standard libinput options to configure keyboard, touchpad and pointer devices</source>
-        <translation>Простая утилита для настройки устройств ввода в SwayWM, написанная на Python и Qt5/PySide2. Используются стандартные опции библиотеки libinput для настройки клавиатуры, тачпада и указывающих устройств</translation>
+        <source>A simple input device configurator for SwayWM, written in Python and Qt5/PySide2. It uses standard libinput options to configure keyboard, touchpad and pointer devices</source>
+        <translation>Простой конфигуратор устройств ввода для SwayWM, написанный на Python и Qt5/PySide2. Используются стандартные опции библиотеки libinput для настройки клавиатуры, тачпада и указывающих устройств</translation>
     </message>
 </context>
 </TS>
