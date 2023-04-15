@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
+import argparse
 import os
 import sys
 from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
                                QDialog, QTreeWidgetItem, QListWidgetItem,
                                QListView)
 from PySide2.QtGui import QPixmap
-from PySide2.QtCore import Qt
+from PySide2.QtCore import Qt, QTranslator, QLocale, QLibraryInfo
 from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
                                      load_json, save_json,
                                      save_list_to_text_file,
@@ -14,6 +15,8 @@ from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
 from sway_input_config.ui_mainwindow import Ui_MainWindow
 from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
+
+app_version = "1.3.0"
 
 data_dir = ""
 
@@ -57,7 +60,7 @@ class MainWindow(QMainWindow):
             self.ui.KeyBoardUseSettings.setChecked(True)
         self.ui.KeyBoardUseSettings.toggled.connect(self.keyboard_use_settings)
 
-        # Keyboard layout staff
+        # Keyboard layout
         layouts_data = load_json(layout_list)
         variants_data = load_json(variant_list)
         for key, values in layouts_data.items():
@@ -602,6 +605,8 @@ class AboutDialog(QDialog):
         self.pixmap = QPixmap(os.path.join(dir_name, "data/logo_sic.png"))
         self.aboutDialog.pixmap.setPixmap(self.pixmap)
 
+        self.aboutDialog.version.setText(self.tr("Version: ") + app_version)
+
         self.aboutDialog.buttonBox.rejected.connect(self.cancel)
 
     def cancel(self):
@@ -620,7 +625,7 @@ class SelectKeyboardLayout(QDialog):
             item.setData(Qt.UserRole, value)
             item.setData(Qt.DisplayRole, key)
             self.select_layout.layouts.addItem(item)
-        custom_item = QListWidgetItem("A user defined custom layout")
+        custom_item = QListWidgetItem(self.tr("A user defined custom layout"))
         custom_item.setData(Qt.UserRole, "custom")
         custom_vitem = QListWidgetItem("None")
         custom_vitem.setData(Qt.UserRole, "")
@@ -793,6 +798,26 @@ def load_settings():
 def main():
     app = QApplication(["Sway Input Configurator"])
     app.setDesktopFileName("sway-input-config")
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-v",
+                        "--version",
+                        action="version",
+                        version=app_version,
+                        help="display version information")
+    parser.add_argument("-l",
+                        "--locale",
+                        default=QLocale.system().name(),
+                        help="force application locale")
+    args = parser.parse_args()
+
+    locale = args.locale
+    locale_ts = QTranslator()
+    app_ts = QTranslator()
+    locale_ts.load('qt_%s' % locale, QLibraryInfo.location(QLibraryInfo.TranslationsPath))
+    app_ts.load('lang_%s' % locale, os.path.join(dir_name, "langs"))
+    app.installTranslator(locale_ts)
+    app.installTranslator(app_ts)
 
     global data_dir
     data_dir = get_data_dir()
