@@ -10,6 +10,7 @@ from PySide2.QtGui import QPixmap
 from PySide2.QtCore import Qt, QTranslator, QLocale, QLibraryInfo
 from shutil import copy2
 from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
+                                     get_config_home,
                                      load_json, save_json,
                                      save_list_to_text_file,
                                      load_text_file, reload_sway_config)
@@ -21,15 +22,7 @@ app_version = "1.3.0"
 
 data_dir = ""
 
-if os.getenv('XDG_CONFIG_HOME'):
-    config_home = os.getenv('XDG_CONFIG_HOME')
-else:
-    config_home = os.path.join(os.getenv("HOME"), ".config/")
-
-if os.getenv('XDG_DATA_HOME'):
-    data_home = os.getenv('XDG_DATA_HOME')
-else:
-    data_home = os.path.join(os.getenv("HOME"), ".config/")
+config_home = get_config_home()
 
 sway_config = os.path.join(config_home, "sway", "config")
 dir_name = os.path.dirname(__file__)

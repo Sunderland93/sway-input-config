@@ -15,6 +15,12 @@ def list_inputs_by_type(input_type=""):
     return inputs
 
 
+def get_config_home():
+    config_home = os.getenv('XDG_CONFIG_HOME') if os.getenv('XDG_CONFIG_HOME') else os.path.join(
+        os.getenv("HOME"), ".config/")
+    return config_home
+
+
 def get_data_dir():
     data_dir = ""
     home = os.getenv("HOME")
