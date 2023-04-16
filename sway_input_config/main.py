@@ -10,6 +10,7 @@ from PySide2.QtGui import QPixmap
 from PySide2.QtCore import Qt, QTranslator, QLocale, QLibraryInfo
 from shutil import copy2
 from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
+                                     get_sway_version,
                                      get_config_home,
                                      load_json, save_json,
                                      save_list_to_text_file,
@@ -19,9 +20,8 @@ from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
 
 app_version = "1.3.0"
-
+sway_version = get_sway_version()
 data_dir = ""
-
 config_home = get_config_home()
 
 sway_config = os.path.join(config_home, "sway", "config")
@@ -214,9 +214,12 @@ class MainWindow(QMainWindow):
         self.ui.DWT.toggled.connect(self.on_dwt_checked)
 
         # Disable while trackpointing
-        if settings["touchpad-dwtp"] == "enabled":
-            self.ui.DWTP.setChecked(True)
-        self.ui.DWTP.toggled.connect(self.on_dwtp_checked)
+        if sway_version >= "1.8":
+            if settings["touchpad-dwtp"] == "enabled":
+                self.ui.DWTP.setChecked(True)
+            self.ui.DWTP.toggled.connect(self.on_dwtp_checked)
+        else:
+            self.ui.DWTP.setEnabled(False)
 
         # Left handed mode
         if settings["touchpad-left-handed"] == "enabled":
@@ -819,7 +822,6 @@ def main():
 
     global data_dir
     data_dir = get_data_dir()
-
 
     if args.restore:
         if input("\nRestore default settings? y/N ").upper() == "Y":

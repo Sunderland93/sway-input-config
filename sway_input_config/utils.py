@@ -2,6 +2,12 @@ import json
 import os
 from i3ipc import Connection
 
+def get_sway_version():
+    i3 = Connection()
+    sway_version = i3.get_version().human_readable
+
+    return sway_version
+
 
 def list_inputs_by_type(input_type=""):
     inputs = []
