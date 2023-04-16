@@ -634,6 +634,20 @@
              </item>
              <item>
               <layout class="QFormLayout" name="formLayout_2">
+               <item row="0" column="0">
+                <widget class="QLabel" name="touchpadID_label">
+                 <property name="text">
+                  <string>Touchpad ID:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QComboBox" name="touchpadID">
+                 <property name="toolTip">
+                  <string>Touchpad identifier</string>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="label_6">
                  <property name="text">
@@ -648,6 +662,16 @@
                  </property>
                  <property name="text">
                   <string>Disable while typing</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QCheckBox" name="DWTP">
+                 <property name="toolTip">
+                  <string>Disables touchpad while using trackpoint device</string>
+                 </property>
+                 <property name="text">
+                  <string>Disable while trackpointing</string>
                  </property>
                 </widget>
                </item>
@@ -761,21 +785,21 @@
                <item row="11" column="0">
                 <widget class="QLabel" name="label_10">
                  <property name="text">
-                  <string>Two-finger tap:</string>
+                  <string>Tap button mapping:</string>
                  </property>
                 </widget>
                </item>
                <item row="11" column="1">
                 <widget class="QRadioButton" name="lrm">
                  <property name="text">
-                  <string>Two-tap right, three middle</string>
+                  <string>Two fingers - right click, three middle</string>
                  </property>
                 </widget>
                </item>
                <item row="12" column="1">
                 <widget class="QRadioButton" name="lmr">
                  <property name="text">
-                  <string>Two-tap middle, three right</string>
+                  <string>Two fingers - middle click, three right</string>
                  </property>
                 </widget>
                </item>
@@ -853,30 +877,6 @@
                  </property>
                  <property name="tickInterval">
                   <number>9</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QCheckBox" name="DWTP">
-                 <property name="toolTip">
-                  <string>Disables touchpad while using trackpoint device</string>
-                 </property>
-                 <property name="text">
-                  <string>Disable while trackpointing</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="touchpadID_label">
-                 <property name="text">
-                  <string>Touchpad ID:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QComboBox" name="touchpadID">
-                 <property name="toolTip">
-                  <string>Touchpad identifier</string>
                  </property>
                 </widget>
                </item>

@@ -357,6 +357,16 @@ class Ui_MainWindow(object):
 
         self.formLayout_2 = QFormLayout()
         self.formLayout_2.setObjectName(u"formLayout_2")
+        self.touchpadID_label = QLabel(self.groupBox_3)
+        self.touchpadID_label.setObjectName(u"touchpadID_label")
+
+        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.touchpadID_label)
+
+        self.touchpadID = QComboBox(self.groupBox_3)
+        self.touchpadID.setObjectName(u"touchpadID")
+
+        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.touchpadID)
+
         self.label_6 = QLabel(self.groupBox_3)
         self.label_6.setObjectName(u"label_6")
 
@@ -366,6 +376,11 @@ class Ui_MainWindow(object):
         self.DWT.setObjectName(u"DWT")
 
         self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.DWT)
+
+        self.DWTP = QCheckBox(self.groupBox_3)
+        self.DWTP.setObjectName(u"DWTP")
+
+        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.DWTP)
 
         self.touchLeftHanded = QCheckBox(self.groupBox_3)
         self.touchLeftHanded.setObjectName(u"touchLeftHanded")
@@ -488,21 +503,6 @@ class Ui_MainWindow(object):
         self.touchScrollFactor.setTickInterval(9)
 
         self.formLayout_2.setWidget(18, QFormLayout.FieldRole, self.touchScrollFactor)
-
-        self.DWTP = QCheckBox(self.groupBox_3)
-        self.DWTP.setObjectName(u"DWTP")
-
-        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.DWTP)
-
-        self.touchpadID_label = QLabel(self.groupBox_3)
-        self.touchpadID_label.setObjectName(u"touchpadID_label")
-
-        self.formLayout_2.setWidget(0, QFormLayout.LabelRole, self.touchpadID_label)
-
-        self.touchpadID = QComboBox(self.groupBox_3)
-        self.touchpadID.setObjectName(u"touchpadID")
-
-        self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.touchpadID)
 
 
         self.horizontalLayout_8.addLayout(self.formLayout_2)
@@ -650,11 +650,19 @@ class Ui_MainWindow(object):
         self.PointerUseSettings.setText(QCoreApplication.translate("MainWindow", u"Use this settings", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.PointerTab), QCoreApplication.translate("MainWindow", u"Pointer device", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"Touchpad Settings", None))
+        self.touchpadID_label.setText(QCoreApplication.translate("MainWindow", u"Touchpad ID:", None))
+#if QT_CONFIG(tooltip)
+        self.touchpadID.setToolTip(QCoreApplication.translate("MainWindow", u"Touchpad identifier", None))
+#endif // QT_CONFIG(tooltip)
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"General:", None))
 #if QT_CONFIG(tooltip)
         self.DWT.setToolTip(QCoreApplication.translate("MainWindow", u"Disables touchpad while typing the text", None))
 #endif // QT_CONFIG(tooltip)
         self.DWT.setText(QCoreApplication.translate("MainWindow", u"Disable while typing", None))
+#if QT_CONFIG(tooltip)
+        self.DWTP.setToolTip(QCoreApplication.translate("MainWindow", u"Disables touchpad while using trackpoint device", None))
+#endif // QT_CONFIG(tooltip)
+        self.DWTP.setText(QCoreApplication.translate("MainWindow", u"Disable while trackpointing", None))
 #if QT_CONFIG(tooltip)
         self.touchLeftHanded.setToolTip(QCoreApplication.translate("MainWindow", u"Enables or disables left handed mode.", None))
 #endif // QT_CONFIG(tooltip)
@@ -680,9 +688,9 @@ class Ui_MainWindow(object):
         self.tap_click.setText(QCoreApplication.translate("MainWindow", u"Tap-to-click", None))
         self.drag.setText(QCoreApplication.translate("MainWindow", u"Tap-and-drag", None))
         self.drag_lock.setText(QCoreApplication.translate("MainWindow", u"Tap-and-drag lock", None))
-        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Two-finger tap:", None))
-        self.lrm.setText(QCoreApplication.translate("MainWindow", u"Two-tap right, three middle", None))
-        self.lmr.setText(QCoreApplication.translate("MainWindow", u"Two-tap middle, three right", None))
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Tap button mapping:", None))
+        self.lrm.setText(QCoreApplication.translate("MainWindow", u"Two fingers - right click, three middle", None))
+        self.lmr.setText(QCoreApplication.translate("MainWindow", u"Two fingers - middle click, three right", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"Scrolling:", None))
         self.method1.setText(QCoreApplication.translate("MainWindow", u"Two fingers", None))
         self.method2.setText(QCoreApplication.translate("MainWindow", u"Touchpad edges", None))
@@ -695,14 +703,6 @@ class Ui_MainWindow(object):
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"Scrolling speed:", None))
 #if QT_CONFIG(tooltip)
         self.touchScrollFactor.setToolTip(QCoreApplication.translate("MainWindow", u"Scroll speed will be scaled by the given value.", None))
-#endif // QT_CONFIG(tooltip)
-#if QT_CONFIG(tooltip)
-        self.DWTP.setToolTip(QCoreApplication.translate("MainWindow", u"Disables touchpad while using trackpoint device", None))
-#endif // QT_CONFIG(tooltip)
-        self.DWTP.setText(QCoreApplication.translate("MainWindow", u"Disable while trackpointing", None))
-        self.touchpadID_label.setText(QCoreApplication.translate("MainWindow", u"Touchpad ID:", None))
-#if QT_CONFIG(tooltip)
-        self.touchpadID.setToolTip(QCoreApplication.translate("MainWindow", u"Touchpad identifier", None))
 #endif // QT_CONFIG(tooltip)
         self.TouchPadUseSettings.setText(QCoreApplication.translate("MainWindow", u"Use this settings", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TouchpadTab), QCoreApplication.translate("MainWindow", u"Touchpad", None))

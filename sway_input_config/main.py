@@ -266,7 +266,7 @@ class MainWindow(QMainWindow):
             self.ui.drag_lock.setChecked(True)
         self.ui.drag_lock.toggled.connect(self.on_draglock_checked)
 
-        # Two-finger tap
+        # Tap button mapping:
         if settings["touchpad-tap"] == "enabled":
             self.ui.lrm.setEnabled(True)
             self.ui.lmr.setEnabled(True)
