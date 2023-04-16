@@ -39,19 +39,11 @@ class Ui_MainWindow(object):
         self.tabWidget.setStyleSheet(u"combobox-popup: 0")
         self.KeyboardTab = QWidget()
         self.KeyboardTab.setObjectName(u"KeyboardTab")
-        self.verticalLayout_4 = QVBoxLayout(self.KeyboardTab)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.scrollArea_3 = QScrollArea(self.KeyboardTab)
-        self.scrollArea_3.setObjectName(u"scrollArea_3")
-        self.scrollArea_3.setWidgetResizable(True)
-        self.scrollAreaWidgetContents_4 = QWidget()
-        self.scrollAreaWidgetContents_4.setObjectName(u"scrollAreaWidgetContents_4")
-        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 573, 584))
-        self.gridLayout = QGridLayout(self.scrollAreaWidgetContents_4)
+        self.gridLayout = QGridLayout(self.KeyboardTab)
         self.gridLayout.setObjectName(u"gridLayout")
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.layouts = QTreeWidget(self.scrollAreaWidgetContents_4)
+        self.layouts = QTreeWidget(self.KeyboardTab)
         self.layouts.setObjectName(u"layouts")
         self.layouts.setDragEnabled(True)
         self.layouts.setDragDropMode(QAbstractItemView.InternalMove)
@@ -66,22 +58,22 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_5 = QVBoxLayout()
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.addBtn = QPushButton(self.scrollAreaWidgetContents_4)
+        self.addBtn = QPushButton(self.KeyboardTab)
         self.addBtn.setObjectName(u"addBtn")
 
         self.verticalLayout_5.addWidget(self.addBtn)
 
-        self.rmBtn = QPushButton(self.scrollAreaWidgetContents_4)
+        self.rmBtn = QPushButton(self.KeyboardTab)
         self.rmBtn.setObjectName(u"rmBtn")
 
         self.verticalLayout_5.addWidget(self.rmBtn)
 
-        self.upBtn = QPushButton(self.scrollAreaWidgetContents_4)
+        self.upBtn = QPushButton(self.KeyboardTab)
         self.upBtn.setObjectName(u"upBtn")
 
         self.verticalLayout_5.addWidget(self.upBtn)
 
-        self.downBtn = QPushButton(self.scrollAreaWidgetContents_4)
+        self.downBtn = QPushButton(self.KeyboardTab)
         self.downBtn.setObjectName(u"downBtn")
 
         self.verticalLayout_5.addWidget(self.downBtn)
@@ -95,45 +87,45 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.kbdID_label = QLabel(self.scrollAreaWidgetContents_4)
+        self.kbdID_label = QLabel(self.KeyboardTab)
         self.kbdID_label.setObjectName(u"kbdID_label")
 
         self.gridLayout_2.addWidget(self.kbdID_label, 0, 0, 1, 1)
 
-        self.kbdID = QComboBox(self.scrollAreaWidgetContents_4)
+        self.kbdID = QComboBox(self.KeyboardTab)
         self.kbdID.setObjectName(u"kbdID")
         self.kbdID.setStyleSheet(u"combobox-popup: 0")
 
         self.gridLayout_2.addWidget(self.kbdID, 0, 1, 1, 1)
 
-        self.kbdModel_label = QLabel(self.scrollAreaWidgetContents_4)
+        self.kbdModel_label = QLabel(self.KeyboardTab)
         self.kbdModel_label.setObjectName(u"kbdModel_label")
 
         self.gridLayout_2.addWidget(self.kbdModel_label, 1, 0, 1, 1)
 
-        self.kbdModel = QComboBox(self.scrollAreaWidgetContents_4)
+        self.kbdModel = QComboBox(self.KeyboardTab)
         self.kbdModel.setObjectName(u"kbdModel")
         self.kbdModel.setStyleSheet(u"combobox-popup: 0;")
 
         self.gridLayout_2.addWidget(self.kbdModel, 1, 1, 1, 1)
 
-        self.shortcutLabel = QLabel(self.scrollAreaWidgetContents_4)
+        self.shortcutLabel = QLabel(self.KeyboardTab)
         self.shortcutLabel.setObjectName(u"shortcutLabel")
 
         self.gridLayout_2.addWidget(self.shortcutLabel, 2, 0, 1, 1)
 
-        self.shortcutName = QComboBox(self.scrollAreaWidgetContents_4)
+        self.shortcutName = QComboBox(self.KeyboardTab)
         self.shortcutName.setObjectName(u"shortcutName")
         self.shortcutName.setStyleSheet(u"combobox-popup: 0;")
 
         self.gridLayout_2.addWidget(self.shortcutName, 2, 1, 1, 1)
 
-        self.repeatDelayLabel = QLabel(self.scrollAreaWidgetContents_4)
+        self.repeatDelayLabel = QLabel(self.KeyboardTab)
         self.repeatDelayLabel.setObjectName(u"repeatDelayLabel")
 
         self.gridLayout_2.addWidget(self.repeatDelayLabel, 3, 0, 1, 1)
 
-        self.repeatDelaySlider = QSlider(self.scrollAreaWidgetContents_4)
+        self.repeatDelaySlider = QSlider(self.KeyboardTab)
         self.repeatDelaySlider.setObjectName(u"repeatDelaySlider")
         self.repeatDelaySlider.setMinimum(1)
         self.repeatDelaySlider.setMaximum(6000)
@@ -142,19 +134,19 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.repeatDelaySlider, 3, 1, 1, 1)
 
-        self.repeatDelay = QSpinBox(self.scrollAreaWidgetContents_4)
+        self.repeatDelay = QSpinBox(self.KeyboardTab)
         self.repeatDelay.setObjectName(u"repeatDelay")
         self.repeatDelay.setMinimum(1)
         self.repeatDelay.setMaximum(6000)
 
         self.gridLayout_2.addWidget(self.repeatDelay, 3, 2, 1, 1)
 
-        self.repeatRateLabel = QLabel(self.scrollAreaWidgetContents_4)
+        self.repeatRateLabel = QLabel(self.KeyboardTab)
         self.repeatRateLabel.setObjectName(u"repeatRateLabel")
 
         self.gridLayout_2.addWidget(self.repeatRateLabel, 4, 0, 1, 1)
 
-        self.repeatRateSlider = QSlider(self.scrollAreaWidgetContents_4)
+        self.repeatRateSlider = QSlider(self.KeyboardTab)
         self.repeatRateSlider.setObjectName(u"repeatRateSlider")
         self.repeatRateSlider.setMinimum(1)
         self.repeatRateSlider.setMaximum(4000)
@@ -163,39 +155,35 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.repeatRateSlider, 4, 1, 1, 1)
 
-        self.repeatRate = QSpinBox(self.scrollAreaWidgetContents_4)
+        self.repeatRate = QSpinBox(self.KeyboardTab)
         self.repeatRate.setObjectName(u"repeatRate")
         self.repeatRate.setMinimum(1)
         self.repeatRate.setMaximum(4000)
 
         self.gridLayout_2.addWidget(self.repeatRate, 4, 2, 1, 1)
 
-        self.caps_lockLabel = QLabel(self.scrollAreaWidgetContents_4)
+        self.caps_lockLabel = QLabel(self.KeyboardTab)
         self.caps_lockLabel.setObjectName(u"caps_lockLabel")
 
         self.gridLayout_2.addWidget(self.caps_lockLabel, 5, 0, 1, 1)
 
-        self.caps_lock = QCheckBox(self.scrollAreaWidgetContents_4)
+        self.caps_lock = QCheckBox(self.KeyboardTab)
         self.caps_lock.setObjectName(u"caps_lock")
 
         self.gridLayout_2.addWidget(self.caps_lock, 5, 1, 1, 1)
 
-        self.num_lockLabel = QLabel(self.scrollAreaWidgetContents_4)
+        self.num_lockLabel = QLabel(self.KeyboardTab)
         self.num_lockLabel.setObjectName(u"num_lockLabel")
 
         self.gridLayout_2.addWidget(self.num_lockLabel, 6, 0, 1, 1)
 
-        self.num_lock = QCheckBox(self.scrollAreaWidgetContents_4)
+        self.num_lock = QCheckBox(self.KeyboardTab)
         self.num_lock.setObjectName(u"num_lock")
 
         self.gridLayout_2.addWidget(self.num_lock, 6, 1, 1, 1)
 
 
         self.gridLayout.addLayout(self.gridLayout_2, 1, 0, 1, 1)
-
-        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_4)
-
-        self.verticalLayout_4.addWidget(self.scrollArea_3)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
@@ -210,21 +198,27 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.addWidget(self.KeyBoardUseSettings)
 
 
-        self.verticalLayout_4.addLayout(self.horizontalLayout_3)
+        self.gridLayout.addLayout(self.horizontalLayout_3, 2, 0, 1, 2)
 
         self.tabWidget.addTab(self.KeyboardTab, "")
         self.PointerTab = QWidget()
         self.PointerTab.setObjectName(u"PointerTab")
-        self.verticalLayout_7 = QVBoxLayout(self.PointerTab)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.scrollArea_2 = QScrollArea(self.PointerTab)
-        self.scrollArea_2.setObjectName(u"scrollArea_2")
-        self.scrollArea_2.setWidgetResizable(True)
-        self.scrollAreaWidgetContents_2 = QWidget()
-        self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 573, 584))
-        self.verticalLayout_6 = QVBoxLayout(self.scrollAreaWidgetContents_2)
-        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.gridLayout_3 = QGridLayout(self.PointerTab)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_4.addItem(self.horizontalSpacer_4)
+
+        self.PointerUseSettings = QCheckBox(self.PointerTab)
+        self.PointerUseSettings.setObjectName(u"PointerUseSettings")
+
+        self.horizontalLayout_4.addWidget(self.PointerUseSettings)
+
+
+        self.gridLayout_3.addLayout(self.horizontalLayout_4, 2, 0, 1, 1)
+
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -233,38 +227,38 @@ class Ui_MainWindow(object):
 
         self.formLayout = QFormLayout()
         self.formLayout.setObjectName(u"formLayout")
-        self.pointerID_label = QLabel(self.scrollAreaWidgetContents_2)
+        self.pointerID_label = QLabel(self.PointerTab)
         self.pointerID_label.setObjectName(u"pointerID_label")
 
         self.formLayout.setWidget(0, QFormLayout.LabelRole, self.pointerID_label)
 
-        self.pointerID = QComboBox(self.scrollAreaWidgetContents_2)
+        self.pointerID = QComboBox(self.PointerTab)
         self.pointerID.setObjectName(u"pointerID")
         self.pointerID.setStyleSheet(u"combobox-popup: 0")
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.pointerID)
 
-        self.label = QLabel(self.scrollAreaWidgetContents_2)
+        self.label = QLabel(self.PointerTab)
         self.label.setObjectName(u"label")
 
         self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label)
 
-        self.pointerLeftHanded = QCheckBox(self.scrollAreaWidgetContents_2)
+        self.pointerLeftHanded = QCheckBox(self.PointerTab)
         self.pointerLeftHanded.setObjectName(u"pointerLeftHanded")
 
         self.formLayout.setWidget(1, QFormLayout.FieldRole, self.pointerLeftHanded)
 
-        self.pointerMiddle = QCheckBox(self.scrollAreaWidgetContents_2)
+        self.pointerMiddle = QCheckBox(self.PointerTab)
         self.pointerMiddle.setObjectName(u"pointerMiddle")
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.pointerMiddle)
 
-        self.label_2 = QLabel(self.scrollAreaWidgetContents_2)
+        self.label_2 = QLabel(self.PointerTab)
         self.label_2.setObjectName(u"label_2")
 
         self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label_2)
 
-        self.pointerAccel = QSlider(self.scrollAreaWidgetContents_2)
+        self.pointerAccel = QSlider(self.PointerTab)
         self.pointerAccel.setObjectName(u"pointerAccel")
         self.pointerAccel.setMinimum(-10)
         self.pointerAccel.setMaximum(10)
@@ -275,37 +269,37 @@ class Ui_MainWindow(object):
 
         self.formLayout.setWidget(3, QFormLayout.FieldRole, self.pointerAccel)
 
-        self.label_3 = QLabel(self.scrollAreaWidgetContents_2)
+        self.label_3 = QLabel(self.PointerTab)
         self.label_3.setObjectName(u"label_3")
 
         self.formLayout.setWidget(4, QFormLayout.LabelRole, self.label_3)
 
-        self.pointerFlat = QRadioButton(self.scrollAreaWidgetContents_2)
+        self.pointerFlat = QRadioButton(self.PointerTab)
         self.pointerFlat.setObjectName(u"pointerFlat")
 
         self.formLayout.setWidget(4, QFormLayout.FieldRole, self.pointerFlat)
 
-        self.pointerAdaptive = QRadioButton(self.scrollAreaWidgetContents_2)
+        self.pointerAdaptive = QRadioButton(self.PointerTab)
         self.pointerAdaptive.setObjectName(u"pointerAdaptive")
 
         self.formLayout.setWidget(5, QFormLayout.FieldRole, self.pointerAdaptive)
 
-        self.label_4 = QLabel(self.scrollAreaWidgetContents_2)
+        self.label_4 = QLabel(self.PointerTab)
         self.label_4.setObjectName(u"label_4")
 
         self.formLayout.setWidget(6, QFormLayout.LabelRole, self.label_4)
 
-        self.pointerNatScroll = QCheckBox(self.scrollAreaWidgetContents_2)
+        self.pointerNatScroll = QCheckBox(self.PointerTab)
         self.pointerNatScroll.setObjectName(u"pointerNatScroll")
 
         self.formLayout.setWidget(6, QFormLayout.FieldRole, self.pointerNatScroll)
 
-        self.label_5 = QLabel(self.scrollAreaWidgetContents_2)
+        self.label_5 = QLabel(self.PointerTab)
         self.label_5.setObjectName(u"label_5")
 
         self.formLayout.setWidget(7, QFormLayout.LabelRole, self.label_5)
 
-        self.pointerScrollFactor = QSlider(self.scrollAreaWidgetContents_2)
+        self.pointerScrollFactor = QSlider(self.PointerTab)
         self.pointerScrollFactor.setObjectName(u"pointerScrollFactor")
         self.pointerScrollFactor.setMinimum(1)
         self.pointerScrollFactor.setMaximum(100)
@@ -329,29 +323,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.addItem(self.horizontalSpacer_2)
 
 
-        self.verticalLayout_6.addLayout(self.horizontalLayout_6)
+        self.gridLayout_3.addLayout(self.horizontalLayout_6, 0, 0, 1, 1)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.verticalLayout_6.addItem(self.verticalSpacer_2)
-
-        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
-
-        self.verticalLayout_7.addWidget(self.scrollArea_2)
-
-        self.horizontalLayout_4 = QHBoxLayout()
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        self.horizontalLayout_4.addItem(self.horizontalSpacer_4)
-
-        self.PointerUseSettings = QCheckBox(self.PointerTab)
-        self.PointerUseSettings.setObjectName(u"PointerUseSettings")
-
-        self.horizontalLayout_4.addWidget(self.PointerUseSettings)
-
-
-        self.verticalLayout_7.addLayout(self.horizontalLayout_4)
+        self.gridLayout_3.addItem(self.verticalSpacer_2, 1, 0, 1, 1)
 
         self.tabWidget.addTab(self.PointerTab, "")
         self.TouchpadTab = QWidget()
@@ -363,7 +339,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 573, 584))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 579, 580))
         self.verticalLayout_2 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.horizontalLayout_8 = QHBoxLayout()
@@ -621,6 +597,7 @@ class Ui_MainWindow(object):
         self.num_lock.setText("")
         self.KeyBoardUseSettings.setText(QCoreApplication.translate("MainWindow", u"Use this settings", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.KeyboardTab), QCoreApplication.translate("MainWindow", u"Keyboard", None))
+        self.PointerUseSettings.setText(QCoreApplication.translate("MainWindow", u"Use this settings", None))
 #if QT_CONFIG(tooltip)
         self.pointerID_label.setToolTip("")
 #endif // QT_CONFIG(tooltip)
@@ -659,7 +636,6 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.pointerScrollFactor.setToolTip(QCoreApplication.translate("MainWindow", u"Scroll speed will be scaled by the given value.", None))
 #endif // QT_CONFIG(tooltip)
-        self.PointerUseSettings.setText(QCoreApplication.translate("MainWindow", u"Use this settings", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.PointerTab), QCoreApplication.translate("MainWindow", u"Pointer device", None))
         self.touchpadID_label.setText(QCoreApplication.translate("MainWindow", u"Touchpad ID:", None))
 #if QT_CONFIG(tooltip)
