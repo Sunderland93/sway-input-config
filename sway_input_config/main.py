@@ -787,8 +787,7 @@ def load_settings():
             save_json(settings, settings_file)
     else:
         print("Loading default settings")
-        defaults = load_json(default_settings)
-        save_json(defaults, settings_file)
+        copy2(os.path.join(dir_name, "data/defaults.json"), os.path.join(data_dir, "settings"))
         settings = load_json(settings_file)
 
 
