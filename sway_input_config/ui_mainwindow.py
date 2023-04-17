@@ -340,7 +340,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 583, 584))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 562, 638))
         self.verticalLayout_2 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.horizontalLayout_8 = QHBoxLayout()
@@ -364,32 +364,32 @@ class Ui_MainWindow(object):
         self.label_6 = QLabel(self.scrollAreaWidgetContents)
         self.label_6.setObjectName(u"label_6")
 
-        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.label_6)
+        self.formLayout_2.setWidget(4, QFormLayout.LabelRole, self.label_6)
 
         self.DWT = QCheckBox(self.scrollAreaWidgetContents)
         self.DWT.setObjectName(u"DWT")
 
-        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.DWT)
+        self.formLayout_2.setWidget(4, QFormLayout.FieldRole, self.DWT)
 
         self.DWTP = QCheckBox(self.scrollAreaWidgetContents)
         self.DWTP.setObjectName(u"DWTP")
 
-        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.DWTP)
+        self.formLayout_2.setWidget(5, QFormLayout.FieldRole, self.DWTP)
 
         self.touchLeftHanded = QCheckBox(self.scrollAreaWidgetContents)
         self.touchLeftHanded.setObjectName(u"touchLeftHanded")
 
-        self.formLayout_2.setWidget(3, QFormLayout.FieldRole, self.touchLeftHanded)
+        self.formLayout_2.setWidget(6, QFormLayout.FieldRole, self.touchLeftHanded)
 
         self.touchMiddle = QCheckBox(self.scrollAreaWidgetContents)
         self.touchMiddle.setObjectName(u"touchMiddle")
 
-        self.formLayout_2.setWidget(4, QFormLayout.FieldRole, self.touchMiddle)
+        self.formLayout_2.setWidget(7, QFormLayout.FieldRole, self.touchMiddle)
 
         self.label_7 = QLabel(self.scrollAreaWidgetContents)
         self.label_7.setObjectName(u"label_7")
 
-        self.formLayout_2.setWidget(5, QFormLayout.LabelRole, self.label_7)
+        self.formLayout_2.setWidget(8, QFormLayout.LabelRole, self.label_7)
 
         self.touchAccel = QSlider(self.scrollAreaWidgetContents)
         self.touchAccel.setObjectName(u"touchAccel")
@@ -400,92 +400,100 @@ class Ui_MainWindow(object):
         self.touchAccel.setTickPosition(QSlider.TicksBelow)
         self.touchAccel.setTickInterval(1)
 
-        self.formLayout_2.setWidget(5, QFormLayout.FieldRole, self.touchAccel)
+        self.formLayout_2.setWidget(8, QFormLayout.FieldRole, self.touchAccel)
 
         self.label_8 = QLabel(self.scrollAreaWidgetContents)
         self.label_8.setObjectName(u"label_8")
 
-        self.formLayout_2.setWidget(6, QFormLayout.LabelRole, self.label_8)
+        self.formLayout_2.setWidget(9, QFormLayout.LabelRole, self.label_8)
 
         self.touchFlat = QRadioButton(self.scrollAreaWidgetContents)
         self.touchFlat.setObjectName(u"touchFlat")
+        self.touchFlat.setAutoExclusive(True)
 
-        self.formLayout_2.setWidget(6, QFormLayout.FieldRole, self.touchFlat)
+        self.formLayout_2.setWidget(9, QFormLayout.FieldRole, self.touchFlat)
 
         self.touchAdaptive = QRadioButton(self.scrollAreaWidgetContents)
         self.touchAdaptive.setObjectName(u"touchAdaptive")
+        self.touchAdaptive.setAutoExclusive(True)
 
-        self.formLayout_2.setWidget(7, QFormLayout.FieldRole, self.touchAdaptive)
+        self.formLayout_2.setWidget(10, QFormLayout.FieldRole, self.touchAdaptive)
 
         self.label_9 = QLabel(self.scrollAreaWidgetContents)
         self.label_9.setObjectName(u"label_9")
 
-        self.formLayout_2.setWidget(8, QFormLayout.LabelRole, self.label_9)
+        self.formLayout_2.setWidget(11, QFormLayout.LabelRole, self.label_9)
 
         self.tap_click = QCheckBox(self.scrollAreaWidgetContents)
         self.tap_click.setObjectName(u"tap_click")
 
-        self.formLayout_2.setWidget(8, QFormLayout.FieldRole, self.tap_click)
+        self.formLayout_2.setWidget(11, QFormLayout.FieldRole, self.tap_click)
 
         self.drag = QCheckBox(self.scrollAreaWidgetContents)
         self.drag.setObjectName(u"drag")
 
-        self.formLayout_2.setWidget(9, QFormLayout.FieldRole, self.drag)
+        self.formLayout_2.setWidget(12, QFormLayout.FieldRole, self.drag)
 
         self.drag_lock = QCheckBox(self.scrollAreaWidgetContents)
         self.drag_lock.setObjectName(u"drag_lock")
 
-        self.formLayout_2.setWidget(10, QFormLayout.FieldRole, self.drag_lock)
+        self.formLayout_2.setWidget(13, QFormLayout.FieldRole, self.drag_lock)
 
         self.label_10 = QLabel(self.scrollAreaWidgetContents)
         self.label_10.setObjectName(u"label_10")
 
-        self.formLayout_2.setWidget(11, QFormLayout.LabelRole, self.label_10)
+        self.formLayout_2.setWidget(14, QFormLayout.LabelRole, self.label_10)
 
         self.lrm = QRadioButton(self.scrollAreaWidgetContents)
         self.lrm.setObjectName(u"lrm")
+        self.lrm.setAutoExclusive(True)
 
-        self.formLayout_2.setWidget(11, QFormLayout.FieldRole, self.lrm)
+        self.formLayout_2.setWidget(14, QFormLayout.FieldRole, self.lrm)
 
         self.lmr = QRadioButton(self.scrollAreaWidgetContents)
         self.lmr.setObjectName(u"lmr")
+        self.lmr.setAutoExclusive(True)
 
-        self.formLayout_2.setWidget(12, QFormLayout.FieldRole, self.lmr)
+        self.formLayout_2.setWidget(15, QFormLayout.FieldRole, self.lmr)
 
         self.label_11 = QLabel(self.scrollAreaWidgetContents)
         self.label_11.setObjectName(u"label_11")
 
-        self.formLayout_2.setWidget(13, QFormLayout.LabelRole, self.label_11)
+        self.formLayout_2.setWidget(16, QFormLayout.LabelRole, self.label_11)
 
         self.method1 = QRadioButton(self.scrollAreaWidgetContents)
         self.method1.setObjectName(u"method1")
+        self.method1.setAutoExclusive(True)
 
-        self.formLayout_2.setWidget(13, QFormLayout.FieldRole, self.method1)
+        self.formLayout_2.setWidget(16, QFormLayout.FieldRole, self.method1)
 
         self.method2 = QRadioButton(self.scrollAreaWidgetContents)
         self.method2.setObjectName(u"method2")
+        self.method2.setAutoExclusive(True)
 
-        self.formLayout_2.setWidget(14, QFormLayout.FieldRole, self.method2)
+        self.formLayout_2.setWidget(17, QFormLayout.FieldRole, self.method2)
 
         self.method3 = QRadioButton(self.scrollAreaWidgetContents)
         self.method3.setObjectName(u"method3")
+        self.method3.setAutoExclusive(True)
 
-        self.formLayout_2.setWidget(15, QFormLayout.FieldRole, self.method3)
+        self.formLayout_2.setWidget(18, QFormLayout.FieldRole, self.method3)
 
         self.method4 = QRadioButton(self.scrollAreaWidgetContents)
         self.method4.setObjectName(u"method4")
+        self.method4.setAutoExclusive(True)
 
-        self.formLayout_2.setWidget(16, QFormLayout.FieldRole, self.method4)
+        self.formLayout_2.setWidget(19, QFormLayout.FieldRole, self.method4)
 
         self.touchNatScroll = QCheckBox(self.scrollAreaWidgetContents)
         self.touchNatScroll.setObjectName(u"touchNatScroll")
 
-        self.formLayout_2.setWidget(17, QFormLayout.FieldRole, self.touchNatScroll)
+        self.formLayout_2.setWidget(20, QFormLayout.FieldRole, self.touchNatScroll)
 
         self.label_12 = QLabel(self.scrollAreaWidgetContents)
         self.label_12.setObjectName(u"label_12")
 
-        self.formLayout_2.setWidget(18, QFormLayout.LabelRole, self.label_12)
+        self.formLayout_2.setWidget(21, QFormLayout.LabelRole, self.label_12)
 
         self.touchScrollFactor = QSlider(self.scrollAreaWidgetContents)
         self.touchScrollFactor.setObjectName(u"touchScrollFactor")
@@ -496,7 +504,30 @@ class Ui_MainWindow(object):
         self.touchScrollFactor.setTickPosition(QSlider.TicksBelow)
         self.touchScrollFactor.setTickInterval(9)
 
-        self.formLayout_2.setWidget(18, QFormLayout.FieldRole, self.touchScrollFactor)
+        self.formLayout_2.setWidget(21, QFormLayout.FieldRole, self.touchScrollFactor)
+
+        self.eventLabel = QLabel(self.scrollAreaWidgetContents)
+        self.eventLabel.setObjectName(u"eventLabel")
+
+        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.eventLabel)
+
+        self.touchEventsEnabled = QRadioButton(self.scrollAreaWidgetContents)
+        self.touchEventsEnabled.setObjectName(u"touchEventsEnabled")
+        self.touchEventsEnabled.setAutoExclusive(True)
+
+        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.touchEventsEnabled)
+
+        self.touchEventsDisabled = QRadioButton(self.scrollAreaWidgetContents)
+        self.touchEventsDisabled.setObjectName(u"touchEventsDisabled")
+        self.touchEventsDisabled.setAutoExclusive(True)
+
+        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.touchEventsDisabled)
+
+        self.touchEventsOnExternalMouse = QRadioButton(self.scrollAreaWidgetContents)
+        self.touchEventsOnExternalMouse.setObjectName(u"touchEventsOnExternalMouse")
+        self.touchEventsOnExternalMouse.setAutoExclusive(True)
+
+        self.formLayout_2.setWidget(3, QFormLayout.FieldRole, self.touchEventsOnExternalMouse)
 
 
         self.horizontalLayout_8.addLayout(self.formLayout_2)
@@ -692,6 +723,19 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.touchScrollFactor.setToolTip(QCoreApplication.translate("MainWindow", u"Scroll speed will be scaled by the given value.", None))
 #endif // QT_CONFIG(tooltip)
+        self.eventLabel.setText(QCoreApplication.translate("MainWindow", u"Enable/disable touchpad events:", None))
+#if QT_CONFIG(tooltip)
+        self.touchEventsEnabled.setToolTip(QCoreApplication.translate("MainWindow", u"Send events normally", None))
+#endif // QT_CONFIG(tooltip)
+        self.touchEventsEnabled.setText(QCoreApplication.translate("MainWindow", u"Enable", None))
+#if QT_CONFIG(tooltip)
+        self.touchEventsDisabled.setToolTip(QCoreApplication.translate("MainWindow", u"Touchpad only stops sending events but not get fully disabled", None))
+#endif // QT_CONFIG(tooltip)
+        self.touchEventsDisabled.setText(QCoreApplication.translate("MainWindow", u"Disable", None))
+#if QT_CONFIG(tooltip)
+        self.touchEventsOnExternalMouse.setToolTip(QCoreApplication.translate("MainWindow", u"Disable touchpad while an external mouse is plugged in", None))
+#endif // QT_CONFIG(tooltip)
+        self.touchEventsOnExternalMouse.setText(QCoreApplication.translate("MainWindow", u"Disable when external mouse is plugged in", None))
         self.TouchPadUseSettings.setText(QCoreApplication.translate("MainWindow", u"Use this settings", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TouchpadTab), QCoreApplication.translate("MainWindow", u"Touchpad", None))
     # retranslateUi

@@ -604,8 +604,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>583</width>
-             <height>584</height>
+             <width>562</width>
+             <height>638</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -640,14 +640,14 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_6">
                   <property name="text">
                    <string>General:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
+                <item row="4" column="1">
                  <widget class="QCheckBox" name="DWT">
                   <property name="toolTip">
                    <string>Disables touchpad while typing the text</string>
@@ -657,7 +657,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
+                <item row="5" column="1">
                  <widget class="QCheckBox" name="DWTP">
                   <property name="toolTip">
                    <string>Disables touchpad while using trackpoint device</string>
@@ -667,7 +667,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="6" column="1">
                  <widget class="QCheckBox" name="touchLeftHanded">
                   <property name="toolTip">
                    <string>Enables or disables left handed mode.</string>
@@ -677,7 +677,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
+                <item row="7" column="1">
                  <widget class="QCheckBox" name="touchMiddle">
                   <property name="toolTip">
                    <string>Enables or disables middle click emulation.</string>
@@ -687,14 +687,14 @@
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0">
+                <item row="8" column="0">
                  <widget class="QLabel" name="label_7">
                   <property name="text">
                    <string>Pointer speed:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
+                <item row="8" column="1">
                  <widget class="QSlider" name="touchAccel">
                   <property name="toolTip">
                    <string>Changes the pointer acceleration.</string>
@@ -719,14 +719,14 @@
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="0">
+                <item row="9" column="0">
                  <widget class="QLabel" name="label_8">
                   <property name="text">
                    <string>Acceleration profile:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
+                <item row="9" column="1">
                  <widget class="QRadioButton" name="touchFlat">
                   <property name="toolTip">
                    <string>Cursor moves the same distance as the mouse movement.</string>
@@ -734,9 +734,12 @@
                   <property name="text">
                    <string>Flat</string>
                   </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
-                <item row="7" column="1">
+                <item row="10" column="1">
                  <widget class="QRadioButton" name="touchAdaptive">
                   <property name="toolTip">
                    <string>Cursor travel distance depends on the mouse movement speed.</string>
@@ -744,93 +747,114 @@
                   <property name="text">
                    <string>Adaptive</string>
                   </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
-                <item row="8" column="0">
+                <item row="11" column="0">
                  <widget class="QLabel" name="label_9">
                   <property name="text">
                    <string>Mouse buttons emulation:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="1">
+                <item row="11" column="1">
                  <widget class="QCheckBox" name="tap_click">
                   <property name="text">
                    <string>Tap-to-click</string>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="1">
+                <item row="12" column="1">
                  <widget class="QCheckBox" name="drag">
                   <property name="text">
                    <string>Tap-and-drag</string>
                   </property>
                  </widget>
                 </item>
-                <item row="10" column="1">
+                <item row="13" column="1">
                  <widget class="QCheckBox" name="drag_lock">
                   <property name="text">
                    <string>Tap-and-drag lock</string>
                   </property>
                  </widget>
                 </item>
-                <item row="11" column="0">
+                <item row="14" column="0">
                  <widget class="QLabel" name="label_10">
                   <property name="text">
                    <string>Tap button mapping:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="11" column="1">
+                <item row="14" column="1">
                  <widget class="QRadioButton" name="lrm">
                   <property name="text">
                    <string>Two fingers - right click, three middle</string>
                   </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
-                <item row="12" column="1">
+                <item row="15" column="1">
                  <widget class="QRadioButton" name="lmr">
                   <property name="text">
                    <string>Two fingers - middle click, three right</string>
                   </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
-                <item row="13" column="0">
+                <item row="16" column="0">
                  <widget class="QLabel" name="label_11">
                   <property name="text">
                    <string>Scrolling:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="13" column="1">
+                <item row="16" column="1">
                  <widget class="QRadioButton" name="method1">
                   <property name="text">
                    <string>Two fingers</string>
                   </property>
-                 </widget>
-                </item>
-                <item row="14" column="1">
-                 <widget class="QRadioButton" name="method2">
-                  <property name="text">
-                   <string>Touchpad edges</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="15" column="1">
-                 <widget class="QRadioButton" name="method3">
-                  <property name="text">
-                   <string>On button down</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="16" column="1">
-                 <widget class="QRadioButton" name="method4">
-                  <property name="text">
-                   <string>No scroll</string>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
                 <item row="17" column="1">
+                 <widget class="QRadioButton" name="method2">
+                  <property name="text">
+                   <string>Touchpad edges</string>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="18" column="1">
+                 <widget class="QRadioButton" name="method3">
+                  <property name="text">
+                   <string>On button down</string>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="19" column="1">
+                 <widget class="QRadioButton" name="method4">
+                  <property name="text">
+                   <string>No scroll</string>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="20" column="1">
                  <widget class="QCheckBox" name="touchNatScroll">
                   <property name="toolTip">
                    <string>Touchscreen like scrolling.</string>
@@ -840,14 +864,14 @@
                   </property>
                  </widget>
                 </item>
-                <item row="18" column="0">
+                <item row="21" column="0">
                  <widget class="QLabel" name="label_12">
                   <property name="text">
                    <string>Scrolling speed:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="18" column="1">
+                <item row="21" column="1">
                  <widget class="QSlider" name="touchScrollFactor">
                   <property name="toolTip">
                    <string>Scroll speed will be scaled by the given value.</string>
@@ -869,6 +893,52 @@
                   </property>
                   <property name="tickInterval">
                    <number>9</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="eventLabel">
+                  <property name="text">
+                   <string>Enable/disable touchpad events:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QRadioButton" name="touchEventsEnabled">
+                  <property name="toolTip">
+                   <string>Send events normally</string>
+                  </property>
+                  <property name="text">
+                   <string>Enable</string>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QRadioButton" name="touchEventsDisabled">
+                  <property name="toolTip">
+                   <string>Touchpad only stops sending events but not get fully disabled</string>
+                  </property>
+                  <property name="text">
+                   <string>Disable</string>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QRadioButton" name="touchEventsOnExternalMouse">
+                  <property name="toolTip">
+                   <string>Disable touchpad while an external mouse is plugged in</string>
+                  </property>
+                  <property name="text">
+                   <string>Disable when external mouse is plugged in</string>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>

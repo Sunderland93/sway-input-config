@@ -5,7 +5,7 @@ import os
 import sys
 from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
                                QDialog, QTreeWidgetItem, QListWidgetItem,
-                               QListView)
+                               QListView, QButtonGroup)
 from PySide2.QtGui import QPixmap
 from PySide2.QtCore import Qt, QTranslator, QLocale, QLibraryInfo
 from shutil import copy2
@@ -173,6 +173,9 @@ class MainWindow(QMainWindow):
         self.ui.pointerAccel.valueChanged.connect(self.on_accel_value_changed)
 
         # Acceleration profile
+        self.pointerAccelButtonGroup = QButtonGroup()
+        self.pointerAccelButtonGroup.addButton(self.ui.pointerFlat)
+        self.pointerAccelButtonGroup.addButton(self.ui.pointerAdaptive)
         if settings["pointer-accel-profile"] == "flat":
             self.ui.pointerFlat.setChecked(True)
         else:
@@ -208,6 +211,21 @@ class MainWindow(QMainWindow):
         self.ui.touchpadID.setCurrentText(settings["touchpad-identifier"])
         self.ui.touchpadID.activated.connect(self.set_touchpad_identifier)
 
+        # Touchapd send events mode:
+        self.eventsButtonGroup = QButtonGroup()
+        self.eventsButtonGroup.addButton(self.ui.touchEventsEnabled)
+        self.eventsButtonGroup.addButton(self.ui.touchEventsDisabled)
+        self.eventsButtonGroup.addButton(self.ui.touchEventsOnExternalMouse)
+        if settings["touchpad-events"] == "disabled":
+            self.ui.touchEventsDisabled.setChecked(True)
+        elif settings["touchpad-events"] == "disabled_on_external_mouse":
+            self.ui.touchEventsOnExternalMouse.setChecked(True)
+        else:
+            self.ui.touchEventsEnabled.setChecked(True)
+        self.ui.touchEventsEnabled.clicked.connect(self.on_touchpad_events_mode_changed)
+        self.ui.touchEventsDisabled.clicked.connect(self.on_touchpad_events_mode_changed)
+        self.ui.touchEventsOnExternalMouse.clicked.connect(self.on_touchpad_events_mode_changed)
+
         # Disable while typing
         if settings["touchpad-dwt"] == "enabled":
             self.ui.DWT.setChecked(True)
@@ -236,6 +254,9 @@ class MainWindow(QMainWindow):
         self.ui.touchAccel.valueChanged.connect(self.on_touch_accel_value_changed)
 
         # Acceleration profile
+        self.touchAccelButtonGroup = QButtonGroup()
+        self.touchAccelButtonGroup.addButton(self.ui.touchFlat)
+        self.touchAccelButtonGroup.addButton(self.ui.touchAdaptive)
         if settings["touchpad-accel-profile"] == "flat":
             self.ui.touchFlat.setChecked(True)
         else:
@@ -267,6 +288,9 @@ class MainWindow(QMainWindow):
         self.ui.drag_lock.toggled.connect(self.on_draglock_checked)
 
         # Tap button mapping:
+        self.mappingButtonGroup = QButtonGroup()
+        self.mappingButtonGroup.addButton(self.ui.lmr)
+        self.mappingButtonGroup.addButton(self.ui.lrm)
         if settings["touchpad-tap"] == "enabled":
             self.ui.lrm.setEnabled(True)
             self.ui.lmr.setEnabled(True)
@@ -281,6 +305,11 @@ class MainWindow(QMainWindow):
         self.ui.lmr.clicked.connect(self.on_multi_tap_checked)
 
         # Scrolling method
+        self.scrollingButtonGroup = QButtonGroup()
+        self.scrollingButtonGroup.addButton(self.ui.method1)
+        self.scrollingButtonGroup.addButton(self.ui.method2)
+        self.scrollingButtonGroup.addButton(self.ui.method3)
+        self.scrollingButtonGroup.addButton(self.ui.method4)
         if settings["touchpad-scroll-method"] == "two_finger":
             self.ui.method1.setChecked(True)
         elif settings["touchpad-scroll-method"] == "edge":
@@ -349,8 +378,9 @@ class MainWindow(QMainWindow):
         self.ui.pointerScrollFactor.setValue(float(defaults["pointer-scroll-factor"]) * 10)
 
         self.ui.touchpadID.setCurrentText(defaults["touchpad-identifier"])
+        self.ui.touchEventsEnabled.setChecked(True)
         self.ui.DWT.setChecked(True)
-        self.ui.DWTP.setChecked(True)
+        self.ui.DWTP.setChecked(False)
         self.ui.touchLeftHanded.setChecked(False)
         self.ui.touchMiddle.setChecked(True)
         self.ui.touchAccel.setValue(float(defaults["touchpad-pointer-accel"]) * 10)
@@ -492,6 +522,14 @@ class MainWindow(QMainWindow):
 
     def set_touchpad_identifier(self):
         settings["touchpad-identifier"] = self.ui.touchpadID.currentText()
+
+    def on_touchpad_events_mode_changed(self):
+        if self.ui.touchEventsDisabled.isChecked() is True:
+            settings["touchpad-events"] = "disabled"
+        elif self.ui.touchEventsOnExternalMouse.isChecked() is True:
+            settings["touchpad-events"] = "disabled_on_external_mouse"
+        else:
+            settings["touchpad-events"] = "enabled"
 
     def on_dwt_checked(self):
         if self.ui.DWT.isChecked():
@@ -731,6 +769,7 @@ def save_to_config():
     if settings["touchpad-use-settings"] == "true":
         lines = ['input "type:touchpad" {'] if not settings["touchpad-identifier"] else [
             'input "%s" {' % settings["touchpad-identifier"]]
+        lines.append('  events {}'.format(settings["touchpad-events"])),
         lines.append('  accel_profile {}'.format(settings["touchpad-accel-profile"])),
         lines.append('  pointer_accel {}'.format(settings["touchpad-pointer-accel"])),
         lines.append('  natural_scroll {}'.format(settings["touchpad-natural-scroll"])),
