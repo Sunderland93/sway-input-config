@@ -4,7 +4,7 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../main.py" line="643"/>
+        <location filename="../main.py" line="698"/>
         <source>Version: </source>
         <translation>Версия: </translation>
     </message>
@@ -154,90 +154,90 @@
         <translation>Клавиатура</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="676"/>
+        <location filename="../ui_mainwindow.py" line="689"/>
         <source>General:</source>
         <translation>Общие:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="690"/>
+        <location filename="../ui_mainwindow.py" line="703"/>
         <source>Enables or disables middle click emulation.</source>
         <translation>Включает или выключает эмуляцию
 клика средней кнопкой мыши.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="692"/>
+        <location filename="../ui_mainwindow.py" line="705"/>
         <source>Press left and right buttons for middle click</source>
         <translation>Нажатие левой и правой кнопок
 для эмуляции среднего клика</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="693"/>
+        <location filename="../ui_mainwindow.py" line="706"/>
         <source>Pointer speed:</source>
         <translation>Скорость указателя:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="695"/>
+        <location filename="../ui_mainwindow.py" line="708"/>
         <source>Changes the pointer acceleration.</source>
         <translation>Изменяет ускорение указателя.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="697"/>
+        <location filename="../ui_mainwindow.py" line="710"/>
         <source>Acceleration profile:</source>
         <translation>Профиль ускорения:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="699"/>
+        <location filename="../ui_mainwindow.py" line="712"/>
         <source>Cursor moves the same distance as the mouse movement.</source>
         <translation>Курсор перемещается на то же расстояние, что и мышь.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="701"/>
+        <location filename="../ui_mainwindow.py" line="714"/>
         <source>Flat</source>
         <translation>Плоский</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="703"/>
+        <location filename="../ui_mainwindow.py" line="716"/>
         <source>Cursor travel distance depends on the mouse movement speed.</source>
         <translation>Расстояние перемещения курсора зависит
 от скорости движения мыши.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="705"/>
+        <location filename="../ui_mainwindow.py" line="718"/>
         <source>Adaptive</source>
         <translation>Адаптивный</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="713"/>
+        <location filename="../ui_mainwindow.py" line="726"/>
         <source>Scrolling:</source>
         <translation>Прокрутка:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="719"/>
+        <location filename="../ui_mainwindow.py" line="732"/>
         <source>Touchscreen like scrolling.</source>
         <translation>Прокрутка как на сенсорных экранах.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="721"/>
+        <location filename="../ui_mainwindow.py" line="734"/>
         <source>Invert scroll direction</source>
         <translation>Изменить направление прокрутки</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="722"/>
+        <location filename="../ui_mainwindow.py" line="735"/>
         <source>Scrolling speed:</source>
         <translation>Скорость прокрутки:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="724"/>
+        <location filename="../ui_mainwindow.py" line="737"/>
         <source>Scroll speed will be scaled by the given value.</source>
         <translation>Скорость прокрутки будет увеличена на указанное значение.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="686"/>
+        <location filename="../ui_mainwindow.py" line="699"/>
         <source>Enables or disables left handed mode.</source>
         <translation>Включает или выключает режим для левшей.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="688"/>
+        <location filename="../ui_mainwindow.py" line="701"/>
         <source>Left handed mode</source>
         <translation>Для левшей</translation>
     </message>
@@ -252,62 +252,62 @@
         <translation>Указывающее устройство</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="678"/>
+        <location filename="../ui_mainwindow.py" line="691"/>
         <source>Disables touchpad while typing the text</source>
         <translation>Отключает тачпад при наборе текста</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="680"/>
+        <location filename="../ui_mainwindow.py" line="693"/>
         <source>Disable while typing</source>
         <translation>Отключать при вводе</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="706"/>
+        <location filename="../ui_mainwindow.py" line="719"/>
         <source>Mouse buttons emulation:</source>
         <translation>Эмуляция кнопок мыши:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="707"/>
+        <location filename="../ui_mainwindow.py" line="720"/>
         <source>Tap-to-click</source>
         <translation>Касание для клика</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="708"/>
+        <location filename="../ui_mainwindow.py" line="721"/>
         <source>Tap-and-drag</source>
         <translation>Касание и перетаскивание</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="709"/>
+        <location filename="../ui_mainwindow.py" line="722"/>
         <source>Tap-and-drag lock</source>
         <translation>Удерживать при касании с перетаскиванием</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="714"/>
+        <location filename="../ui_mainwindow.py" line="727"/>
         <source>Two fingers</source>
         <translation>Двумя пальцами</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="715"/>
+        <location filename="../ui_mainwindow.py" line="728"/>
         <source>Touchpad edges</source>
         <translation>По краям тачпада</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="716"/>
+        <location filename="../ui_mainwindow.py" line="729"/>
         <source>On button down</source>
         <translation>По кнопке</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="717"/>
+        <location filename="../ui_mainwindow.py" line="730"/>
         <source>No scroll</source>
         <translation>Без прокрутки</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="682"/>
+        <location filename="../ui_mainwindow.py" line="695"/>
         <source>Disables touchpad while using trackpoint device</source>
         <translation>Отключает тачпад при использовании трекпоинта</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="684"/>
+        <location filename="../ui_mainwindow.py" line="697"/>
         <source>Disable while trackpointing</source>
         <translation>Отключать при использовании трекпоинта</translation>
     </message>
@@ -332,61 +332,61 @@
         <translation>Идентификатор указывающего устройства</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="710"/>
+        <location filename="../ui_mainwindow.py" line="723"/>
         <source>Tap button mapping:</source>
         <translation>Разметка кнопок касания:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="711"/>
+        <location filename="../ui_mainwindow.py" line="724"/>
         <source>Two fingers - right click, three middle</source>
         <translation>Двумя пальцами - правый клик, тремя средний</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="712"/>
+        <location filename="../ui_mainwindow.py" line="725"/>
         <source>Two fingers - middle click, three right</source>
         <translation>Двумя пальцами - средний клик, тремя правый</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="726"/>
-        <source>Enable/disable touchpad events:</source>
-        <translation>Включение/отключение событий тачпада:</translation>
-    </message>
-    <message>
-        <location filename="../ui_mainwindow.py" line="730"/>
-        <source>Enable</source>
-        <translation>Включить</translation>
-    </message>
-    <message>
-        <location filename="../ui_mainwindow.py" line="734"/>
-        <source>Disable</source>
-        <translation>Выключить</translation>
-    </message>
-    <message>
-        <location filename="../ui_mainwindow.py" line="738"/>
-        <source>Disable when external mouse is plugged in</source>
-        <translation>Выключить при подключении внешней мыши</translation>
-    </message>
-    <message>
-        <location filename="../ui_mainwindow.py" line="728"/>
+        <location filename="../ui_mainwindow.py" line="678"/>
         <source>Send events normally</source>
         <translation>Отправка событий в обычном режиме</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="732"/>
+        <location filename="../ui_mainwindow.py" line="682"/>
         <source>Touchpad only stops sending events but not get fully disabled</source>
-        <translation type="unfinished">Тачпад только перестает отправлять события,
+        <translation>Тачпад только перестает отправлять события,
 но не отключается полностью</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="736"/>
+        <location filename="../ui_mainwindow.py" line="686"/>
         <source>Disable touchpad while an external mouse is plugged in</source>
-        <translation>Отключить тачпад пока подключена внешняя мышь</translation>
+        <translation>Отключать тачпад пока подключена внешняя мышь</translation>
+    </message>
+    <message>
+        <location filename="../ui_mainwindow.py" line="680"/>
+        <source>Enable</source>
+        <translation>Включить</translation>
+    </message>
+    <message>
+        <location filename="../ui_mainwindow.py" line="684"/>
+        <source>Disable</source>
+        <translation>Отключить</translation>
+    </message>
+    <message>
+        <location filename="../ui_mainwindow.py" line="688"/>
+        <source>Disable when external mouse is plugged in</source>
+        <translation>Отключить при подключении внешней мыши</translation>
+    </message>
+    <message>
+        <location filename="../ui_mainwindow.py" line="676"/>
+        <source>Touchpad events:</source>
+        <translation>События тачпада:</translation>
     </message>
 </context>
 <context>
     <name>SelectKeyboardLayout</name>
     <message>
-        <location filename="../main.py" line="663"/>
+        <location filename="../main.py" line="718"/>
         <source>A user defined custom layout</source>
         <translation>Пользовательская раскладка</translation>
     </message>

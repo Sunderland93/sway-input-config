@@ -640,6 +640,52 @@
                   </property>
                  </widget>
                 </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="eventLabel">
+                  <property name="text">
+                   <string>Touchpad events:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QRadioButton" name="touchEventsEnabled">
+                  <property name="toolTip">
+                   <string>Send events normally</string>
+                  </property>
+                  <property name="text">
+                   <string>Enable</string>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QRadioButton" name="touchEventsDisabled">
+                  <property name="toolTip">
+                   <string>Touchpad only stops sending events but not get fully disabled</string>
+                  </property>
+                  <property name="text">
+                   <string>Disable</string>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QRadioButton" name="touchEventsOnExternalMouse">
+                  <property name="toolTip">
+                   <string>Disable touchpad while an external mouse is plugged in</string>
+                  </property>
+                  <property name="text">
+                   <string>Disable when external mouse is plugged in</string>
+                  </property>
+                  <property name="autoExclusive">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
                 <item row="4" column="0">
                  <widget class="QLabel" name="label_6">
                   <property name="text">
@@ -893,52 +939,6 @@
                   </property>
                   <property name="tickInterval">
                    <number>9</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="eventLabel">
-                  <property name="text">
-                   <string>Enable/disable touchpad events:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QRadioButton" name="touchEventsEnabled">
-                  <property name="toolTip">
-                   <string>Send events normally</string>
-                  </property>
-                  <property name="text">
-                   <string>Enable</string>
-                  </property>
-                  <property name="autoExclusive">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QRadioButton" name="touchEventsDisabled">
-                  <property name="toolTip">
-                   <string>Touchpad only stops sending events but not get fully disabled</string>
-                  </property>
-                  <property name="text">
-                   <string>Disable</string>
-                  </property>
-                  <property name="autoExclusive">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QRadioButton" name="touchEventsOnExternalMouse">
-                  <property name="toolTip">
-                   <string>Disable touchpad while an external mouse is plugged in</string>
-                  </property>
-                  <property name="text">
-                   <string>Disable when external mouse is plugged in</string>
-                  </property>
-                  <property name="autoExclusive">
-                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>

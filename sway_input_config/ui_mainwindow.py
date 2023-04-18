@@ -361,6 +361,29 @@ class Ui_MainWindow(object):
 
         self.formLayout_2.setWidget(0, QFormLayout.FieldRole, self.touchpadID)
 
+        self.eventLabel = QLabel(self.scrollAreaWidgetContents)
+        self.eventLabel.setObjectName(u"eventLabel")
+
+        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.eventLabel)
+
+        self.touchEventsEnabled = QRadioButton(self.scrollAreaWidgetContents)
+        self.touchEventsEnabled.setObjectName(u"touchEventsEnabled")
+        self.touchEventsEnabled.setAutoExclusive(True)
+
+        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.touchEventsEnabled)
+
+        self.touchEventsDisabled = QRadioButton(self.scrollAreaWidgetContents)
+        self.touchEventsDisabled.setObjectName(u"touchEventsDisabled")
+        self.touchEventsDisabled.setAutoExclusive(True)
+
+        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.touchEventsDisabled)
+
+        self.touchEventsOnExternalMouse = QRadioButton(self.scrollAreaWidgetContents)
+        self.touchEventsOnExternalMouse.setObjectName(u"touchEventsOnExternalMouse")
+        self.touchEventsOnExternalMouse.setAutoExclusive(True)
+
+        self.formLayout_2.setWidget(3, QFormLayout.FieldRole, self.touchEventsOnExternalMouse)
+
         self.label_6 = QLabel(self.scrollAreaWidgetContents)
         self.label_6.setObjectName(u"label_6")
 
@@ -506,29 +529,6 @@ class Ui_MainWindow(object):
 
         self.formLayout_2.setWidget(21, QFormLayout.FieldRole, self.touchScrollFactor)
 
-        self.eventLabel = QLabel(self.scrollAreaWidgetContents)
-        self.eventLabel.setObjectName(u"eventLabel")
-
-        self.formLayout_2.setWidget(1, QFormLayout.LabelRole, self.eventLabel)
-
-        self.touchEventsEnabled = QRadioButton(self.scrollAreaWidgetContents)
-        self.touchEventsEnabled.setObjectName(u"touchEventsEnabled")
-        self.touchEventsEnabled.setAutoExclusive(True)
-
-        self.formLayout_2.setWidget(1, QFormLayout.FieldRole, self.touchEventsEnabled)
-
-        self.touchEventsDisabled = QRadioButton(self.scrollAreaWidgetContents)
-        self.touchEventsDisabled.setObjectName(u"touchEventsDisabled")
-        self.touchEventsDisabled.setAutoExclusive(True)
-
-        self.formLayout_2.setWidget(2, QFormLayout.FieldRole, self.touchEventsDisabled)
-
-        self.touchEventsOnExternalMouse = QRadioButton(self.scrollAreaWidgetContents)
-        self.touchEventsOnExternalMouse.setObjectName(u"touchEventsOnExternalMouse")
-        self.touchEventsOnExternalMouse.setAutoExclusive(True)
-
-        self.formLayout_2.setWidget(3, QFormLayout.FieldRole, self.touchEventsOnExternalMouse)
-
 
         self.horizontalLayout_8.addLayout(self.formLayout_2)
 
@@ -673,6 +673,19 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.touchpadID.setToolTip(QCoreApplication.translate("MainWindow", u"Touchpad identifier", None))
 #endif // QT_CONFIG(tooltip)
+        self.eventLabel.setText(QCoreApplication.translate("MainWindow", u"Touchpad events:", None))
+#if QT_CONFIG(tooltip)
+        self.touchEventsEnabled.setToolTip(QCoreApplication.translate("MainWindow", u"Send events normally", None))
+#endif // QT_CONFIG(tooltip)
+        self.touchEventsEnabled.setText(QCoreApplication.translate("MainWindow", u"Enable", None))
+#if QT_CONFIG(tooltip)
+        self.touchEventsDisabled.setToolTip(QCoreApplication.translate("MainWindow", u"Touchpad only stops sending events but not get fully disabled", None))
+#endif // QT_CONFIG(tooltip)
+        self.touchEventsDisabled.setText(QCoreApplication.translate("MainWindow", u"Disable", None))
+#if QT_CONFIG(tooltip)
+        self.touchEventsOnExternalMouse.setToolTip(QCoreApplication.translate("MainWindow", u"Disable touchpad while an external mouse is plugged in", None))
+#endif // QT_CONFIG(tooltip)
+        self.touchEventsOnExternalMouse.setText(QCoreApplication.translate("MainWindow", u"Disable when external mouse is plugged in", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"General:", None))
 #if QT_CONFIG(tooltip)
         self.DWT.setToolTip(QCoreApplication.translate("MainWindow", u"Disables touchpad while typing the text", None))
@@ -723,19 +736,6 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(tooltip)
         self.touchScrollFactor.setToolTip(QCoreApplication.translate("MainWindow", u"Scroll speed will be scaled by the given value.", None))
 #endif // QT_CONFIG(tooltip)
-        self.eventLabel.setText(QCoreApplication.translate("MainWindow", u"Enable/disable touchpad events:", None))
-#if QT_CONFIG(tooltip)
-        self.touchEventsEnabled.setToolTip(QCoreApplication.translate("MainWindow", u"Send events normally", None))
-#endif // QT_CONFIG(tooltip)
-        self.touchEventsEnabled.setText(QCoreApplication.translate("MainWindow", u"Enable", None))
-#if QT_CONFIG(tooltip)
-        self.touchEventsDisabled.setToolTip(QCoreApplication.translate("MainWindow", u"Touchpad only stops sending events but not get fully disabled", None))
-#endif // QT_CONFIG(tooltip)
-        self.touchEventsDisabled.setText(QCoreApplication.translate("MainWindow", u"Disable", None))
-#if QT_CONFIG(tooltip)
-        self.touchEventsOnExternalMouse.setToolTip(QCoreApplication.translate("MainWindow", u"Disable touchpad while an external mouse is plugged in", None))
-#endif // QT_CONFIG(tooltip)
-        self.touchEventsOnExternalMouse.setText(QCoreApplication.translate("MainWindow", u"Disable when external mouse is plugged in", None))
         self.TouchPadUseSettings.setText(QCoreApplication.translate("MainWindow", u"Use this settings", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TouchpadTab), QCoreApplication.translate("MainWindow", u"Touchpad", None))
     # retranslateUi
