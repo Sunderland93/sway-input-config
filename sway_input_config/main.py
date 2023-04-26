@@ -442,6 +442,7 @@ class MainWindow(QMainWindow):
             self.ui.touchFlat.setChecked(True)
             self.ui.tap_click.setChecked(True)
             self.ui.drag.setEnabled(True)
+            self.ui.drag.setChecked(True)
             self.ui.drag_lock.setChecked(False)
             self.ui.lrm.setEnabled(True)
             self.ui.lmr.setEnabled(True)
