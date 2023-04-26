@@ -836,7 +836,8 @@ def save_to_config():
         lines.append('  drag {}'.format(settings["touchpad-drag"])),
         lines.append('  drag_lock {}'.format(settings["touchpad-drag-lock"])),
         lines.append('  dwt {}'.format(settings["touchpad-dwt"])),
-        lines.append('  dwtp {}'.format(settings["touchpad-dwtp"])),
+        if sway_version >= "1.8":
+            lines.append('  dwtp {}'.format(settings["touchpad-dwtp"])),
         lines.append('  middle_emulation {}'.format(settings["touchpad-middle-emulation"]))
         lines.append('}')
 
