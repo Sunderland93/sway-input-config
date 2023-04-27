@@ -345,6 +345,18 @@ class MainWindow(QMainWindow):
             self.ui.lmr.setEnabled(False)
             self.ui.lrm.setEnabled(False)
 
+        # Click method
+        self.clickMethodButtonGroup = QButtonGroup()
+        self.clickMethodButtonGroup.addButton(self.ui.btn_BtnArea)
+        self.clickMethodButtonGroup.addButton(self.ui.btn_ClickFinger)
+        if touchpads:
+            if settings["touchpad-click-method"] == "button_areas":
+                self.ui.btn_BtnArea.setChecked(True)
+            elif settings["touchpad-click-method"] == "clickfinger":
+                self.ui.btn_ClickFinger.setChecked(True)
+            self.ui.btn_BtnArea.clicked.connect(self.on_click_method_checked)
+            self.ui.btn_ClickFinger.clicked.connect(self.on_click_method_checked)
+
         # Scrolling method
         self.scrollingButtonGroup = QButtonGroup()
         self.scrollingButtonGroup.addButton(self.ui.method1)
@@ -652,6 +664,12 @@ class MainWindow(QMainWindow):
         else:
             settings["touchpad-tap-button-map"] = "lmr"
 
+    def on_click_method_checked(self):
+        if self.ui.btn_ClickFinger.isChecked():
+            settings["touchpad-click-method"] = "clickfinger"
+        else:
+            settings["touchpad-click-method"] = "button_areas"
+
     def on_scroll_method_checked(self):
         if self.ui.method1.isChecked() is True:
             settings["touchpad-scroll-method"] = "two_finger"
@@ -839,7 +857,8 @@ def save_to_config():
         lines.append('  dwt {}'.format(settings["touchpad-dwt"])),
         if sway_version >= "1.8":
             lines.append('  dwtp {}'.format(settings["touchpad-dwtp"])),
-        lines.append('  middle_emulation {}'.format(settings["touchpad-middle-emulation"]))
+        lines.append('  middle_emulation {}'.format(settings["touchpad-middle-emulation"])),
+        lines.append('  click_method {}'.format(settings["touchpad-click-method"]))
         lines.append('}')
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/touchpad"))

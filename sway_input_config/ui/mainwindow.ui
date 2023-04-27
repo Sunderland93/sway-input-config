@@ -603,9 +603,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
+             <y>-53</y>
              <width>562</width>
-             <height>638</height>
+             <height>694</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -853,14 +853,14 @@
                   </property>
                  </widget>
                 </item>
-                <item row="16" column="0">
+                <item row="18" column="0">
                  <widget class="QLabel" name="label_11">
                   <property name="text">
                    <string>Scrolling:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="16" column="1">
+                <item row="18" column="1">
                  <widget class="QRadioButton" name="method1">
                   <property name="text">
                    <string>Two fingers</string>
@@ -870,7 +870,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="17" column="1">
+                <item row="19" column="1">
                  <widget class="QRadioButton" name="method2">
                   <property name="text">
                    <string>Touchpad edges</string>
@@ -880,7 +880,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="18" column="1">
+                <item row="20" column="1">
                  <widget class="QRadioButton" name="method3">
                   <property name="text">
                    <string>On button down</string>
@@ -890,7 +890,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="19" column="1">
+                <item row="21" column="1">
                  <widget class="QRadioButton" name="method4">
                   <property name="text">
                    <string>No scroll</string>
@@ -900,7 +900,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="20" column="1">
+                <item row="22" column="1">
                  <widget class="QCheckBox" name="touchNatScroll">
                   <property name="toolTip">
                    <string>Touchscreen like scrolling.</string>
@@ -910,14 +910,14 @@
                   </property>
                  </widget>
                 </item>
-                <item row="21" column="0">
+                <item row="23" column="0">
                  <widget class="QLabel" name="label_12">
                   <property name="text">
                    <string>Scrolling speed:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="21" column="1">
+                <item row="23" column="1">
                  <widget class="QSlider" name="touchScrollFactor">
                   <property name="toolTip">
                    <string>Scroll speed will be scaled by the given value.</string>
@@ -939,6 +939,33 @@
                   </property>
                   <property name="tickInterval">
                    <number>9</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="16" column="1">
+                 <widget class="QRadioButton" name="btn_BtnArea">
+                  <property name="toolTip">
+                   <string>The bottom area of the touchpad is divided into a left, middle and right button area</string>
+                  </property>
+                  <property name="text">
+                   <string>Button area</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="17" column="1">
+                 <widget class="QRadioButton" name="btn_ClickFinger">
+                  <property name="toolTip">
+                   <string>Clicking with 1, 2, 3 fingers triggers a left, right, or middle click, respectively</string>
+                  </property>
+                  <property name="text">
+                   <string>Click fingers</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="16" column="0">
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Click method (clickpads only):</string>
                   </property>
                  </widget>
                 </item>

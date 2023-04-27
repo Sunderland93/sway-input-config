@@ -36,5 +36,6 @@
     "touchpad-dwt": "enabled",
     "touchpad-dwtp": "disabled",
     "touchpad-events": "enabled",
+    "touchpad-click-method": "button_areas",
     "touchpad-middle-emulation": "enabled"
 }
