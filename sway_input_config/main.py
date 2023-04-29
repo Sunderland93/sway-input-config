@@ -459,6 +459,7 @@ class MainWindow(QMainWindow):
             self.ui.lrm.setEnabled(True)
             self.ui.lmr.setEnabled(True)
             self.ui.method1.setChecked(True)
+            self.ui.btn_BtnArea.setChecked(True)
             self.ui.touchNatScroll.setChecked(False)
             self.ui.touchScrollFactor.setValue(float(defaults["touchpad-scroll-factor"]) * 10)
 
