@@ -2,6 +2,8 @@
 
 import argparse
 import os
+import platform
+import re
 import sys
 from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
                                QDialog, QTreeWidgetItem, QListWidgetItem,
@@ -26,11 +28,40 @@ config_home = get_config_home()
 
 sway_config = os.path.join(config_home, "sway", "config")
 dir_name = os.path.dirname(__file__)
-shortcut_list = os.path.join(dir_name, "data/shortcuts.json")
-kbd_model_list = os.path.join(dir_name, "data/kbd_model.json")
-layout_list = os.path.join(dir_name, "data/layouts.json")
-variant_list = os.path.join(dir_name, "data/variants.json")
 default_settings = os.path.join(dir_name, "data/defaults.json")
+
+os_name = platform.system()
+
+if os_name == "Linux":
+    XKB_BASE_LIST = load_text_file("/usr/share/X11/xkb/rules/base.lst").splitlines()
+elif os_name == "FreeBSD":
+    XKB_BASE_LIST = load_text_file("/usr/local/share/X11/xkb/rules/base.lst").splitlines()
+
+models = []
+layouts = []
+variants = []
+options = []
+
+for line in XKB_BASE_LIST:
+    if not line:
+        continue
+    match = re.match(r'^!\s*(\w+)\s*$', line)
+    if match:
+        category = match.group(1)
+    else:
+        match = re.match(r'^\s*(\w+:\w+|\w+-\w+|\w+)\s*(.*)$', line)
+        if not match:
+            continue
+        key = match.group(1)
+        value = match.group(2)
+        if category == 'model':
+            models.append((key, value))
+        elif category == 'layout':
+            layouts.append((key, value))
+        elif category == 'variant':
+            variants.append((key, value))
+        elif category == 'option':
+            options.append((key, value))
 
 
 class MainWindow(QMainWindow):
@@ -55,21 +86,21 @@ class MainWindow(QMainWindow):
         self.ui.KeyBoardUseSettings.toggled.connect(self.keyboard_use_settings)
 
         # Keyboard layout
-        layouts_data = load_json(layout_list)
-        variants_data = load_json(variant_list)
-        for key, values in layouts_data.items():
-            if values in settings["keyboard-layout"]:
+        for key, value in layouts:
+            if key in settings["keyboard-layout"]:
                 self.layout_item = QTreeWidgetItem(self.ui.layouts)
-                self.layout_item.setData(0, Qt.DisplayRole, key)
-                self.layout_item.setData(0, Qt.UserRole, values)
+                self.layout_item.setData(0, Qt.DisplayRole, value)
+                self.layout_item.setData(0, Qt.UserRole, key)
                 self.ui.layouts.addTopLevelItem(self.layout_item)
-                for key, values in variants_data.items():
-                    if key in self.layout_item.data(0, Qt.DisplayRole):
-                        for d in values:
-                            for key, value in d.items():
-                                if value in settings["keyboard-variant"]:
-                                    self.layout_item.setData(1, Qt.DisplayRole, key)
-                                    self.layout_item.setData(1, Qt.UserRole, value)
+                for key, values in variants:
+                    value = values.split(":")[0]
+                    description = values.split(":")[1]
+                    if value in self.layout_item.data(0, Qt.UserRole):
+                        # Workaround to prevent custom layout from using variants for English(US)
+                        if "custom" not in self.layout_item.data(0, Qt.UserRole):
+                            if key in settings["keyboard-variant"]:
+                                self.layout_item.setData(1, Qt.DisplayRole, description)
+                                self.layout_item.setData(1, Qt.UserRole, key)
 
         self.ui.addBtn.clicked.connect(self.on_add_keyboard_layout)
         self.ui.rmBtn.clicked.connect(self.on_remove_layout)
@@ -89,28 +120,26 @@ class MainWindow(QMainWindow):
         self.ui.kbdID.activated.connect(self.set_kbd_identifier)
 
         # Keyboard model option
-        model_list = load_json(kbd_model_list)
-        for item in model_list:
-            model_view = QListView(self.ui.kbdModel)
-            self.ui.kbdModel.setView(model_view)
-            self.ui.kbdModel.addItem(item)
-        for key, value in model_list.items():
-            if value == settings["keyboard-model"]:
-                self.ui.kbdModel.setCurrentText(key)
+        model_view = QListView(self.ui.kbdModel)
+        self.ui.kbdModel.setView(model_view)
         model_view.setTextElideMode(Qt.ElideNone)
         model_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        for key, value in models:
+            self.ui.kbdModel.addItem(value, key)
+            if key == settings["keyboard-model"]:
+                self.ui.kbdModel.setCurrentText(value)
+
         self.ui.kbdModel.activated.connect(self.set_model)
 
         # Keyboard shortcut option
-        shortcut_data = load_json(shortcut_list)
         shortcut_view = QListView(self.ui.shortcutName)
         self.ui.shortcutName.setView(shortcut_view)
         self.ui.shortcutName.addItem("")
-        for item in shortcut_data:
-            self.ui.shortcutName.addItem(item)
-        for key, value in shortcut_data.items():
-            if value == settings["keyboard-shortcut"]:
-                self.ui.shortcutName.setCurrentText(key)
+        for key, value in options:
+            if "grp:" in key:
+                self.ui.shortcutName.addItem(value, key)
+            if key == settings["keyboard-shortcut"]:
+                self.ui.shortcutName.setCurrentText(value)
         shortcut_view.setTextElideMode(Qt.ElideNone)
         shortcut_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.ui.shortcutName.activated.connect(self.set_shortcut)
@@ -405,26 +434,25 @@ class MainWindow(QMainWindow):
 
     def on_clicked_reset(self):
         defaults = load_json(default_settings)
-        layouts_data = load_json(layout_list)
-        variants_data = load_json(variant_list)
-        model_list = load_json(kbd_model_list)
         self.ui.layouts.clear()
-        for key, values in layouts_data.items():
-            if values in defaults["keyboard-layout"]:
+        for key, values in layouts:
+            if key in defaults["keyboard-layout"]:
                 self.layout_item = QTreeWidgetItem(self.ui.layouts)
-                self.layout_item.setData(0, Qt.DisplayRole, key)
-                self.layout_item.setData(0, Qt.UserRole, values)
+                self.layout_item.setData(0, Qt.DisplayRole, values)
+                self.layout_item.setData(0, Qt.UserRole, key)
                 self.ui.layouts.addTopLevelItem(self.layout_item)
-                for key, values in variants_data.items():
-                    if key in self.layout_item.data(0, Qt.DisplayRole):
-                        for d in values:
-                            for key, value in d.items():
-                                if value in defaults["keyboard-variant"]:
-                                    self.layout_item.setData(1, Qt.DisplayRole, key)
-                                    self.layout_item.setData(1, Qt.UserRole, value)
-        for key, value in model_list.items():
-            if value == defaults["keyboard-model"]:
-                self.ui.kbdModel.setCurrentText(key)
+                for key, values in variants:
+                    value = values.split(":")[0]
+                    description = values.split(":")[1]
+                    if value in self.layout_item.data(0, Qt.UserRole):
+                        # Workaround to prevent custom layout from using variants for English(US)
+                        if "custom" not in self.layout_item.data(0, Qt.UserRole):
+                            if key in defaults["keyboard-variant"]:
+                                self.layout_item.setData(1, Qt.DisplayRole, description)
+                                self.layout_item.setData(1, Qt.UserRole, key)
+        for key, value in models:
+            if key == defaults["keyboard-model"]:
+                self.ui.kbdModel.setCurrentText(value)
         self.ui.shortcutName.setCurrentText(defaults["keyboard-shortcut"])
         self.ui.kbdID.setCurrentText(defaults["keyboard-identifier"])
         self.ui.repeatDelaySlider.setValue(defaults["keyboard-repeat-delay"])
@@ -517,14 +545,10 @@ class MainWindow(QMainWindow):
         settings["keyboard-identifier"] = self.ui.kbdID.currentText()
 
     def set_model(self):
-        model_data = load_json(kbd_model_list)
-        for key in model_data.keys():
-            settings["keyboard-model"] = model_data[self.ui.kbdModel.currentText()]
+        settings["keyboard-model"] = self.ui.kbdModel.currentData()
 
     def set_shortcut(self):
-        data = load_json(shortcut_list)
-        for key in data.keys():
-            settings["keyboard-shortcut"] = data[self.ui.shortcutName.currentText()]
+        settings["keyboard-shortcut"] = self.ui.shortcutName.currentData()
 
     def on_repeat_delay_value_changed(self):
         settings["keyboard-repeat-delay"] = self.ui.repeatDelay.value()
@@ -729,18 +753,26 @@ class SelectKeyboardLayout(QDialog):
         self.select_layout = Ui_SelectKeyboardLayoutDialog()
         self.select_layout.setupUi(self)
 
-        layout = load_json(layout_list)
-        for key, value in layout.items():
-            item = QListWidgetItem(key)
-            item.setData(Qt.UserRole, value)
-            item.setData(Qt.DisplayRole, key)
+        none_item = QListWidgetItem()
+        none_item.setData(Qt.UserRole, "")
+        none_item.setData(Qt.DisplayRole, "")
+        self.select_layout.variants.addItem(none_item)
+
+        for key, value in layouts:
+            item = QListWidgetItem(value)
+            item.setData(Qt.UserRole, key)
+            item.setData(Qt.DisplayRole, value)
             self.select_layout.layouts.addItem(item)
-        custom_item = QListWidgetItem(self.tr("A user defined custom layout"))
-        custom_item.setData(Qt.UserRole, "custom")
-        custom_vitem = QListWidgetItem("None")
-        custom_vitem.setData(Qt.UserRole, "")
-        self.select_layout.layouts.addItem(custom_item)
-        self.select_layout.variants.addItem(custom_vitem)
+        for key, values in variants:
+            value = values.split(":")[0]
+            description = values.split(":")[1]
+            if value in item.data(Qt.UserRole):
+                # Workaround to prevent custom layout from using variants for English(US)
+                if "custom" not in item.data(Qt.UserRole):
+                    vitem = QListWidgetItem(description)
+                    vitem.setData(Qt.UserRole, key)
+                    vitem.setData(Qt.DisplayRole, description)
+                    self.select_layout.variants.addItem(vitem)
         self.select_layout.layouts.setCurrentItem(self.select_layout.layouts.item(0))
         self.select_layout.variants.setCurrentItem(self.select_layout.variants.item(0))
 
@@ -751,14 +783,20 @@ class SelectKeyboardLayout(QDialog):
     def on_layout_changed(self):
         item = self.select_layout.layouts.currentItem()
         self.select_layout.variants.clear()
-        variant = load_json(variant_list)
-        for key, value in variant.items():
-            if key in item.data(Qt.DisplayRole):
-                for v in value:
-                    for key, value in v.items():
-                        vitem = QListWidgetItem(key)
-                        vitem.setData(Qt.UserRole, value)
-                        self.select_layout.variants.addItem(vitem)
+        none_item = QListWidgetItem()
+        none_item.setData(Qt.UserRole, "")
+        none_item.setData(Qt.DisplayRole, "")
+        self.select_layout.variants.addItem(none_item)
+        for key, values in variants:
+            value = values.split(":")[0]
+            description = values.split(":")[1]
+            if value in item.data(Qt.UserRole):
+                # Workaround to prevent custom layout from using variants for English(US)
+                if "custom" not in item.data(Qt.UserRole):
+                    vitem = QListWidgetItem(description)
+                    vitem.setData(Qt.UserRole, key)
+                    vitem.setData(Qt.DisplayRole, description)
+                    self.select_layout.variants.addItem(vitem)
         self.select_layout.variants.setCurrentItem(self.select_layout.variants.item(0))
 
     def on_add_layout(self):
