@@ -4,7 +4,7 @@ import os
 import sys
 from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
                                QDialog, QTreeWidgetItem, QListWidgetItem,
-                               QListView)
+                               QListView, QButtonGroup)
 from PySide2.QtGui import QPixmap
 from PySide2.QtCore import Qt
 from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
@@ -176,6 +176,9 @@ class MainWindow(QMainWindow):
         self.ui.pointerAccel.valueChanged.connect(self.on_accel_value_changed)
 
         # Acceleration profile
+        self.pointerAccelButtonGroup = QButtonGroup()
+        self.pointerAccelButtonGroup.addButton(self.ui.pointerFlat)
+        self.pointerAccelButtonGroup.addButton(self.ui.pointerAdaptive)
         if settings["pointer-accel-profile"] == "flat":
             self.ui.pointerFlat.setChecked(True)
         else:
@@ -236,6 +239,9 @@ class MainWindow(QMainWindow):
         self.ui.touchAccel.valueChanged.connect(self.on_touch_accel_value_changed)
 
         # Acceleration profile
+        self.touchAccelButtonGroup = QButtonGroup()
+        self.touchAccelButtonGroup.addButton(self.ui.touchFlat)
+        self.touchAccelButtonGroup.addButton(self.ui.touchAdaptive)
         if settings["touchpad-accel-profile"] == "flat":
             self.ui.touchFlat.setChecked(True)
         else:
@@ -267,6 +273,9 @@ class MainWindow(QMainWindow):
         self.ui.drag_lock.toggled.connect(self.on_draglock_checked)
 
         # Two-finger tap
+        self.mappingButtonGroup = QButtonGroup()
+        self.mappingButtonGroup.addButton(self.ui.lmr)
+        self.mappingButtonGroup.addButton(self.ui.lrm)
         if settings["touchpad-tap"] == "enabled":
             self.ui.lrm.setEnabled(True)
             self.ui.lmr.setEnabled(True)
@@ -281,6 +290,11 @@ class MainWindow(QMainWindow):
         self.ui.lmr.clicked.connect(self.on_multi_tap_checked)
 
         # Scrolling method
+        self.scrollingButtonGroup = QButtonGroup()
+        self.scrollingButtonGroup.addButton(self.ui.method1)
+        self.scrollingButtonGroup.addButton(self.ui.method2)
+        self.scrollingButtonGroup.addButton(self.ui.method3)
+        self.scrollingButtonGroup.addButton(self.ui.method4)
         if settings["touchpad-scroll-method"] == "two_finger":
             self.ui.method1.setChecked(True)
         elif settings["touchpad-scroll-method"] == "edge":
