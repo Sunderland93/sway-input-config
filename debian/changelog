@@ -1,3 +1,17 @@
+sway-input-config (1.3.0-1) unstable; urgency=medium
+
+  * Localization support:
+   * added Russian, Belarusian and Ukraine translation's
+   * added locale-gen script and instructions for translators
+  * Fixed various UI layout issues
+  * Added `--locale` option to launch app with specific localization
+  * Added `--restore` option to reset any settings
+  * Added check for Sway version for disable unsupported features (e.g. disable-while-trackpointing on Sway 1.7 and lower)
+  * Added touhpad events option
+  * Added click method option (only for clickpads)
+
+ -- Aleksey Samoilov <samoilov.lex@gmail.com>  Sat, 08 Jul 2023 20:38:52 +0400
+
 sway-input-config (1.2.0-1) lunar; urgency=medium
 
   * New UI using Qt Designer's forms.
