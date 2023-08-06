@@ -19,9 +19,16 @@ fi
 
 cd "$sources" || exit
 
-pylupdate5 -noobsolete \
-    main.py \
-    ui_about.py \
-    ui_mainwindow.py \
-    ui_selectlayout.py \
-    -ts "$langs"/"lang_$lang.ts"
+if [[ -x /usr/bin/pylupdate5 ]]; then
+    /usr/bin/pylupdate5 -noobsolete \
+        main.py \
+        ui_about.py \
+        ui_mainwindow.py \
+        ui_selectlayout.py \
+        -ts "$langs"/"lang_$lang.ts"
+else
+    echo "Missing binary 'pylupdate5'."
+    echo "On ubuntu you can install pyqt5-dev-tools"
+    echo "For ArchLinux install python-pyqt5"
+    exit 1
+fi
