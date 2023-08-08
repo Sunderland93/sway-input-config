@@ -3,6 +3,7 @@ name: Translation compilation
 on:
   push:
     paths: '**.ts'
+  workflow_dispatch:
 
 jobs:
   build_translations:

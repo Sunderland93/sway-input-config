@@ -3,6 +3,7 @@ name: Update translations from source
 on:
   push:
     paths: '**.py'
+  workflow_dispatch:
 
 jobs:
   build_translations:
