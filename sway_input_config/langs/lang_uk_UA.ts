@@ -4,7 +4,7 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../main.py" line="710"/>
+        <location filename="../main.py" line="742"/>
         <source>Version: </source>
         <translation>Версія: </translation>
     </message>
@@ -400,14 +400,6 @@
         <location filename="../ui_mainwindow.py" line="762"/>
         <source>Click method (clickpads only):</source>
         <translation>Метод кліка (тільки для клікпадів):</translation>
-    </message>
-</context>
-<context>
-    <name>SelectKeyboardLayout</name>
-    <message>
-        <location filename="../main.py" line="730"/>
-        <source>A user defined custom layout</source>
-        <translation>Користувацька розкладка</translation>
     </message>
 </context>
 <context>

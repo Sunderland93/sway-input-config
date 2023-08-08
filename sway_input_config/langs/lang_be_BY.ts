@@ -390,7 +390,6 @@
     <message>
         <location filename="../ui_mainwindow.py" line="759"/>
         <source>Clicking with 1, 2, 3 fingers triggers a left, right, or middle click, respectively</source>
-        <translatorcomment> </translatorcomment>
         <translation>Клік 1,2,3 пальцамі выклікае левый,правый але сярэдній клік адпаведна</translation>
     </message>
     <message>
