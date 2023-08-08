@@ -1,0 +1,25 @@
+name: Translation compilation
+
+on:
+  push:
+    paths: '**.ts'
+
+jobs:
+  build_translations:
+    name: Build qm translation files from .ts files
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Compile translation files
+        run: |
+          [[ -x /usr/bin/lrelease ]] || apt install qttools5-dev-tools
+          for srcfile in sway_input_config/langs/*.ts; do
+            lrelease $srcfile -qm ${srcfile/%.ts/.qm}
+            git add ${srcfile/%.ts/.qm}
+          done
+          git diff --cached --exit-code > /dev/null && (echo "No translation changes detected") || (
+            git config user.name github-actions &&
+            git config user.email github-actions@github.com &&
+            git commit -m "Automatic Translation Updates" &&
+            git push
+          )
