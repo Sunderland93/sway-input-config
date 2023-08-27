@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='sway-input-config',
-    version='1.3.0',
+    version='1.3.1',
     description='input devices configurator for sway',
     license='GPL-3',
     author='Aleksey Samoilov',
@@ -14,7 +14,8 @@ setup(
     package_data={"": ["data/*", "ui/*", "langs/*"]},
     data_files=[
         ('share/applications', ['sway-input-config.desktop']),
-        ('share/pixmaps', ['sway-input-config.svg']),
+        ('share/icons/hicolor/64x64/apps', ['sway-input-config.png']),
+        ('share/metainfo', ['io.github.Sunderland93.sway-input-config.appdata.xml']),
     ],
     install_requires=[],
     entry_points={
