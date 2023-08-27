@@ -18,7 +18,7 @@ cd sway-input-config && python setup.py install
 ```
 
 #### From PIP:
-pip install sway-input-config
+`pip install sway-input-config`
 
 #### Arch Linux:
 Available in [AUR](https://aur.archlinux.org/packages/sway-input-config)
