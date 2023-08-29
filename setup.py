@@ -20,7 +20,7 @@ setup(
     package_data={"": ["data/*", "ui/*", "langs/*"]},
     data_files=[
         ('share/applications', ['sway-input-config.desktop']),
-        ('share/icons/hicolor/64x64/apps', ['sway-input-config.png']),
+        ('share/icons/hicolor/128x128/apps', ['sway-input-config.png']),
         ('share/metainfo', ['io.github.Sunderland93.sway-input-config.appdata.xml']),
     ],
     install_requires=['PySide2',
