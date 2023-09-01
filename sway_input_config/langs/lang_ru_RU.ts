@@ -2,11 +2,16 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru_RU" sourcelanguage="en">
 <context>
-    <name>AboutDialog</name>
+    <name>ErrorMessage</name>
     <message>
-        <location filename="../main.py" line="710"/>
-        <source>Version: </source>
-        <translation>Версия: </translation>
+        <location filename="../ui_error_message.py" line="69"/>
+        <source>Sway socket not found!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui_error_message.py" line="70"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Sway Input Configurator only supports Sway. You are probably using an unsupported window manager or there are problems with your Sway configuration.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -406,14 +411,6 @@
         <location filename="../ui_mainwindow.py" line="762"/>
         <source>Click method (clickpads only):</source>
         <translation>Метод клика (только для кликпадов):</translation>
-    </message>
-</context>
-<context>
-    <name>SelectKeyboardLayout</name>
-    <message>
-        <location filename="../main.py" line="730"/>
-        <source>A user defined custom layout</source>
-        <translation>Пользовательская раскладка</translation>
     </message>
 </context>
 <context>

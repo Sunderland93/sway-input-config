@@ -24,4 +24,5 @@ pylupdate5 -noobsolete \
     ui_about.py \
     ui_mainwindow.py \
     ui_selectlayout.py \
+    ui_error_message.py \
     -ts "$langs"/"lang_$lang.ts"

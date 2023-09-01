@@ -18,19 +18,35 @@ from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
 from sway_input_config.ui_mainwindow import Ui_MainWindow
 from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
+from sway_input_config.ui_error_message import Ui_ErrorMessage
 
 app_version = "1.3.0"
-sway_version = get_sway_version()
 data_dir = ""
-config_home = get_config_home()
 
-sway_config = os.path.join(config_home, "sway", "config")
+if os.getenv("SWAYSOCK"):
+    sway_version = get_sway_version()
+    config_home = get_config_home()
+    sway_config = os.path.join(config_home, "sway", "config")
+
 dir_name = os.path.dirname(__file__)
 shortcut_list = os.path.join(dir_name, "data/shortcuts.json")
 kbd_model_list = os.path.join(dir_name, "data/kbd_model.json")
 layout_list = os.path.join(dir_name, "data/layouts.json")
 variant_list = os.path.join(dir_name, "data/variants.json")
 default_settings = os.path.join(dir_name, "data/defaults.json")
+
+
+class ErrorMessage(QDialog):
+    def __init__(self):
+        super(ErrorMessage, self).__init__()
+        self.ui = Ui_ErrorMessage()
+        self.ui.setupUi(self)
+
+        self.btnOk = self.ui.buttonBox.button(QDialogButtonBox.Ok)
+        self.btnOk.clicked.connect(self.on_clicked_ok)
+
+    def on_clicked_ok(self):
+        self.close()
 
 
 class MainWindow(QMainWindow):
@@ -943,11 +959,15 @@ def main():
             copy2(os.path.join(dir_name, "data/defaults.json"), os.path.join(data_dir, "settings"))
             sys.exit(0)
 
-    load_settings()
-
-    win = MainWindow()
-    win.show()
-    sys.exit(app.exec_())
+    if os.getenv("SWAYSOCK"):
+        load_settings()
+        win = MainWindow()
+        win.show()
+        sys.exit(app.exec_())
+    else:
+        win = ErrorMessage()
+        win.show()
+        sys.exit(app.exec_())
 
 
 if __name__ == "__main__":
