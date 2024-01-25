@@ -5,6 +5,7 @@ import os
 import platform
 import re
 import sys
+import signal
 from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
                                QDialog, QTreeWidgetItem, QListWidgetItem,
                                QListView, QButtonGroup)
@@ -993,4 +994,5 @@ def main():
 
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
     main()
