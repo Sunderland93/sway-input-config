@@ -535,8 +535,9 @@ class MainWindow(QMainWindow):
         if n > 0:
             while row < n:
                 item = self.ui.layouts.topLevelItem(row)
+                if item.data(1, Qt.UserRole) is not None:
+                    variants.append(item.data(1, Qt.UserRole))
                 layouts.append(item.data(0, Qt.UserRole))
-                variants.append(item.data(1, Qt.UserRole))
                 row += 1
         settings["keyboard-layout"] = layouts
         settings["keyboard-variant"] = variants
@@ -812,7 +813,7 @@ def save_to_config():
         lines = ['input "type:keyboard" {'] if not settings["keyboard-identifier"] else [
             'input "%s" {' % settings["keyboard-identifier"]]
         lines.append('  xkb_layout {}'.format(','.join(settings["keyboard-layout"])))
-        if settings["keyboard-variant"] != [""]:
+        if settings["keyboard-variant"] != []:
             lines.append('  xkb_variant {}'.format(','.join(settings["keyboard-variant"])))
         if settings["keyboard-shortcut"]:
             lines.append('  xkb_options {}'.format(settings["keyboard-shortcut"]))
