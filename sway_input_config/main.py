@@ -385,6 +385,9 @@ class MainWindow(QMainWindow):
                 self.ui.btn_ClickFinger.setChecked(True)
             self.ui.btn_BtnArea.clicked.connect(self.on_click_method_checked)
             self.ui.btn_ClickFinger.clicked.connect(self.on_click_method_checked)
+        else:
+            self.ui.btn_BtnArea.setEnabled(False)
+            self.ui.btn_ClickFinger.setEnabled(False)
 
         # Scrolling method
         self.scrollingButtonGroup = QButtonGroup()
