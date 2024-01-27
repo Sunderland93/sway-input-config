@@ -23,7 +23,7 @@ setup(
         ('share/icons/hicolor/64x64/apps', ['sway-input-config.png']),
         ('share/metainfo', ['io.github.Sunderland93.sway-input-config.appdata.xml']),
     ],
-    install_requires=['PySide2',
+    install_requires=['PyQt6',
     'i3ipc',
     ],
     entry_points={
