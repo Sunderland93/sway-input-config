@@ -17,11 +17,6 @@ else
     lang=$(locale | grep LANG | cut -d= -f2 | cut -d. -f1)
 fi
 
-cd "$sources" || exit
-
 pylupdate6 --no-obsolete \
-    main.py \
-    ui_about.py \
-    ui_mainwindow.py \
-    ui_selectlayout.py \
+    $sources \
     --ts "$langs"/"lang_$lang.ts"

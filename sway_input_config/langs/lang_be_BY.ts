@@ -4,7 +4,7 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../main.py" line="742"/>
+        <location filename="../main.py" line="755"/>
         <source>Version: </source>
         <translation>Версія: </translation>
     </message>
@@ -12,417 +12,436 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../ui_mainwindow.py" line="596"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Sway Input Configurator</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="598"/>
-        <source>Variant</source>
-        <translation>Варыянт</translation>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Keyboard</source>
+        <translation>Клавіатура</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="599"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Layout</source>
         <translation>Раскладка</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="601"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Variant</source>
+        <translation>Варыянт</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Add layout to the list</source>
         <translation>Дадаць раскладку у спіс</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="603"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Add</source>
         <translation>Дадаць</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="605"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Remove layout from the list.</source>
         <translation>Выдаліць раскладку з спіса.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="607"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Remove</source>
         <translation>Выдаліць</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="609"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Move selected layout up.</source>
         <translation>Перамясціць выбранную раскладку ўверх.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="611"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Up</source>
         <translation>Уверх</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="613"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Move selected layout down.</source>
         <translation>Перамясціць выбранную раскладку ўніз.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="615"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Down</source>
         <translation>Уніз</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="616"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Keyboard ID:</source>
         <translation>ID клавіатуры:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="618"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Keyboard identifier</source>
         <translation>Ідэнтыфікатар клавіатуры</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="620"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Keyboard model:</source>
         <translation>Мадель клавіатуры:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="621"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Keyboard shortcut:</source>
         <translation>Спалучэнне клавіш:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="623"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Keyboard shortcut to switch between layouts.</source>
         <translation>Спалучэнне клавіш для параключэння паміж раскладкамі.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="625"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Repeat delay:</source>
         <translation>Затрымка паўтору:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="627"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Amount of time a key must be held before it starts repeating.</source>
         <translation>Колькасць часу якое неабходна затрымліваць
 клавішу перш чым яна пачне паўтарацца.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="629"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source> ms</source>
         <translation> мс</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="630"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Repeat rate:</source>
         <translation>Частата паўтору:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="632"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Frequency of key repeats once the repeat_delay has passed.</source>
         <translation>Частата паўтора калвішы пасля
 заканчэння затрымкі паўтору.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="634"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source> repeats/s</source>
         <translation> паўтораў/сек</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="635"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>CapsLock:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="637"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Initially enables or disables CapsLock on startup.</source>
         <translation>Уключае або адключае CapsLock пры запуске сістэмы.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="640"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>NumLock:</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="642"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Initially enables or disables NumLock on startup.</source>
         <translation>Уключае або адключае NumLock пры запуске сістэмы.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="763"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Use this settings</source>
         <translation>Выкарастовываць гэтыя наладкі</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="646"/>
-        <source>Keyboard</source>
-        <translation>Клавіатура</translation>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Pointer device</source>
+        <translation>Указальная прылада</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="651"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Pointer device ID:</source>
         <translation>ID указательнай прылады:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="653"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Pointer device identifier</source>
         <translation>Ідэфікатар указательнай прылады</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="704"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>General:</source>
         <translation>Агульныя:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="714"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Enables or disables left handed mode.</source>
         <translation>Уключае або адключае рэжым для ляўшэй.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="716"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Left handed mode</source>
         <translation>Рэжым ляўші</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="718"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Enables or disables middle click emulation.</source>
         <translation>Уключае або адключае эмуляцыю кліка
 сярэдняй кнопкой мышы.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="720"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Press left and right buttons for middle click</source>
         <translation>Націсніце левай і правай кнопкамі мышы
 для эмуляцыы націска сярэдняй кнопкі</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="721"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Pointer speed:</source>
         <translation>Хуткасць указацеля:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="723"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Changes the pointer acceleration.</source>
         <translation>Мяняе паскарэнне указателя.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="725"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Acceleration profile:</source>
         <translation>Профіль паскарэння:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="727"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Cursor moves the same distance as the mouse movement.</source>
         <translation>Курсор перамяшчаецца на ту жа адлегласць что і мыш.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="729"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Flat</source>
         <translation>Плоскі</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="731"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Cursor travel distance depends on the mouse movement speed.</source>
         <translation>Адлегласці перамяшчэння курсора залежыць
 ад хуткасці руху мышы.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="733"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Adaptive</source>
         <translation>Адаптыўны</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="741"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Scrolling:</source>
         <translation>Пракрутка:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="747"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Touchscreen like scrolling.</source>
         <translation>Пракрутка як на сэнсарным экране.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="749"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Invert scroll direction</source>
         <translation>Інвертаваць напрамак пракруткі</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="750"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Scrolling speed:</source>
         <translation>Хуткасць пракруткі:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="752"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Scroll speed will be scaled by the given value.</source>
         <translation>Хуткасць пракруткі будзе павялічана на абранае значэнне.</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="686"/>
-        <source>Pointer device</source>
-        <translation>Указальная прылада</translation>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Touchpad</source>
+        <translation>Сэнсарная панель</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="687"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Touchpad ID:</source>
         <translation>ID сэнсарнай панелі:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="689"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Touchpad identifier</source>
         <translation>ідэфікатар сэнсарнай панелі</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="691"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Touchpad events:</source>
         <translation>Падзеі сэнсарнай панелі:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="693"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Send events normally</source>
         <translation>Адпраўка падзей у звычайным рэжыме</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="695"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Enable</source>
         <translation>Уключыць</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="697"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Touchpad only stops sending events but not get fully disabled</source>
         <translation>Сэнсарная панель перастае адпраўляць падреі,
 але не адключаецца цалкам</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="699"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Disable</source>
         <translation>Адключыць</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="701"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Disable touchpad while an external mouse is plugged in</source>
         <translation>Адключыць сэнсарную панель калі падключана знешняя мыш</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="703"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Disable when external mouse is plugged in</source>
         <translation>Адключыць калі падключана знешняя мыш</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="706"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Disables touchpad while typing the text</source>
         <translation>Адключыць сэнсарную панэль пры наборы тэксту</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="708"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Disable while typing</source>
         <translation>Адключыць пры наборы тексту</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="710"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Disables touchpad while using trackpoint device</source>
         <translation>Адключыць сэнсарную панэль калі выкарастовывается трэкпойнт</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="712"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Disable while trackpointing</source>
         <translation>Адключыць пры выкарыстанні трэкпойнта</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="734"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Mouse buttons emulation:</source>
         <translation>Эмуляцыя кнопак мышы:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="735"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Tap-to-click</source>
         <translation>Націсніце для кліка</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="736"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Tap-and-drag</source>
         <translation>Націсніце і перацягвайце</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="737"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Tap-and-drag lock</source>
         <translation>Утрымліваць пры касанні з перацягваннем</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="738"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Tap button mapping:</source>
         <translation>Разметка кнопак касання:</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="739"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Two fingers - right click, three middle</source>
         <translation>Двума пальцамі - правы клік,трыма сярэдній</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="740"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Two fingers - middle click, three right</source>
         <translation>Двума пальцамі - сярэдні клік,трыма правы</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="742"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Two fingers</source>
         <translation>Двума пальцамі</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="743"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Touchpad edges</source>
         <translation>Па краям сэнсарнай панелі</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="744"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>On button down</source>
         <translation>Па кнопке</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="745"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>No scroll</source>
         <translation>Без пракруткі</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="755"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>The bottom area of the touchpad is divided into a left, middle and right button area</source>
         <translation>Ніжняя вобласць сэнсарнай панелі падзяляецца на левую, сярэднюю і правую вобласці кпонак</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="757"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Button area</source>
         <translation>Обласць кнопак</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="759"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Clicking with 1, 2, 3 fingers triggers a left, right, or middle click, respectively</source>
         <translatorcomment> </translatorcomment>
         <translation>Клік 1,2,3 пальцамі выклікае левый,правый але сярэдній клік адпаведна</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="761"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Click fingers</source>
         <translation>Клік пальцамі</translation>
     </message>
     <message>
-        <location filename="../ui_mainwindow.py" line="762"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Click method (clickpads only):</source>
         <translation>Метад кліка (толькі для клікпаддаў):</translation>
-    </message>
-    <message>
-        <location filename="../ui_mainwindow.py" line="764"/>
-        <source>Touchpad</source>
-        <translation>Сэнсарная панель</translation>
     </message>
 </context>
 <context>
     <name>SelectKeyboardLayoutDialog</name>
     <message>
-        <location filename="../ui_selectlayout.py" line="61"/>
+        <location filename="../ui/selectlayout.ui" line="0"/>
         <source>Select a keyboard layout</source>
         <translation>Вылучыце раскладку клавіатуры</translation>
     </message>
     <message>
-        <location filename="../ui_selectlayout.py" line="62"/>
+        <location filename="../ui/selectlayout.ui" line="0"/>
         <source>Language</source>
         <translation>Мова</translation>
     </message>
     <message>
-        <location filename="../ui_selectlayout.py" line="63"/>
+        <location filename="../ui/selectlayout.ui" line="0"/>
         <source>Variant</source>
         <translation>Варыянт</translation>
     </message>
@@ -430,15 +449,14 @@
 <context>
     <name>about</name>
     <message>
-        <location filename="../ui_about.py" line="105"/>
+        <location filename="../ui/about.ui" line="0"/>
         <source>About Sway Input Configurator</source>
         <translation>Аб праграмме Sway Input Configurator</translation>
     </message>
     <message>
-        <location filename="../ui_about.py" line="107"/>
-        <source>A simple input device configurator for SwayWM, written in Python and Qt5/PySide2. It uses standard libinput options to configure keyboard, touchpad and pointer devices</source>
-        <translation>Просты канфігуратар прылад уводн для SwayWM, напісаны на Python і Qt5/PySide2.
-Выкарыстовываюцца стандартныя опцыі бібліатэкі libimput для наладкі клавіатуры тачпада і указальных прылад</translation>
+        <location filename="../ui/about.ui" line="0"/>
+        <source>A simple input device configurator for SwayWM, written in Python and Qt6. It uses standard libinput options to configure keyboard, touchpad and pointer devices</source>
+        <translation>Просты канфігуратар прылад уводн для SwayWM, напісаны на Python і Qt6. Выкарыстовываюцца стандартныя опцыі бібліатэкі libimput для наладкі клавіатуры тачпада і указальных прылад</translation>
     </message>
 </context>
 </TS>
