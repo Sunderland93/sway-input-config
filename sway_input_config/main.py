@@ -6,11 +6,11 @@ import platform
 import re
 import sys
 import signal
-from PySide2.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
+from PyQt6.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
                                QDialog, QTreeWidgetItem, QListWidgetItem,
                                QListView, QButtonGroup)
-from PySide2.QtGui import QPixmap
-from PySide2.QtCore import Qt, QTranslator, QLocale, QLibraryInfo
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtCore import Qt, QTranslator, QLocale, QLibraryInfo
 from shutil import copy2
 from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
                                      get_sway_version,
@@ -73,9 +73,9 @@ class MainWindow(QMainWindow):
 
         # Dialog buttons
         self.ui.buttonBox.rejected.connect(self.cancel)
-        self.btnApply = self.ui.buttonBox.button(QDialogButtonBox.Apply)
+        self.btnApply = self.ui.buttonBox.button(QDialogButtonBox.StandardButton.Apply)
         self.btnApply.clicked.connect(self.on_clicked_apply)
-        self.btnReset = self.ui.buttonBox.button(QDialogButtonBox.RestoreDefaults)
+        self.btnReset = self.ui.buttonBox.button(QDialogButtonBox.StandardButton.RestoreDefaults)
         self.btnReset.clicked.connect(self.on_clicked_reset)
         self.ui.buttonBox.helpRequested.connect(self.on_clicked_about)
 
@@ -90,18 +90,18 @@ class MainWindow(QMainWindow):
         for key, value in layouts:
             if key in settings["keyboard-layout"]:
                 self.layout_item = QTreeWidgetItem(self.ui.layouts)
-                self.layout_item.setData(0, Qt.DisplayRole, value)
-                self.layout_item.setData(0, Qt.UserRole, key)
+                self.layout_item.setData(0, Qt.ItemDataRole.DisplayRole, value)
+                self.layout_item.setData(0, Qt.ItemDataRole.UserRole, key)
                 self.ui.layouts.addTopLevelItem(self.layout_item)
                 for key, values in variants:
                     value = values.split(":")[0]
                     description = values.split(":")[1]
-                    if value in self.layout_item.data(0, Qt.UserRole):
+                    if value in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
                         # Workaround to prevent custom layout from using variants for English(US)
-                        if "custom" not in self.layout_item.data(0, Qt.UserRole):
+                        if "custom" not in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
                             if key in settings["keyboard-variant"]:
-                                self.layout_item.setData(1, Qt.DisplayRole, description)
-                                self.layout_item.setData(1, Qt.UserRole, key)
+                                self.layout_item.setData(1, Qt.ItemDataRole.DisplayRole, description)
+                                self.layout_item.setData(1, Qt.ItemDataRole.UserRole, key)
 
         self.ui.addBtn.clicked.connect(self.on_add_keyboard_layout)
         self.ui.rmBtn.clicked.connect(self.on_remove_layout)
@@ -115,16 +115,16 @@ class MainWindow(QMainWindow):
         self.ui.kbdID.addItem("")
         for item in keyboards:
             self.ui.kbdID.addItem(item)
-        kbd_view.setTextElideMode(Qt.ElideNone)
-        kbd_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        kbd_view.setTextElideMode(Qt.TextElideMode.ElideNone)
+        kbd_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.ui.kbdID.setCurrentText(settings["keyboard-identifier"])
         self.ui.kbdID.activated.connect(self.set_kbd_identifier)
 
         # Keyboard model option
         model_view = QListView(self.ui.kbdModel)
         self.ui.kbdModel.setView(model_view)
-        model_view.setTextElideMode(Qt.ElideNone)
-        model_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        model_view.setTextElideMode(Qt.TextElideMode.ElideNone)
+        model_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         for key, value in models:
             self.ui.kbdModel.addItem(value, key)
             if key == settings["keyboard-model"]:
@@ -141,8 +141,8 @@ class MainWindow(QMainWindow):
                 self.ui.shortcutName.addItem(value, key)
             if key == settings["keyboard-shortcut"]:
                 self.ui.shortcutName.setCurrentText(value)
-        shortcut_view.setTextElideMode(Qt.ElideNone)
-        shortcut_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        shortcut_view.setTextElideMode(Qt.TextElideMode.ElideNone)
+        shortcut_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.ui.shortcutName.activated.connect(self.set_shortcut)
 
         # Repeat delay
@@ -183,8 +183,8 @@ class MainWindow(QMainWindow):
         self.ui.pointerID.addItem("")
         for item in pointers:
             self.ui.pointerID.addItem(item)
-        pointers_view.setTextElideMode(Qt.ElideNone)
-        pointers_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        pointers_view.setTextElideMode(Qt.TextElideMode.ElideNone)
+        pointers_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.ui.pointerID.setCurrentText(settings["pointer-identifier"])
         self.ui.pointerID.activated.connect(self.set_pointer_identifier)
 
@@ -199,7 +199,8 @@ class MainWindow(QMainWindow):
         self.ui.pointerMiddle.toggled.connect(self.on_middle_checked)
 
         # Pointer speed
-        self.ui.pointerAccel.setValue(float(settings["pointer-pointer-accel"]) * 10)
+        pointerAccelValue = float(settings["pointer-pointer-accel"]) * 10
+        self.ui.pointerAccel.setValue(int(pointerAccelValue))
         self.ui.pointerAccel.valueChanged.connect(self.on_accel_value_changed)
 
         # Acceleration profile
@@ -219,7 +220,8 @@ class MainWindow(QMainWindow):
         self.ui.pointerNatScroll.toggled.connect(self.on_pointer_nat_scroll_checked)
 
         # Scrolling speed:
-        self.ui.pointerScrollFactor.setValue(float(settings["pointer-scroll-factor"]) * 10)
+        pointerFactorValue = float(settings["pointer-scroll-factor"]) * 10
+        self.ui.pointerScrollFactor.setValue(int(pointerFactorValue))
         self.ui.pointerScrollFactor.valueChanged.connect(self.on_pointer_scroll_value_changed)
 
         # Touchapd Settings #
@@ -302,7 +304,8 @@ class MainWindow(QMainWindow):
 
         # Pointer speed:
         if touchpads:
-            self.ui.touchAccel.setValue(float(settings["touchpad-pointer-accel"]) * 10)
+            touchAccelValue = float(settings["touchpad-pointer-accel"]) * 10
+            self.ui.touchAccel.setValue(int(touchAccelValue))
             self.ui.touchAccel.valueChanged.connect(self.on_touch_accel_value_changed)
         else:
             self.ui.touchAccel.setEnabled(False)
@@ -425,7 +428,8 @@ class MainWindow(QMainWindow):
 
         # Scrolling speed
         if touchpads:
-            self.ui.touchScrollFactor.setValue(float(settings["touchpad-scroll-factor"]) * 10)
+            touchFactorValue = float(settings["touchpad-scroll-factor"]) * 10
+            self.ui.touchScrollFactor.setValue(int(touchFactorValue))
             self.ui.touchScrollFactor.valueChanged.connect(self.on_touch_scroll_value_changed)
         else:
             self.ui.touchScrollFactor.setEnabled(False)
@@ -442,18 +446,18 @@ class MainWindow(QMainWindow):
         for key, values in layouts:
             if key in defaults["keyboard-layout"]:
                 self.layout_item = QTreeWidgetItem(self.ui.layouts)
-                self.layout_item.setData(0, Qt.DisplayRole, values)
-                self.layout_item.setData(0, Qt.UserRole, key)
+                self.layout_item.setData(0, Qt.ItemDataRole.DisplayRole, values)
+                self.layout_item.setData(0, Qt.ItemDataRole.UserRole, key)
                 self.ui.layouts.addTopLevelItem(self.layout_item)
                 for key, values in variants:
                     value = values.split(":")[0]
                     description = values.split(":")[1]
-                    if value in self.layout_item.data(0, Qt.UserRole):
+                    if value in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
                         # Workaround to prevent custom layout from using variants for English(US)
-                        if "custom" not in self.layout_item.data(0, Qt.UserRole):
+                        if "custom" not in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
                             if key in defaults["keyboard-variant"]:
-                                self.layout_item.setData(1, Qt.DisplayRole, description)
-                                self.layout_item.setData(1, Qt.UserRole, key)
+                                self.layout_item.setData(1, Qt.ItemDataRole.DisplayRole, description)
+                                self.layout_item.setData(1, Qt.ItemDataRole.UserRole, key)
         for key, value in models:
             if key == defaults["keyboard-model"]:
                 self.ui.kbdModel.setCurrentText(value)
@@ -469,10 +473,12 @@ class MainWindow(QMainWindow):
         self.ui.pointerID.setCurrentText(defaults["pointer-identifier"])
         self.ui.pointerLeftHanded.setChecked(False)
         self.ui.pointerMiddle.setChecked(False)
-        self.ui.pointerAccel.setValue(float(defaults["pointer-pointer-accel"]) * 10)
+        pointerAccelValue = float(defaults["pointer-pointer-accel"]) * 10
+        self.ui.pointerAccel.setValue(int(pointerAccelValue))
         self.ui.pointerFlat.setChecked(True)
         self.ui.pointerNatScroll.setChecked(False)
-        self.ui.pointerScrollFactor.setValue(float(defaults["pointer-scroll-factor"]) * 10)
+        pointerFactorValue = float(defaults["pointer-scroll-factor"]) * 10
+        self.ui.pointerScrollFactor.setValue(int(pointerFactorValue))
 
         touchpads = list_inputs_by_type(input_type="touchpad")
         if touchpads:
@@ -482,7 +488,8 @@ class MainWindow(QMainWindow):
             self.ui.DWTP.setChecked(False)
             self.ui.touchLeftHanded.setChecked(False)
             self.ui.touchMiddle.setChecked(True)
-            self.ui.touchAccel.setValue(float(defaults["touchpad-pointer-accel"]) * 10)
+            touchAccelValue = float(defaults["touchpad-pointer-accel"]) * 10
+            self.ui.touchAccel.setValue(int(touchAccelValue))
             self.ui.touchFlat.setChecked(True)
             self.ui.tap_click.setChecked(True)
             self.ui.drag.setEnabled(True)
@@ -493,20 +500,21 @@ class MainWindow(QMainWindow):
             self.ui.method1.setChecked(True)
             self.ui.btn_BtnArea.setChecked(True)
             self.ui.touchNatScroll.setChecked(False)
-            self.ui.touchScrollFactor.setValue(float(defaults["touchpad-scroll-factor"]) * 10)
+            touchFactorValue = float(defaults["touchpad-scroll-factor"]) * 10
+            self.ui.touchScrollFactor.setValue(int(touchFactorValue))
 
     def on_add_keyboard_layout(self):
         self.dlg = SelectKeyboardLayout()
-        if self.dlg.exec() == QDialog.Accepted:
-            lay_key = self.dlg.select_layout.layouts.currentItem().data(Qt.DisplayRole)
-            lay_value = self.dlg.select_layout.layouts.currentItem().data(Qt.UserRole)
-            var_key = self.dlg.select_layout.variants.currentItem().data(Qt.DisplayRole)
-            var_value = self.dlg.select_layout.variants.currentItem().data(Qt.UserRole)
+        if self.dlg.exec() == 1:
+            lay_key = self.dlg.select_layout.layouts.currentItem().data(Qt.ItemDataRole.DisplayRole)
+            lay_value = self.dlg.select_layout.layouts.currentItem().data(Qt.ItemDataRole.UserRole)
+            var_key = self.dlg.select_layout.variants.currentItem().data(Qt.ItemDataRole.DisplayRole)
+            var_value = self.dlg.select_layout.variants.currentItem().data(Qt.ItemDataRole.UserRole)
             self.item = QTreeWidgetItem(self.ui.layouts)
-            self.item.setData(0, Qt.DisplayRole, lay_key)
-            self.item.setData(0, Qt.UserRole, lay_value)
-            self.item.setData(1, Qt.DisplayRole, var_key)
-            self.item.setData(1, Qt.UserRole, var_value)
+            self.item.setData(0, Qt.ItemDataRole.DisplayRole, lay_key)
+            self.item.setData(0, Qt.ItemDataRole.UserRole, lay_value)
+            self.item.setData(1, Qt.ItemDataRole.DisplayRole, var_key)
+            self.item.setData(1, Qt.ItemDataRole.UserRole, var_value)
             self.ui.layouts.addTopLevelItem(self.item)
 
     def on_remove_layout(self):
@@ -539,9 +547,9 @@ class MainWindow(QMainWindow):
         if n > 0:
             while row < n:
                 item = self.ui.layouts.topLevelItem(row)
-                if item.data(1, Qt.UserRole) is not None:
-                    variants.append(item.data(1, Qt.UserRole))
-                layouts.append(item.data(0, Qt.UserRole))
+                if item.data(1, Qt.ItemDataRole.UserRole) is not None:
+                    variants.append(item.data(1, Qt.ItemDataRole.UserRole))
+                layouts.append(item.data(0, Qt.ItemDataRole.UserRole))
                 row += 1
         settings["keyboard-layout"] = layouts
         settings["keyboard-variant"] = variants
@@ -759,24 +767,24 @@ class SelectKeyboardLayout(QDialog):
         self.select_layout.setupUi(self)
 
         none_item = QListWidgetItem()
-        none_item.setData(Qt.UserRole, "")
-        none_item.setData(Qt.DisplayRole, "")
+        none_item.setData(Qt.ItemDataRole.UserRole, "")
+        none_item.setData(Qt.ItemDataRole.DisplayRole, "")
         self.select_layout.variants.addItem(none_item)
 
         for key, value in layouts:
             item = QListWidgetItem(value)
-            item.setData(Qt.UserRole, key)
-            item.setData(Qt.DisplayRole, value)
+            item.setData(Qt.ItemDataRole.UserRole, key)
+            item.setData(Qt.ItemDataRole.DisplayRole, value)
             self.select_layout.layouts.addItem(item)
         for key, values in variants:
             value = values.split(":")[0]
             description = values.split(":")[1]
-            if value in item.data(Qt.UserRole):
+            if value in item.data(Qt.ItemDataRole.UserRole):
                 # Workaround to prevent custom layout from using variants for English(US)
-                if "custom" not in item.data(Qt.UserRole):
+                if "custom" not in item.data(Qt.ItemDataRole.UserRole):
                     vitem = QListWidgetItem(description)
-                    vitem.setData(Qt.UserRole, key)
-                    vitem.setData(Qt.DisplayRole, description)
+                    vitem.setData(Qt.ItemDataRole.UserRole, key)
+                    vitem.setData(Qt.ItemDataRole.DisplayRole, description)
                     self.select_layout.variants.addItem(vitem)
         self.select_layout.layouts.setCurrentItem(self.select_layout.layouts.item(0))
         self.select_layout.variants.setCurrentItem(self.select_layout.variants.item(0))
@@ -789,18 +797,18 @@ class SelectKeyboardLayout(QDialog):
         item = self.select_layout.layouts.currentItem()
         self.select_layout.variants.clear()
         none_item = QListWidgetItem()
-        none_item.setData(Qt.UserRole, "")
-        none_item.setData(Qt.DisplayRole, "")
+        none_item.setData(Qt.ItemDataRole.UserRole, "")
+        none_item.setData(Qt.ItemDataRole.DisplayRole, "")
         self.select_layout.variants.addItem(none_item)
         for key, values in variants:
             value = values.split(":")[0]
             description = values.split(":")[1]
-            if value in item.data(Qt.UserRole):
+            if value in item.data(Qt.ItemDataRole.UserRole):
                 # Workaround to prevent custom layout from using variants for English(US)
-                if "custom" not in item.data(Qt.UserRole):
+                if "custom" not in item.data(Qt.ItemDataRole.UserRole):
                     vitem = QListWidgetItem(description)
-                    vitem.setData(Qt.UserRole, key)
-                    vitem.setData(Qt.DisplayRole, description)
+                    vitem.setData(Qt.ItemDataRole.UserRole, key)
+                    vitem.setData(Qt.ItemDataRole.DisplayRole, description)
                     self.select_layout.variants.addItem(vitem)
         self.select_layout.variants.setCurrentItem(self.select_layout.variants.item(0))
 
@@ -808,7 +816,7 @@ class SelectKeyboardLayout(QDialog):
         self.accept()
 
     def cancel(self):
-        self.close()
+        self.reject()
 
 
 def save_to_config():
@@ -973,7 +981,7 @@ def main():
     locale = args.locale
     locale_ts = QTranslator()
     app_ts = QTranslator()
-    locale_ts.load('qt_%s' % locale, QLibraryInfo.location(QLibraryInfo.TranslationsPath))
+    locale_ts.load('qt_%s' % locale, QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath))
     app_ts.load('lang_%s' % locale, os.path.join(dir_name, "langs"))
     app.installTranslator(locale_ts)
     app.installTranslator(app_ts)
@@ -990,7 +998,7 @@ def main():
 
     win = MainWindow()
     win.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 if __name__ == "__main__":

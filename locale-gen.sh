@@ -19,9 +19,9 @@ fi
 
 cd "$sources" || exit
 
-pylupdate5 -noobsolete \
+pylupdate6 --no-obsolete \
     main.py \
     ui_about.py \
     ui_mainwindow.py \
     ui_selectlayout.py \
-    -ts "$langs"/"lang_$lang.ts"
+    --ts "$langs"/"lang_$lang.ts"
