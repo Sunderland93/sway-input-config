@@ -70,4 +70,4 @@ class Ui_about(object):
     def retranslateUi(self, about):
         _translate = QtCore.QCoreApplication.translate
         about.setWindowTitle(_translate("about", "About Sway Input Configurator"))
-        self.label_2.setText(_translate("about", "A simple input device configurator for SwayWM, written in Python and Qt5/PySide2. It uses standard libinput options to configure keyboard, touchpad and pointer devices"))
+        self.label_2.setText(_translate("about", "A simple input device configurator for SwayWM, written in Python and Qt6. It uses standard libinput options to configure keyboard, touchpad and pointer devices"))
