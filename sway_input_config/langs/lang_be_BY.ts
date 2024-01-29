@@ -4,9 +4,22 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../main.py" line="755"/>
+        <location filename="../main.py" line="771"/>
         <source>Version: </source>
         <translation>Версія: </translation>
+    </message>
+</context>
+<context>
+    <name>ErrorMessage</name>
+    <message>
+        <location filename="../ui/error_message.ui" line="0"/>
+        <source>Sway socket not found!</source>
+        <translation>Сокет Sway не знойдзены!</translation>
+    </message>
+    <message>
+        <location filename="../ui/error_message.ui" line="0"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Sway Input Configurator only supports Sway. You are probably using an unsupported window manager or there are problems with your Sway configuration.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Sway Input Configurator only падтрымлівае толькі Sway. Магчыма, вы выкарыстоўваеце дыспетчар вокнаў, які не падтрымліваецца, або ёсць праблемы з канфігурацыяй Sway.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -73,33 +86,13 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Keyboard ID:</source>
-        <translation>ID клавіатуры:</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Keyboard identifier</source>
-        <translation>Ідэнтыфікатар клавіатуры</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Keyboard model:</source>
-        <translation>Мадель клавіатуры:</translation>
+        <source>Initially enables or disables CapsLock on startup.</source>
+        <translation>Уключае або адключае CapsLock пры запуске сістэмы.</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Keyboard shortcut:</source>
         <translation>Спалучэнне клавіш:</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Keyboard shortcut to switch between layouts.</source>
-        <translation>Спалучэнне клавіш для параключэння паміж раскладкамі.</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Repeat delay:</source>
-        <translation>Затрымка паўтору:</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -114,8 +107,8 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Repeat rate:</source>
-        <translation>Частата паўтору:</translation>
+        <source>CapsLock:</source>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -130,13 +123,23 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>CapsLock:</source>
-        <translation></translation>
+        <source>Keyboard identifier</source>
+        <translation>Ідэнтыфікатар клавіатуры</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Initially enables or disables CapsLock on startup.</source>
-        <translation>Уключае або адключае CapsLock пры запуске сістэмы.</translation>
+        <source>Repeat delay:</source>
+        <translation>Затрымка паўтору:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Keyboard ID:</source>
+        <translation>ID клавіатуры:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Repeat rate:</source>
+        <translation>Частата паўтору:</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -147,6 +150,16 @@
         <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Initially enables or disables NumLock on startup.</source>
         <translation>Уключае або адключае NumLock пры запуске сістэмы.</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Keyboard shortcut to switch between layouts.</source>
+        <translation>Спалучэнне клавіш для параключэння паміж раскладкамі.</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Keyboard model:</source>
+        <translation>Мадель клавіатуры:</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -162,8 +175,9 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Pointer device ID:</source>
-        <translation>ID указательнай прылады:</translation>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>General</source>
+        <translation>Агульныя</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -172,9 +186,13 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Buttons:</source>
+        <translation>Кнопкі:</translation>
+    </message>
+    <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>General:</source>
-        <translation>Агульныя:</translation>
+        <source>Pointer device ID:</source>
+        <translation>ID указательнай прылады:</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -197,10 +215,15 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Press left and right buttons for middle click</source>
         <translation>Націсніце левай і правай кнопкамі мышы
 для эмуляцыы націска сярэдняй кнопкі</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Pointer</source>
+        <translation>Паказальнік</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -248,8 +271,20 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Scrolling</source>
+        <translation>Пракрутка</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Scrolling:</source>
         <translation>Пракрутка:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Scroll speed will be scaled by the given value.</source>
+        <translation>Хуткасць пракруткі будзе павялічана на абранае значэнне.</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -271,14 +306,121 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Scroll speed will be scaled by the given value.</source>
-        <translation>Хуткасць пракруткі будзе павялічана на абранае значэнне.</translation>
+        <source>Touchpad</source>
+        <translation>Сэнсарная панель</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Touchpad</source>
-        <translation>Сэнсарная панель</translation>
+        <source>Touchpad buttons</source>
+        <translation>Кнопкі тачпада</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>2 fingers - right click, 3 - middle</source>
+        <translation>2 пальцы - правы клік,
+тры - сярэдні</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Tap-to-click</source>
+        <translation>Націсніце для кліка</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Click method
+(clickpads only):</source>
+        <translation>Метад кліку
+(толькі для клікпадаў)</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Tap button mapping:</source>
+        <translation>Разметка кнопак касання:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Clicking with 1, 2, 3 fingers triggers a left, right, or middle click, respectively</source>
+        <translatorcomment> </translatorcomment>
+        <translation>Клік 1,2,3 пальцамі выклікае левый,правый але сярэдній клік адпаведна</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Click fingers</source>
+        <translation>Клік пальцамі</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Disables touchpad while typing the text</source>
+        <translation>Адключыць сэнсарную панэль пры наборы тэксту</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Disable while typing</source>
+        <translation>Адключыць пры наборы тексту</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Tap-and-drag lock</source>
+        <translation>Утрымліваць пры касанні з перацягваннем</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Disables touchpad while using trackpoint device</source>
+        <translation>Адключыць сэнсарную панэль калі выкарастовывается трэкпойнт</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Disable while trackpointing</source>
+        <translation>Адключыць пры выкарыстанні трэкпойнта</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Tap-and-drag</source>
+        <translation>Націсніце і перацягвайце</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source> Press left and right buttons for
+ middle click</source>
+        <translation> Націсніце левай і правай
+ кнопкамі мышы для эмуляцыы
+ націска сярэдняй кнопкі</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>The bottom area of the touchpad is divided into a left, middle and right button area</source>
+        <translation>Ніжняя вобласць сэнсарнай панелі падзяляецца на левую, сярэднюю і правую вобласці кпонак</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Button area</source>
+        <translation>Обласць кнопак</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>2 fingers - middle click, 3 - right</source>
+        <translation>2 пальца - сярэдні
+клік, 3 - правы</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Two fingers</source>
+        <translation>Двума пальцамі</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>On button down</source>
+        <translation>Па кнопке</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>No scroll</source>
+        <translation>Без пракруткі</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Touchpad edges</source>
+        <translation>Па краям сэнсарнай панелі</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -325,107 +467,6 @@
         <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Disable when external mouse is plugged in</source>
         <translation>Адключыць калі падключана знешняя мыш</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Disables touchpad while typing the text</source>
-        <translation>Адключыць сэнсарную панэль пры наборы тэксту</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Disable while typing</source>
-        <translation>Адключыць пры наборы тексту</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Disables touchpad while using trackpoint device</source>
-        <translation>Адключыць сэнсарную панэль калі выкарастовывается трэкпойнт</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Disable while trackpointing</source>
-        <translation>Адключыць пры выкарыстанні трэкпойнта</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Mouse buttons emulation:</source>
-        <translation>Эмуляцыя кнопак мышы:</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Tap-to-click</source>
-        <translation>Націсніце для кліка</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Tap-and-drag</source>
-        <translation>Націсніце і перацягвайце</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Tap-and-drag lock</source>
-        <translation>Утрымліваць пры касанні з перацягваннем</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Tap button mapping:</source>
-        <translation>Разметка кнопак касання:</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Two fingers - right click, three middle</source>
-        <translation>Двума пальцамі - правы клік,трыма сярэдній</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Two fingers - middle click, three right</source>
-        <translation>Двума пальцамі - сярэдні клік,трыма правы</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Two fingers</source>
-        <translation>Двума пальцамі</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Touchpad edges</source>
-        <translation>Па краям сэнсарнай панелі</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>On button down</source>
-        <translation>Па кнопке</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>No scroll</source>
-        <translation>Без пракруткі</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>The bottom area of the touchpad is divided into a left, middle and right button area</source>
-        <translation>Ніжняя вобласць сэнсарнай панелі падзяляецца на левую, сярэднюю і правую вобласці кпонак</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Button area</source>
-        <translation>Обласць кнопак</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Clicking with 1, 2, 3 fingers triggers a left, right, or middle click, respectively</source>
-        <translatorcomment> </translatorcomment>
-        <translation>Клік 1,2,3 пальцамі выклікае левый,правый але сярэдній клік адпаведна</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Click fingers</source>
-        <translation>Клік пальцамі</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Click method (clickpads only):</source>
-        <translation>Метад кліка (толькі для клікпаддаў):</translation>
     </message>
 </context>
 <context>
