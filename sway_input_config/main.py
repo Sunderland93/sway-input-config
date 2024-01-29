@@ -21,13 +21,16 @@ from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
 from sway_input_config.ui_mainwindow import Ui_MainWindow
 from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
+from sway_input_config.ui_error_message import Ui_ErrorMessage
 
 app_version = "1.3.0"
-sway_version = get_sway_version()
-data_dir = ""
-config_home = get_config_home()
 
-sway_config = os.path.join(config_home, "sway", "config")
+if os.getenv("SWAYSOCK"):
+    sway_version = get_sway_version()
+    data_dir = ""
+    config_home = get_config_home()
+    sway_config = os.path.join(config_home, "sway", "config")
+
 dir_name = os.path.dirname(__file__)
 default_settings = os.path.join(dir_name, "data/defaults.json")
 
@@ -63,6 +66,19 @@ for line in XKB_BASE_LIST:
             variants.append((key, value))
         elif category == 'option':
             options.append((key, value))
+
+
+class ErrorMessage(QDialog):
+    def __init__(self):
+        super(ErrorMessage, self).__init__()
+        self.ui = Ui_ErrorMessage()
+        self.ui.setupUi(self)
+
+        self.btnOk = self.ui.buttonBox.button(QDialogButtonBox.StandardButton.Ok)
+        self.btnOk.clicked.connect(self.on_clicked_ok)
+
+    def on_clicked_ok(self):
+        self.close()
 
 
 class MainWindow(QMainWindow):
@@ -962,43 +978,47 @@ def main():
     app = QApplication(["Sway Input Configurator"])
     app.setDesktopFileName("sway-input-config")
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-v",
-                        "--version",
-                        action="version",
-                        version=app_version,
-                        help="display application version")
-    parser.add_argument("-l",
-                        "--locale",
-                        default=QLocale.system().name(),
-                        help="force application locale")
-    parser.add_argument("-r",
-                        "--restore",
-                        action="store_true",
-                        help="restore default settings")
-    args = parser.parse_args()
+    if os.getenv("SWAYSOCK"):
+        parser = argparse.ArgumentParser()
+        parser.add_argument("-v",
+                            "--version",
+                            action="version",
+                            version=app_version,
+                            help="display application version")
+        parser.add_argument("-l",
+                            "--locale",
+                            default=QLocale.system().name(),
+                            help="force application locale")
+        parser.add_argument("-r",
+                            "--restore",
+                            action="store_true",
+                            help="restore default settings")
+        args = parser.parse_args()
 
-    locale = args.locale
-    locale_ts = QTranslator()
-    app_ts = QTranslator()
-    locale_ts.load('qt_%s' % locale, QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath))
-    app_ts.load('lang_%s' % locale, os.path.join(dir_name, "langs"))
-    app.installTranslator(locale_ts)
-    app.installTranslator(app_ts)
+        locale = args.locale
+        locale_ts = QTranslator()
+        app_ts = QTranslator()
+        locale_ts.load('qt_%s' % locale, QLibraryInfo.path(QLibraryInfo.LibraryPath.TranslationsPath))
+        app_ts.load('lang_%s' % locale, os.path.join(dir_name, "langs"))
+        app.installTranslator(locale_ts)
+        app.installTranslator(app_ts)
 
-    global data_dir
-    data_dir = get_data_dir()
+        global data_dir
+        data_dir = get_data_dir()
 
-    if args.restore:
-        if input("\nRestore default settings? y/N ").upper() == "Y":
-            copy2(os.path.join(dir_name, "data/defaults.json"), os.path.join(data_dir, "settings"))
-            sys.exit(0)
+        if args.restore:
+            if input("\nRestore default settings? y/N ").upper() == "Y":
+                copy2(os.path.join(dir_name, "data/defaults.json"), os.path.join(data_dir, "settings"))
+                sys.exit(0)
 
-    load_settings()
-
-    win = MainWindow()
-    win.show()
-    sys.exit(app.exec())
+        load_settings()
+        win = MainWindow()
+        win.show()
+        sys.exit(app.exec())
+    else:
+        win = ErrorMessage()
+        win.show()
+        sys.exit(app.exec())
 
 
 if __name__ == "__main__":
