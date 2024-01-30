@@ -230,6 +230,18 @@ class MainWindow(QMainWindow):
         self.ui.pointerFlat.clicked.connect(self.on_accel_profile_changed)
         self.ui.pointerAdaptive.clicked.connect(self.on_accel_profile_changed)
 
+        # Rotation angle (0.0 to 360.0) since Sway 1.9
+        if sway_version >= "1.9":
+            pointerRotationValue = float(settings["pointer-rotation-angle"])
+            self.ui.pointerRotationAngleSlider.setValue(int(pointerRotationValue))
+            self.ui.pointerRotationAngle.setValue(self.ui.pointerRotationAngleSlider.value())
+            self.ui.pointerRotationAngleSlider.sliderMoved.connect(self.ui.pointerRotationAngle.setValue)
+            self.ui.pointerRotationAngleSlider.valueChanged.connect(self.on_pointer_rotation_angle_value_changed)
+        else:
+            self.ui.pointerRotationAngleSlider.setDisabled(True)
+            self.ui.pointerRotationAngle.setDisabled(True)
+            self.ui.pointerRotationLabel.setDisabled(True)
+
         # Scrolling
         if settings["pointer-natural-scroll"] == "true":
             self.ui.pointerNatScroll.setChecked(True)
@@ -253,7 +265,7 @@ class MainWindow(QMainWindow):
         self.ui.touchpadID.setView(touchpads_view)
         if not touchpads:
             self.ui.touchpadID.addItem("Not found")
-            self.ui.touchpadID.setEnabled(False)
+            self.ui.tabWidget.widget(2).setEnabled(False)
         else:
             self.ui.touchpadID.addItem("")
             for item in touchpads:
@@ -268,146 +280,117 @@ class MainWindow(QMainWindow):
         self.eventsButtonGroup.addButton(self.ui.touchEventsEnabled)
         self.eventsButtonGroup.addButton(self.ui.touchEventsDisabled)
         self.eventsButtonGroup.addButton(self.ui.touchEventsOnExternalMouse)
-        if touchpads:
-            if settings["touchpad-events"] == "disabled":
-                self.ui.touchEventsDisabled.setChecked(True)
-            elif settings["touchpad-events"] == "disabled_on_external_mouse":
-                self.ui.touchEventsOnExternalMouse.setChecked(True)
-            else:
-                self.ui.touchEventsEnabled.setChecked(True)
+        if settings["touchpad-events"] == "disabled":
+            self.ui.touchEventsDisabled.setChecked(True)
+        elif settings["touchpad-events"] == "disabled_on_external_mouse":
+            self.ui.touchEventsOnExternalMouse.setChecked(True)
         else:
-            self.ui.touchEventsEnabled.setEnabled(False)
-            self.ui.touchEventsDisabled.setEnabled(False)
-            self.ui.touchEventsOnExternalMouse.setEnabled(False)
+            self.ui.touchEventsEnabled.setChecked(True)
         self.ui.touchEventsEnabled.clicked.connect(self.on_touchpad_events_mode_changed)
         self.ui.touchEventsDisabled.clicked.connect(self.on_touchpad_events_mode_changed)
         self.ui.touchEventsOnExternalMouse.clicked.connect(self.on_touchpad_events_mode_changed)
 
         # Disable while typing
-        if touchpads:
-            if settings["touchpad-dwt"] == "enabled":
-                self.ui.DWT.setChecked(True)
-            self.ui.DWT.toggled.connect(self.on_dwt_checked)
-        else:
-            self.ui.DWT.setEnabled(False)
+        if settings["touchpad-dwt"] == "enabled":
+            self.ui.DWT.setChecked(True)
+        self.ui.DWT.toggled.connect(self.on_dwt_checked)
 
         # Disable while trackpointing
-        if touchpads:
-            if sway_version >= "1.8":
-                if settings["touchpad-dwtp"] == "enabled":
-                    self.ui.DWTP.setChecked(True)
-                self.ui.DWTP.toggled.connect(self.on_dwtp_checked)
-            else:
-                self.ui.DWTP.setEnabled(False)
+        if sway_version >= "1.8":
+            if settings["touchpad-dwtp"] == "enabled":
+                self.ui.DWTP.setChecked(True)
+            self.ui.DWTP.toggled.connect(self.on_dwtp_checked)
         else:
             self.ui.DWTP.setEnabled(False)
 
         # Left handed mode
-        if touchpads:
-            if settings["touchpad-left-handed"] == "enabled":
-                self.ui.touchLeftHanded.setChecked(True)
-            self.ui.touchLeftHanded.toggled.connect(self.on_touch_left_handed_checked)
-        else:
-            self.ui.touchLeftHanded.setEnabled(False)
+        if settings["touchpad-left-handed"] == "enabled":
+            self.ui.touchLeftHanded.setChecked(True)
+        self.ui.touchLeftHanded.toggled.connect(self.on_touch_left_handed_checked)
 
         # Middle click emulation
-        if touchpads:
-            if settings["touchpad-middle-emulation"] == "enabled":
-                self.ui.touchMiddle.setChecked(True)
-            self.ui.touchMiddle.toggled.connect(self.on_touch_middle_emu_checked)
-        else:
-            self.ui.touchMiddle.setEnabled(False)
+        if settings["touchpad-middle-emulation"] == "enabled":
+            self.ui.touchMiddle.setChecked(True)
+        self.ui.touchMiddle.toggled.connect(self.on_touch_middle_emu_checked)
 
         # Pointer speed:
-        if touchpads:
-            touchAccelValue = float(settings["touchpad-pointer-accel"]) * 10
-            self.ui.touchAccel.setValue(int(touchAccelValue))
-            self.ui.touchAccel.valueChanged.connect(self.on_touch_accel_value_changed)
-        else:
-            self.ui.touchAccel.setEnabled(False)
+        touchAccelValue = float(settings["touchpad-pointer-accel"]) * 10
+        self.ui.touchAccel.setValue(int(touchAccelValue))
+        self.ui.touchAccel.valueChanged.connect(self.on_touch_accel_value_changed)
 
         # Acceleration profile
         self.touchAccelButtonGroup = QButtonGroup()
         self.touchAccelButtonGroup.addButton(self.ui.touchFlat)
         self.touchAccelButtonGroup.addButton(self.ui.touchAdaptive)
-        if touchpads:
-            if settings["touchpad-accel-profile"] == "flat":
-                self.ui.touchFlat.setChecked(True)
-            else:
-                self.ui.touchAdaptive.setChecked(True)
-            self.ui.touchFlat.clicked.connect(self.on_touch_accel_profile_changed)
-            self.ui.touchAdaptive.clicked.connect(self.on_touch_accel_profile_changed)
+        if settings["touchpad-accel-profile"] == "flat":
+            self.ui.touchFlat.setChecked(True)
         else:
-            self.ui.touchFlat.setEnabled(False)
-            self.ui.touchAdaptive.setEnabled(False)
+            self.ui.touchAdaptive.setChecked(True)
+        self.ui.touchFlat.clicked.connect(self.on_touch_accel_profile_changed)
+        self.ui.touchAdaptive.clicked.connect(self.on_touch_accel_profile_changed)
+
+        # Rotation angle (0.0 to 360.0) since Sway 1.9
+        if sway_version >= "1.9":
+            touchRotationValue = float(settings["touchpad-rotation-angle"])
+            self.ui.touchRotationAngleSlider.setValue(int(touchRotationValue))
+            self.ui.touchRotationAngle.setValue(self.ui.touchRotationAngleSlider.value())
+            self.ui.touchRotationAngleSlider.sliderMoved.connect(self.ui.touchRotationAngle.setValue)
+            self.ui.touchRotationAngleSlider.valueChanged.connect(self.on_touch_rotation_angle_value_changed)
+        else:
+            self.ui.touchRotationAngleSlider.setDisabled(True)
+            self.ui.touchRotationAngle.setDisabled(True)
+            self.ui.touchpadRotationLabel.setDisabled(True)
 
         # Tap-to-click
-        if touchpads:
-            if settings["touchpad-tap"] == "enabled":
-                self.ui.tap_click.setChecked(True)
-            self.ui.tap_click.toggled.connect(self.on_tap_click_checked)
-        else:
-            self.ui.tap_click.setEnabled(False)
+        if settings["touchpad-tap"] == "enabled":
+            self.ui.tap_click.setChecked(True)
+        self.ui.tap_click.toggled.connect(self.on_tap_click_checked)
 
         # Tap-and-drag
-        if touchpads:
-            if settings["touchpad-tap"] == "enabled":
-                self.ui.drag.setEnabled(True)
-            else:
-                self.ui.drag.setEnabled(False)
-            if settings["touchpad-drag"] == "enabled":
-                self.ui.drag.setChecked(True)
-            self.ui.drag.toggled.connect(self.on_tapdrag_checked)
+        if settings["touchpad-tap"] == "enabled":
+            self.ui.drag.setEnabled(True)
         else:
             self.ui.drag.setEnabled(False)
+        if settings["touchpad-drag"] == "enabled":
+            self.ui.drag.setChecked(True)
+        self.ui.drag.toggled.connect(self.on_tapdrag_checked)
 
         # Tap-and-drag lock
-        if touchpads:
-            if settings["touchpad-tap"] == "enabled":
-                self.ui.drag_lock.setEnabled(True)
-            else:
-                self.ui.drag_lock.setEnabled(False)
-            if settings["touchpad-drag-lock"] == "enabled":
-                self.ui.drag_lock.setChecked(True)
-            self.ui.drag_lock.toggled.connect(self.on_draglock_checked)
+        if settings["touchpad-tap"] == "enabled":
+            self.ui.drag_lock.setEnabled(True)
         else:
             self.ui.drag_lock.setEnabled(False)
+        if settings["touchpad-drag-lock"] == "enabled":
+            self.ui.drag_lock.setChecked(True)
+        self.ui.drag_lock.toggled.connect(self.on_draglock_checked)
 
         # Tap button mapping:
         self.mappingButtonGroup = QButtonGroup()
         self.mappingButtonGroup.addButton(self.ui.lmr)
         self.mappingButtonGroup.addButton(self.ui.lrm)
-        if touchpads:
-            if settings["touchpad-tap"] == "enabled":
-                self.ui.lrm.setEnabled(True)
-                self.ui.lmr.setEnabled(True)
-            else:
-                self.ui.lrm.setEnabled(False)
-                self.ui.lmr.setEnabled(False)
-            if settings["touchpad-tap-button-map"] == "lrm":
-                self.ui.lrm.setChecked(True)
-            else:
-                self.ui.lmr.setChecked(True)
-            self.ui.lrm.clicked.connect(self.on_multi_tap_checked)
-            self.ui.lmr.clicked.connect(self.on_multi_tap_checked)
+        if settings["touchpad-tap"] == "enabled":
+            self.ui.lrm.setEnabled(True)
+            self.ui.lmr.setEnabled(True)
         else:
-            self.ui.lmr.setEnabled(False)
             self.ui.lrm.setEnabled(False)
+            self.ui.lmr.setEnabled(False)
+        if settings["touchpad-tap-button-map"] == "lrm":
+            self.ui.lrm.setChecked(True)
+        else:
+            self.ui.lmr.setChecked(True)
+        self.ui.lrm.clicked.connect(self.on_multi_tap_checked)
+        self.ui.lmr.clicked.connect(self.on_multi_tap_checked)
 
         # Click method
         self.clickMethodButtonGroup = QButtonGroup()
         self.clickMethodButtonGroup.addButton(self.ui.btn_BtnArea)
         self.clickMethodButtonGroup.addButton(self.ui.btn_ClickFinger)
-        if touchpads:
-            if settings["touchpad-click-method"] == "button_areas":
-                self.ui.btn_BtnArea.setChecked(True)
-            elif settings["touchpad-click-method"] == "clickfinger":
-                self.ui.btn_ClickFinger.setChecked(True)
-            self.ui.btn_BtnArea.clicked.connect(self.on_click_method_checked)
-            self.ui.btn_ClickFinger.clicked.connect(self.on_click_method_checked)
-        else:
-            self.ui.btn_BtnArea.setEnabled(False)
-            self.ui.btn_ClickFinger.setEnabled(False)
+        if settings["touchpad-click-method"] == "button_areas":
+            self.ui.btn_BtnArea.setChecked(True)
+        elif settings["touchpad-click-method"] == "clickfinger":
+            self.ui.btn_ClickFinger.setChecked(True)
+        self.ui.btn_BtnArea.clicked.connect(self.on_click_method_checked)
+        self.ui.btn_ClickFinger.clicked.connect(self.on_click_method_checked)
 
         # Scrolling method
         self.scrollingButtonGroup = QButtonGroup()
@@ -415,40 +398,28 @@ class MainWindow(QMainWindow):
         self.scrollingButtonGroup.addButton(self.ui.method2)
         self.scrollingButtonGroup.addButton(self.ui.method3)
         self.scrollingButtonGroup.addButton(self.ui.method4)
-        if touchpads:
-            if settings["touchpad-scroll-method"] == "two_finger":
-                self.ui.method1.setChecked(True)
-            elif settings["touchpad-scroll-method"] == "edge":
-                self.ui.method2.setChecked(True)
-            elif settings["touchpad-scroll-method"] == "on_button_down":
-                self.ui.method3.setChecked(True)
-            else:
-                self.ui.method4.setChecked(True)
-            self.ui.method1.clicked.connect(self.on_scroll_method_checked)
-            self.ui.method2.clicked.connect(self.on_scroll_method_checked)
-            self.ui.method3.clicked.connect(self.on_scroll_method_checked)
-            self.ui.method4.clicked.connect(self.on_scroll_method_checked)
+        if settings["touchpad-scroll-method"] == "two_finger":
+            self.ui.method1.setChecked(True)
+        elif settings["touchpad-scroll-method"] == "edge":
+            self.ui.method2.setChecked(True)
+        elif settings["touchpad-scroll-method"] == "on_button_down":
+            self.ui.method3.setChecked(True)
         else:
-            self.ui.method1.setEnabled(False)
-            self.ui.method2.setEnabled(False)
-            self.ui.method3.setEnabled(False)
-            self.ui.method4.setEnabled(False)
+            self.ui.method4.setChecked(True)
+        self.ui.method1.clicked.connect(self.on_scroll_method_checked)
+        self.ui.method2.clicked.connect(self.on_scroll_method_checked)
+        self.ui.method3.clicked.connect(self.on_scroll_method_checked)
+        self.ui.method4.clicked.connect(self.on_scroll_method_checked)
 
         # Scrolling:
-        if touchpads:
-            if settings["touchpad-natural-scroll"] == "enabled":
-                self.ui.touchNatScroll.setChecked(True)
-            self.ui.touchNatScroll.toggled.connect(self.on_touch_nat_scroll_checked)
-        else:
-            self.ui.touchNatScroll.setEnabled(False)
+        if settings["touchpad-natural-scroll"] == "enabled":
+            self.ui.touchNatScroll.setChecked(True)
+        self.ui.touchNatScroll.toggled.connect(self.on_touch_nat_scroll_checked)
 
         # Scrolling speed
-        if touchpads:
-            touchFactorValue = float(settings["touchpad-scroll-factor"]) * 10
-            self.ui.touchScrollFactor.setValue(int(touchFactorValue))
-            self.ui.touchScrollFactor.valueChanged.connect(self.on_touch_scroll_value_changed)
-        else:
-            self.ui.touchScrollFactor.setEnabled(False)
+        touchFactorValue = float(settings["touchpad-scroll-factor"]) * 10
+        self.ui.touchScrollFactor.setValue(int(touchFactorValue))
+        self.ui.touchScrollFactor.valueChanged.connect(self.on_touch_scroll_value_changed)
 
     def keyboard_use_settings(self):
         if self.ui.KeyBoardUseSettings.isChecked() is True:
@@ -627,6 +598,9 @@ class MainWindow(QMainWindow):
         else:
             settings["pointer-accel-profile"] = "adaptive"
 
+    def on_pointer_rotation_angle_value_changed(self):
+        settings["pointer-rotation-angle"] = float(self.ui.pointerRotationAngle.value())
+
     def on_pointer_nat_scroll_checked(self):
         if self.ui.pointerNatScroll.isChecked() is True:
             settings["pointer-natural-scroll"] = "true"
@@ -685,6 +659,9 @@ class MainWindow(QMainWindow):
             settings["touchpad-accel-profile"] = "flat"
         else:
             settings["touchpad-accel-profile"] = "adaptive"
+
+    def on_touch_rotation_angle_value_changed(self):
+        settings["touchpad-rotation-angle"] = float(self.ui.touchRotationAngle.value())
 
     def on_tap_click_checked(self):
         if self.ui.tap_click.isChecked():
@@ -883,7 +860,9 @@ def save_to_config():
         lines.append('  natural_scroll {}'.format(settings["pointer-natural-scroll"])),
         lines.append('  scroll_factor {}'.format(settings["pointer-scroll-factor"])),
         lines.append('  left_handed {}'.format(settings["pointer-left-handed"])),
-        lines.append('  middle_emulation {}'.format(settings["pointer-middle-emulation"]))
+        lines.append('  middle_emulation {}'.format(settings["pointer-middle-emulation"])),
+        if sway_version >= "1.9":
+            lines.append('  rotation_angle {}'.format(settings["pointer-rotation-angle"])),
         lines.append('}')
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/pointer"))
@@ -925,6 +904,8 @@ def save_to_config():
         lines.append('  dwt {}'.format(settings["touchpad-dwt"])),
         if sway_version >= "1.8":
             lines.append('  dwtp {}'.format(settings["touchpad-dwtp"])),
+        if sway_version >= "1.9":
+            lines.append('  rotation_angle {}'.format(settings["touchpad-rotation-angle"])),
         lines.append('  middle_emulation {}'.format(settings["touchpad-middle-emulation"])),
         lines.append('  click_method {}'.format(settings["touchpad-click-method"]))
         lines.append('}')

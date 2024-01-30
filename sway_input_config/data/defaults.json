@@ -21,6 +21,7 @@
     "pointer-scroll-factor": 1.0,
     "pointer-left-handed": "disabled",
     "pointer-middle-emulation": "disabled",
+    "pointer-rotation-angle": "0.0",
     "touchpad-use-settings": false,
     "touchpad-identifier": "",
     "touchpad-accel-profile": "flat",
@@ -37,5 +38,6 @@
     "touchpad-dwtp": "disabled",
     "touchpad-events": "enabled",
     "touchpad-click-method": "button_areas",
-    "touchpad-middle-emulation": "enabled"
+    "touchpad-middle-emulation": "enabled",
+    "touchpad-rotation-angle": "0.0"
 }
