@@ -273,8 +273,8 @@ class MainWindow(QMainWindow):
             self.ui.touchpadID.addItem("")
             for item in touchpads:
                 self.ui.touchpadID.addItem(item)
-                touchpads_view.setTextElideMode(Qt.ElideNone)
-                touchpads_view.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+                touchpads_view.setTextElideMode(Qt.TextElideMode.ElideNone)
+                touchpads_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
                 self.ui.touchpadID.setCurrentText(settings["touchpad-identifier"])
                 self.ui.touchpadID.activated.connect(self.set_touchpad_identifier)
 
