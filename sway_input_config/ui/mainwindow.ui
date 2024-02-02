@@ -617,6 +617,30 @@
         <string>Touchpad</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_9">
+        <item row="4" column="0" colspan="2">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <spacer name="horizontalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>271</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="TouchPadUseSettings">
+            <property name="text">
+             <string>Use this settings</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
         <item row="0" column="1" rowspan="2">
          <widget class="QGroupBox" name="touchButtonBox">
           <property name="title">
@@ -759,29 +783,74 @@
           </layout>
          </widget>
         </item>
-        <item row="4" column="0" colspan="2">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <spacer name="horizontalSpacer_7">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>271</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="TouchPadUseSettings">
-            <property name="text">
-             <string>Use this settings</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="touchGeneralBox">
+          <property name="title">
+           <string>General</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QLabel" name="touchpadID_label">
+             <property name="text">
+              <string>Touchpad ID:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QComboBox" name="touchpadID">
+             <property name="toolTip">
+              <string>Touchpad identifier</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="eventLabel">
+             <property name="text">
+              <string>Touchpad events:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QRadioButton" name="touchEventsEnabled">
+             <property name="toolTip">
+              <string>Send events normally</string>
+             </property>
+             <property name="text">
+              <string>Enable</string>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QRadioButton" name="touchEventsDisabled">
+             <property name="toolTip">
+              <string>Touchpad only stops sending events but not get fully disabled</string>
+             </property>
+             <property name="text">
+              <string>Disable</string>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QRadioButton" name="touchEventsOnExternalMouse">
+             <property name="toolTip">
+              <string>Disable touchpad while an external mouse is plugged in</string>
+             </property>
+             <property name="text">
+              <string>Disable when external mouse is plugged in</string>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QGroupBox" name="touchPointerBox">
@@ -899,8 +968,8 @@
            <string>Scrolling</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_8">
-           <item row="0" column="3">
-            <spacer name="horizontalSpacer_5">
+           <item row="0" column="0">
+            <spacer name="horizontalSpacer_2">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -916,13 +985,6 @@
             <widget class="QLabel" name="label_12">
              <property name="text">
               <string>Scrolling speed:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_11">
-             <property name="text">
-              <string>Scrolling:</string>
              </property>
             </widget>
            </item>
@@ -951,38 +1013,8 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
-            <widget class="QRadioButton" name="method1">
-             <property name="text">
-              <string>Two fingers</string>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="QRadioButton" name="method3">
-             <property name="text">
-              <string>On button down</string>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="2">
-            <widget class="QRadioButton" name="method4">
-             <property name="text">
-              <string>No scroll</string>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <spacer name="horizontalSpacer_6">
+           <item row="0" column="4">
+            <spacer name="horizontalSpacer_3">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -994,7 +1026,14 @@
              </property>
             </spacer>
            </item>
-           <item row="5" column="2">
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Scrolling:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2" colspan="2">
             <widget class="QCheckBox" name="touchNatScroll">
              <property name="toolTip">
               <string>Touchscreen like scrolling.</string>
@@ -1004,7 +1043,34 @@
              </property>
             </widget>
            </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>Scrolling method:</string>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="2">
+            <widget class="QRadioButton" name="method4">
+             <property name="text">
+              <string>No scroll</string>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QRadioButton" name="method1">
+             <property name="text">
+              <string>Two fingers</string>
+             </property>
+             <property name="autoExclusive">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
             <widget class="QRadioButton" name="method2">
              <property name="text">
               <string>Touchpad edges</string>
@@ -1014,72 +1080,36 @@
              </property>
             </widget>
            </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QGroupBox" name="touchGeneralBox">
-          <property name="title">
-           <string>General</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_6">
-           <item row="0" column="0">
-            <widget class="QLabel" name="touchpadID_label">
+           <item row="5" column="2">
+            <widget class="QRadioButton" name="method3">
              <property name="text">
-              <string>Touchpad ID:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QComboBox" name="touchpadID">
-             <property name="toolTip">
-              <string>Touchpad identifier</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="eventLabel">
-             <property name="text">
-              <string>Touchpad events:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QRadioButton" name="touchEventsEnabled">
-             <property name="toolTip">
-              <string>Send events normally</string>
-             </property>
-             <property name="text">
-              <string>Enable</string>
+              <string>On button down</string>
              </property>
              <property name="autoExclusive">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QRadioButton" name="touchEventsDisabled">
+           <item row="5" column="3">
+            <widget class="QComboBox" name="scrollButtonList">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="toolTip">
-              <string>Touchpad only stops sending events but not get fully disabled</string>
-             </property>
-             <property name="text">
-              <string>Disable</string>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
+              <string>Sets the button used for scroll_method on_button_down.</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QRadioButton" name="touchEventsOnExternalMouse">
+           <item row="5" column="4">
+            <widget class="QCheckBox" name="scrollButtonLock">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="toolTip">
-              <string>Disable touchpad while an external mouse is plugged in</string>
+              <string>Enables or disables scroll button lock for specified input device.</string>
              </property>
              <property name="text">
-              <string>Disable when external mouse is plugged in</string>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
+              <string>Scroll button lock</string>
              </property>
             </widget>
            </item>

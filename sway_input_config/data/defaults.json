@@ -39,5 +39,7 @@
     "touchpad-events": "enabled",
     "touchpad-click-method": "button_areas",
     "touchpad-middle-emulation": "enabled",
-    "touchpad-rotation-angle": "0.0"
+    "touchpad-rotation-angle": "0.0",
+    "touchpad-scroll-button": "BTN_MIDDLE",
+    "touchpad-scroll-button-lock": "disabled"
 }
