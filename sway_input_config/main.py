@@ -68,7 +68,7 @@ for line in XKB_BASE_LIST:
             options.append((key, value))
 
 # Events array used for on_button_down scroll method
-button_events = ["BTN_LEFT", "BTN_RIGHT", "BTN_MIDDLE", "BTN_SIDE", "BTN_EXTRA"]
+scroll_buttons = ["BTN_LEFT", "BTN_RIGHT", "BTN_MIDDLE", "BTN_SIDE", "BTN_EXTRA"]
 
 
 class ErrorMessage(QDialog):
@@ -416,8 +416,8 @@ class MainWindow(QMainWindow):
             self.ui.method4.setChecked(True)
 
         # Scrolling button for use with on_button_down scrolling method
-        for event in button_events:
-            self.ui.scrollButtonList.addItem(event)
+        for button in scroll_buttons:
+            self.ui.scrollButtonList.addItem(button)
         self.ui.scrollButtonList.setCurrentText(settings["touchpad-scroll-button"])
 
         self.ui.method1.clicked.connect(self.on_scroll_method_checked)
