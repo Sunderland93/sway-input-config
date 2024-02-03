@@ -67,8 +67,15 @@ for line in XKB_BASE_LIST:
         elif category == 'option':
             options.append((key, value))
 
-# Events array used for on_button_down scroll method
-scroll_buttons = ["BTN_LEFT", "BTN_RIGHT", "BTN_MIDDLE", "BTN_SIDE", "BTN_EXTRA"]
+# Buttons array used for on_button_down scroll method
+scroll_buttons = {
+    "Disabled": "disable",
+    "Left button": "BTN_LEFT",
+    "Right button": "BTN_RIGHT",
+    "Middle button": "BTN_MIDDLE",
+    "Side button": "BTN_SIDE",
+    "Extra button": "BTN_EXTRA"
+    }
 
 
 class ErrorMessage(QDialog):
@@ -255,6 +262,20 @@ class MainWindow(QMainWindow):
         self.ui.pointerScrollFactor.setValue(int(pointerFactorValue))
         self.ui.pointerScrollFactor.valueChanged.connect(self.on_pointer_scroll_value_changed)
 
+        # Scrolling button (trackpoints only)
+        for key, value in scroll_buttons.items():
+            self.ui.scrollButtonList.addItem(key, value)
+            if value == settings["pointer-scroll-button"]:
+                self.ui.scrollButtonList.setCurrentText(key)
+        self.ui.scrollButtonList.activated.connect(self.on_scroll_button_checked)
+
+        # Scrolling button lock (since Sway 1.9)
+        if sway_version >= "1.9":
+            self.ui.scrollButtonLock.setEnabled(True)
+            if settings["pointer-scroll-button-lock"] == "enabled":
+                self.ui.scrollButtonLock.setChecked(True)
+            self.ui.scrollButtonLock.clicked.connect(self.on_scroll_button_lock_checked)
+
         # Touchapd Settings #
 
         # Use this settings
@@ -397,35 +418,19 @@ class MainWindow(QMainWindow):
 
         # Scrolling method
         self.scrollingButtonGroup = QButtonGroup()
-        self.scrollingButtonGroup.addButton(self.ui.method1)
-        self.scrollingButtonGroup.addButton(self.ui.method2)
-        self.scrollingButtonGroup.addButton(self.ui.method3)
-        self.scrollingButtonGroup.addButton(self.ui.method4)
+        self.scrollingButtonGroup.addButton(self.ui.touchScrollNoScroll)
+        self.scrollingButtonGroup.addButton(self.ui.touchScrollTwoFingers)
+        self.scrollingButtonGroup.addButton(self.ui.touchScrollEdges)
         if settings["touchpad-scroll-method"] == "two_finger":
-            self.ui.method1.setChecked(True)
+            self.ui.touchScrollTwoFingers.setChecked(True)
         elif settings["touchpad-scroll-method"] == "edge":
-            self.ui.method2.setChecked(True)
-        elif settings["touchpad-scroll-method"] == "on_button_down":
-            self.ui.method3.setChecked(True)
-            self.ui.scrollButtonList.setEnabled(True)
-            if sway_version >= "1.9":
-                self.ui.scrollButtonLock.setEnabled(True)
-                if settings["touchpad-scroll-button-lock"] == "enabled":
-                    self.ui.scrollButtonLock.setChecked(True)
+            self.ui.touchScrollEdges.setChecked(True)
         else:
-            self.ui.method4.setChecked(True)
+            self.ui.touchScrollNoScroll.setChecked(True)
 
-        # Scrolling button for use with on_button_down scrolling method
-        for button in scroll_buttons:
-            self.ui.scrollButtonList.addItem(button)
-        self.ui.scrollButtonList.setCurrentText(settings["touchpad-scroll-button"])
-
-        self.ui.method1.clicked.connect(self.on_scroll_method_checked)
-        self.ui.method2.clicked.connect(self.on_scroll_method_checked)
-        self.ui.method3.clicked.connect(self.on_scroll_method_checked)
-        self.ui.method4.clicked.connect(self.on_scroll_method_checked)
-        self.ui.scrollButtonLock.clicked.connect(self.on_scroll_button_lock_checked)
-        self.ui.scrollButtonList.activated.connect(self.on_scroll_button_checked)
+        self.ui.touchScrollNoScroll.clicked.connect(self.on_scroll_method_checked)
+        self.ui.touchScrollTwoFingers.clicked.connect(self.on_scroll_method_checked)
+        self.ui.touchScrollEdges.clicked.connect(self.on_scroll_method_checked)
 
         # Natural (inverted) scrolling:
         if settings["touchpad-natural-scroll"] == "enabled":
@@ -476,10 +481,23 @@ class MainWindow(QMainWindow):
         self.ui.pointerID.setCurrentText(defaults["pointer-identifier"])
         self.ui.pointerLeftHanded.setChecked(False)
         self.ui.pointerMiddle.setChecked(False)
+
         pointerAccelValue = float(defaults["pointer-pointer-accel"]) * 10
         self.ui.pointerAccel.setValue(int(pointerAccelValue))
+
+        pointerRotationAngleValue = float(defaults["pointer-rotation-angle"])
+        self.ui.pointerRotationAngleSlider.setValue(int(pointerRotationAngleValue))
+        self.ui.pointerRotationAngle.setValue(self.ui.pointerRotationAngleSlider.value())
+
+        for key, value in scroll_buttons.items():
+            if value == defaults["pointer-scroll-button"]:
+                self.ui.scrollButtonList.setCurrentText(key)
+
         self.ui.pointerFlat.setChecked(True)
         self.ui.pointerNatScroll.setChecked(False)
+        self.ui.scrollButtonLock.setChecked(False)
+        self.ui.scrollButtonList.setCurrentText(defaults["pointer-scroll-button"])
+
         pointerFactorValue = float(defaults["pointer-scroll-factor"]) * 10
         self.ui.pointerScrollFactor.setValue(int(pointerFactorValue))
 
@@ -491,8 +509,14 @@ class MainWindow(QMainWindow):
             self.ui.DWTP.setChecked(False)
             self.ui.touchLeftHanded.setChecked(False)
             self.ui.touchMiddle.setChecked(True)
+
             touchAccelValue = float(defaults["touchpad-pointer-accel"]) * 10
             self.ui.touchAccel.setValue(int(touchAccelValue))
+
+            touchpadRotationAngleValue = float(defaults["touchpad-rotation-angle"])
+            self.ui.touchRotationAngleSlider.setValue(int(touchpadRotationAngleValue))
+            self.ui.touchRotationAngle.setValue(self.ui.touchRotationAngleSlider.value())
+
             self.ui.touchFlat.setChecked(True)
             self.ui.tap_click.setChecked(True)
             self.ui.drag.setEnabled(True)
@@ -500,9 +524,10 @@ class MainWindow(QMainWindow):
             self.ui.drag_lock.setChecked(False)
             self.ui.lrm.setEnabled(True)
             self.ui.lmr.setEnabled(True)
-            self.ui.method1.setChecked(True)
+            self.ui.touchScrollNoScroll.setChecked(True)
             self.ui.btn_BtnArea.setChecked(True)
             self.ui.touchNatScroll.setChecked(False)
+
             touchFactorValue = float(defaults["touchpad-scroll-factor"]) * 10
             self.ui.touchScrollFactor.setValue(int(touchFactorValue))
 
@@ -617,6 +642,15 @@ class MainWindow(QMainWindow):
     def on_pointer_rotation_angle_value_changed(self):
         settings["pointer-rotation-angle"] = float(self.ui.pointerRotationAngle.value())
 
+    def on_scroll_button_checked(self):
+        settings["pointer-scroll-button"] = self.ui.scrollButtonList.currentData()
+
+    def on_scroll_button_lock_checked(self):
+        if self.ui.scrollButtonLock.isChecked() is True:
+            settings["pointer-scroll-button-lock"] = "enabled"
+        else:
+            settings["pointer-scroll-button-lock"] = "disabled"
+
     def on_pointer_nat_scroll_checked(self):
         if self.ui.pointerNatScroll.isChecked() is True:
             settings["pointer-natural-scroll"] = "true"
@@ -718,32 +752,13 @@ class MainWindow(QMainWindow):
             settings["touchpad-click-method"] = "button_areas"
 
     def on_scroll_method_checked(self):
-        if self.ui.method1.isChecked() is True:
+        if self.ui.touchScrollTwoFingers.isChecked() is True:
             settings["touchpad-scroll-method"] = "two_finger"
-            self.ui.scrollButtonList.setEnabled(False)
-            self.ui.scrollButtonLock.setEnabled(False)
-        elif self.ui.method2.isChecked() is True:
+        elif self.ui.touchScrollEdges.isChecked() is True:
             settings["touchpad-scroll-method"] = "edge"
-            self.ui.scrollButtonList.setEnabled(False)
-            self.ui.scrollButtonLock.setEnabled(False)
-        elif self.ui.method3.isChecked() is True:
-            settings["touchpad-scroll-method"] = "on_button_down"
-            self.ui.scrollButtonList.setEnabled(True)
-            if sway_version >= "1.9":
-                self.ui.scrollButtonLock.setEnabled(True)
         else:
             settings["touchpad-scroll-method"] = "none"
-            self.ui.scrollButtonList.setEnabled(False)
-            self.ui.scrollButtonLock.setEnabled(False)
 
-    def on_scroll_button_checked(self):
-        settings["touchpad-scroll-button"] = self.ui.scrollButtonList.currentText()
-
-    def on_scroll_button_lock_checked(self):
-        if self.ui.scrollButtonLock.isChecked() is True:
-            settings["touchpad-scroll-button-lock"] = "enabled"
-        else:
-            settings["touchpad-scroll-button-lock"] = "disabled"
 
     def on_touch_nat_scroll_checked(self):
         if self.ui.touchNatScroll.isChecked() is True:
@@ -893,10 +908,12 @@ def save_to_config():
         lines.append('  pointer_accel {}'.format(settings["pointer-pointer-accel"])),
         lines.append('  natural_scroll {}'.format(settings["pointer-natural-scroll"])),
         lines.append('  scroll_factor {}'.format(settings["pointer-scroll-factor"])),
+        lines.append('  scroll_button {}'.format(settings["pointer-scroll-button"])),
         lines.append('  left_handed {}'.format(settings["pointer-left-handed"])),
         lines.append('  middle_emulation {}'.format(settings["pointer-middle-emulation"])),
         if sway_version >= "1.9":
-            lines.append('  rotation_angle {}'.format(settings["pointer-rotation-angle"])),
+            lines.append('  rotation_angle {}'.format(settings["pointer-rotation-angle"]))
+            lines.append('  scroll_button_lock {}'.format(settings["pointer-scroll-button-lock"])),
         lines.append('}')
 
         save_list_to_text_file(lines, os.path.join(config_home, "sway/pointer"))
@@ -930,7 +947,6 @@ def save_to_config():
         lines.append('  natural_scroll {}'.format(settings["touchpad-natural-scroll"])),
         lines.append('  scroll_factor {}'.format(settings["touchpad-scroll-factor"])),
         lines.append('  scroll_method {}'.format(settings["touchpad-scroll-method"])),
-        lines.append('  scroll_button {}'.format(settings["touchpad-scroll-button"])),
         lines.append('  left_handed {}'.format(settings["touchpad-left-handed"])),
         lines.append('  tap {}'.format(settings["touchpad-tap"])),
         lines.append('  tap_button_map {}'.format(settings["touchpad-tap-button-map"])),
@@ -940,8 +956,7 @@ def save_to_config():
         if sway_version >= "1.8":
             lines.append('  dwtp {}'.format(settings["touchpad-dwtp"])),
         if sway_version >= "1.9":
-            lines.append('  rotation_angle {}'.format(settings["touchpad-rotation-angle"]))
-            lines.append('  scroll_button_lock {}'.format(settings["touchpad-scroll-button-lock"])),
+            lines.append('  rotation_angle {}'.format(settings["touchpad-rotation-angle"])),
         lines.append('  middle_emulation {}'.format(settings["touchpad-middle-emulation"])),
         lines.append('  click_method {}'.format(settings["touchpad-click-method"]))
         lines.append('}')
