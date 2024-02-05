@@ -467,6 +467,7 @@ class MainWindow(QMainWindow):
         # Left handed mode (invert tablet's input)
         if settings["tablet-left-handed"] == "enabled":
             self.ui.tabletLeftHanded.setChecked(True)
+        self.ui.tabletLeftHanded.clicked.connect(self.on_tablet_left_handed_checked)
 
         # Tablet tool mode ("pen", "eraser", "brush", "pencil", "airbrush", and the wildcard *, which matches all tools)
         mode = ["*", "pen", "eraser", "brush", "pencil", "airbrush"]
