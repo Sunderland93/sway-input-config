@@ -41,5 +41,12 @@
     "touchpad-events": "enabled",
     "touchpad-click-method": "button_areas",
     "touchpad-middle-emulation": "enabled",
-    "touchpad-rotation-angle": "0.0"
+    "touchpad-rotation-angle": "0.0",
+    "tablet-use-settings": "false",
+    "tablet-identifier": "",
+    "tablet-tool-mode": [
+        "*",
+        "absolute"
+    ],
+    "tablet-left-handed": "disabled"
 }

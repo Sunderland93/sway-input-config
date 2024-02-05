@@ -442,6 +442,51 @@ class MainWindow(QMainWindow):
         self.ui.touchScrollFactor.setValue(int(touchFactorValue))
         self.ui.touchScrollFactor.valueChanged.connect(self.on_touch_scroll_value_changed)
 
+        # Tablet Settings #
+
+        # Use this settings
+        if settings["tablet-use-settings"] == "true":
+            self.ui.TabletUseSettings.setChecked(True)
+        self.ui.TabletUseSettings.clicked.connect(self.tablet_use_settings)
+
+        # Tablet ID
+        tablet_tools = list_inputs_by_type(input_type="tablet_tool")
+        tablet_view = QListView(self.ui.tabletID)
+        self.ui.tabletID.setView(tablet_view)
+        if not tablet_tools:
+            self.ui.tabletID.addItem("Not found")
+            self.ui.tabWidget.widget(3).setEnabled(False)
+        else:
+            self.ui.tabletID.addItem("")
+            for item in tablet_tools:
+                self.ui.tabletID.addItem(item)
+                tablet_view.setTextElideMode(Qt.TextElideMode.ElideNone)
+                tablet_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+                self.ui.tabletID.setCurrentText(settings["tablet-identifier"])
+
+        # Left handed mode (invert tablet's input)
+        if settings["tablet-left-handed"] == "enabled":
+            self.ui.tabletLeftHanded.setChecked(True)
+
+        # Tablet tool mode ("pen", "eraser", "brush", "pencil", "airbrush", and the wildcard *, which matches all tools)
+        mode = ["*", "pen", "eraser", "brush", "pencil", "airbrush"]
+        for item in mode:
+            self.ui.toolModeList.addItem(item)
+        self.ui.toolModeList.setCurrentText(settings["tablet-tool-mode"][0])
+        self.ui.toolModeList.activated.connect(self.on_tablet_set_tool_mode)
+
+        # Tablet tool movement (absolute or relative)
+        self.toolMoveButtonGroup = QButtonGroup()
+        self.toolMoveButtonGroup.addButton(self.ui.toolMoveAbsolute)
+        self.toolMoveButtonGroup.addButton(self.ui.toolMoveRelative)
+        if settings["tablet-tool-mode"][1] == "absolute":
+            self.ui.toolMoveAbsolute.setChecked(True)
+        else:
+            self.ui.toolMoveRelative.setChecked(True)
+        self.ui.toolMoveAbsolute.clicked.connect(self.on_tablet_set_tool_mode)
+        self.ui.toolMoveRelative.clicked.connect(self.on_tablet_set_tool_mode)
+
+
     def keyboard_use_settings(self):
         if self.ui.KeyBoardUseSettings.isChecked() is True:
             settings["keyboard-use-settings"] = "true"
@@ -530,6 +575,14 @@ class MainWindow(QMainWindow):
 
             touchFactorValue = float(defaults["touchpad-scroll-factor"]) * 10
             self.ui.touchScrollFactor.setValue(int(touchFactorValue))
+
+        tablet_tools = list_inputs_by_type(input_type="tablet_tool")
+        if tablet_tools:
+            self.ui.tabletID.setCurrentText(defaults["tablet-identifier"])
+            self.ui.tabletLeftHanded.setChecked(False)
+
+            self.ui.toolModeList.setCurrentText(defaults["tablet-tool-mode"][0])
+            self.ui.toolMoveAbsolute.setChecked(True)
 
     def on_add_keyboard_layout(self):
         self.dlg = SelectKeyboardLayout()
@@ -769,6 +822,28 @@ class MainWindow(QMainWindow):
     def on_touch_scroll_value_changed(self):
         settings["touchpad-scroll-factor"] = self.ui.touchScrollFactor.value() / 10
 
+    def tablet_use_settings(self):
+        if self.ui.TabletUseSettings.isChecked() is True:
+            settings["tablet-use-settings"] = "true"
+        else:
+            settings["tablet-use-settings"] = "false"
+
+    def set_tablet_identifier(self):
+        settings["tablet-identifier"] = self.ui.tabletID.currentText()
+
+    def on_tablet_left_handed_checked(self):
+        if self.ui.tabletLeftHanded.isChecked():
+            settings["tablet-left-handed"] = "enabled"
+        else:
+            settings["tablet-left-handed"] = "disabled"
+
+    def on_tablet_set_tool_mode(self):
+        if self.ui.toolMoveAbsolute.isChecked() is True:
+            settings["tablet-tool-mode"][1] = "absolute"
+        else:
+            settings["tablet-tool-mode"][1] = "relative"
+        settings["tablet-tool-mode"][0] = self.ui.toolModeList.currentText()
+
     def on_clicked_about(self):
         self.about = AboutDialog()
         self.about.show()
@@ -982,6 +1057,35 @@ def save_to_config():
 
         if os.path.exists(os.path.join(config_home, "sway/touchpad")):
             os.unlink(os.path.join(config_home, "sway/touchpad"))
+
+    if settings["tablet-use-settings"] == "true":
+        lines = ['input "type:tablet_tool" {'] if not settings["tablet-identifier"] else [
+            'input "%s" {' % settings["tablet-identifier"]]
+        lines.append('  left_handed {}'.format(settings["tablet-left-handed"]))
+        lines.append('  tool_mode {}'.format(' '.join(settings["tablet-tool-mode"])))
+        lines.append('}')
+
+        save_list_to_text_file(lines, os.path.join(config_home, "sway/tablet"))
+
+        config = load_text_file(sway_config).splitlines()
+        new_config = []
+        for line in config:
+            if "include tablet" not in line:
+                new_config.append(line)
+        new_config.append("include tablet")
+        save_list_to_text_file(new_config, sway_config)
+
+    else:
+        config = load_text_file(sway_config).splitlines()
+        old_config = []
+        for line in config:
+            old_config.append(line)
+        if "include tablet" in old_config:
+            old_config.remove("include tablet")
+        save_list_to_text_file(old_config, sway_config)
+
+        if os.path.exists(os.path.join(config_home, "sway/tablet")):
+            os.unlink(os.path.join(config_home, "sway/tablet"))
 
 
 def load_settings():
