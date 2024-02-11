@@ -4,7 +4,7 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../main.py" line="771"/>
+        <location filename="../main.py" line="873"/>
         <source>Version: </source>
         <translation>Версия: </translation>
     </message>
@@ -165,6 +165,7 @@
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Use this settings</source>
         <translation>Использовать эти настройки</translation>
     </message>
@@ -174,6 +175,7 @@
         <translation>Указательное устройство</translation>
     </message>
     <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <source>General</source>
@@ -203,6 +205,7 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Left handed mode</source>
         <translation>Для левшей</translation>
     </message>
@@ -218,6 +221,63 @@
         <source>Press left and right buttons for middle click</source>
         <translation>Нажатие левой и правой кнопок
 для эмуляции среднего клика</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Scrolling</source>
+        <translation>Прокрутка</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Scrolling:</source>
+        <translation>Прокрутка:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Touchscreen like scrolling.</source>
+        <translation>Прокрутка как на сенсорных экранах.</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Invert scroll direction</source>
+        <translation>Изменить направление прокрутки</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Scrolling speed:</source>
+        <translation>Скорость прокрутки:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Scroll speed will be scaled by the given value.</source>
+        <translation>Скорость прокрутки будет увеличена на указанное значение.</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Scroll button (trackpoints only):</source>
+        <translation>Кнопка прокрутки
+(только трекпоинты):</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Sets the button used for scroll_method on_button_down.</source>
+        <translation>Устанавливает кнопку используемоую для метода прокрутки с нажатой кнопкой.</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Enables or disables scroll button lock for specified input device.</source>
+        <translation>Включает или выключает удержание кнопки прокрутки для выбранного устройства.</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Scroll button lock</source>
+        <translation>Удержание кнопки прокрутки</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -271,38 +331,16 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Scrolling</source>
-        <translation>Прокрутка</translation>
+        <source>Rotation angle:</source>
+        <translation>Угол поворота:</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Scrolling:</source>
-        <translation>Прокрутка:</translation>
-    </message>
-    <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Scroll speed will be scaled by the given value.</source>
-        <translation>Скорость прокрутки будет увеличена на указанное значение.</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Touchscreen like scrolling.</source>
-        <translation>Прокрутка как на сенсорных экранах.</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Invert scroll direction</source>
-        <translation>Изменить направление прокрутки</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Scrolling speed:</source>
-        <translation>Скорость прокрутки:</translation>
+        <source>Sets the rotation angle of the device to the given angle, in degrees clockwise.</source>
+        <translation>Устанавливает угол поворота устройства на указанное значение, в градусах по часовой стрелке.</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -404,26 +442,6 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Two fingers</source>
-        <translation>Двумя пальцами</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>On button down</source>
-        <translation>По кнопке</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>No scroll</source>
-        <translation>Без прокрутки</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Touchpad edges</source>
-        <translation>По краям тачпада</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Touchpad ID:</source>
         <translation>ID тачпада:</translation>
     </message>
@@ -467,6 +485,56 @@
         <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Disable when external mouse is plugged in</source>
         <translation>Отключить при подключении внешней мыши</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Scrolling method:</source>
+        <translation>Метод прокрутки:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>No scroll</source>
+        <translation>Без прокрутки</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Two fingers</source>
+        <translation>Двумя пальцами</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Touchpad edges</source>
+        <translation>По краям тачпада</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Tablet</source>
+        <translation>Планшет</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Tablet ID:</source>
+        <translation>ID планшета:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Relative</source>
+        <translation>Относительные</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Tool mode:</source>
+        <translation>Режим инструмента:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Tool movement:</source>
+        <translation>Движения инструмента:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Absolute</source>
+        <translation>Абсолютные</translation>
     </message>
 </context>
 <context>
