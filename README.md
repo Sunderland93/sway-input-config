@@ -1,5 +1,3 @@
-### WARNING: current master-branch is broken for now! Use [release](https://github.com/Sunderland93/sway-input-config/releases) version's.
-
 ## Sway Input Configurator
 
 Input device configurator for [SwayWM](https://swaywm.org/), written in Python and Qt6, inspired by [nwg-shell-config](https://github.com/nwg-piotr/nwg-shell-config). It uses standard [libinput](https://www.mankier.com/5/sway-input) options to configure keyboard, touchpad and pointer devices.

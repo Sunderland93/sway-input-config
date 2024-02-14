@@ -23,7 +23,7 @@ from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
 from sway_input_config.ui_error_message import Ui_ErrorMessage
 
-app_version = "1.3.0"
+app_version = "1.4.0"
 
 if os.getenv("SWAYSOCK"):
     sway_version = get_sway_version()
