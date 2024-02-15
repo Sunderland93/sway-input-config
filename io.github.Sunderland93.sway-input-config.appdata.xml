@@ -4,6 +4,7 @@
      <launchable type="desktop-id">sway-input-config.desktop</launchable>
      <name>Sway Input Configurator</name>
      <summary>Input device configurator for Sway</summary>
+     <developer_name>Aleksey Samoilov</developer_name>
      <metadata_license>CC0-1.0</metadata_license>
      <project_license>GPL-3.0-or-later</project_license>
      <description>
@@ -19,9 +20,15 @@
       <release version="1.2.0" date="2023-01-22"/>
      </releases>
      <screenshots>
-      <screenshot type="default">https://raw.githubusercontent.com/Sunderland93/sway-input-config/master/screenshot1.png</screenshot>
-      <screenshot>https://raw.githubusercontent.com/Sunderland93/sway-input-config/master/screenshot2.png</screenshot>
-      <screenshot>https://raw.githubusercontent.com/Sunderland93/sway-input-config/master/screenshot3.png</screenshot>
+      <screenshot type="default">
+        <image>https://raw.githubusercontent.com/Sunderland93/sway-input-config/master/screenshot1.png</image>
+      </screenshot>
+      <screenshot>
+        <image>https://raw.githubusercontent.com/Sunderland93/sway-input-config/master/screenshot2.png</image>
+      </screenshot>
+      <screenshot>
+        <image>https://raw.githubusercontent.com/Sunderland93/sway-input-config/master/screenshot3.png</image>
+      </screenshot>
      </screenshots>
      <url type="homepage">https://github.com/Sunderland93/sway-input-config</url>
      <url type="bugtracker">https://github.com/Sunderland93/sway-input-config/issues</url>
