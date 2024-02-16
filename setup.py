@@ -21,7 +21,7 @@ setup(
     data_files=[
         ('share/applications', ['sway-input-config.desktop']),
         ('share/icons/hicolor/128x128/apps', ['sway-input-config.png']),
-        ('share/metainfo', ['io.github.Sunderland93.sway-input-config.appdata.xml']),
+        ('share/metainfo', ['io.github.Sunderland93.sway-input-config.metainfo.xml']),
     ],
     install_requires=['PyQt6',
     'i3ipc',

@@ -1,16 +1,16 @@
  <?xml version="1.0" encoding="UTF-8"?>
- <component type="desktop">
+ <component type="desktop-application">
      <id>io.github.Sunderland93.sway-input-config</id>
      <launchable type="desktop-id">sway-input-config.desktop</launchable>
-     <name>Sway Input Configurator</name>
+     <provides><id>sway-input-config.desktop</id></provides>
+     <name>Sway Input Config</name>
      <summary>Input device configurator for Sway</summary>
      <developer_name>Aleksey Samoilov</developer_name>
      <metadata_license>CC0-1.0</metadata_license>
      <project_license>GPL-3.0-or-later</project_license>
      <description>
-         <p>
-             Input devices configurator for Sway Wayland сompositor.
-         </p>
+       <p>Input devices configurator for Sway Wayland сompositor, written in Python and Qt6</p>
+       <p>It uses standard libinput options to configure keyboard, touchpad, tablet and pointer devices.</p>
      </description>
      <releases>
       <release version="1.4.0" date="2024-02-14"/>
