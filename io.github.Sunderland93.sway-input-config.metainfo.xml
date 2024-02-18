@@ -13,6 +13,7 @@
        <p>It uses standard libinput options to configure keyboard, touchpad, tablet and pointer devices.</p>
      </description>
      <releases>
+      <release version="1.4.1" date="2024-02-18"/>
       <release version="1.4.0" date="2024-02-14"/>
       <release version="1.3.3" date="2023-09-01"/>
       <release version="1.3.1" date="2023-07-06"/>
