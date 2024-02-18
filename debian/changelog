@@ -1,3 +1,24 @@
+sway-input-config (1.4.1-1) unstable; urgency=medium
+
+  * Fix spelling errors
+  * Fix metainfo
+
+ -- Aleksey Samoilov <samoilov.lex@gmail.com>  Sun, 18 Feb 2024 10:27:18 +0400
+
+sway-input-config (1.4.0-1) unstable; urgency=medium
+
+  * Port to Qt6/PyQt6
+  * Redesign pointer and touchpad pages
+  * Added initial Tablet support
+  * Scroll method "on_button_down" is moved to Pointer page (as it works only with trackpoints)
+  * Added rotation angle option (since Sway 1.9)
+  * Added scroll button lock option (since Sway 1.9)
+  * Added scroll button list
+  * Updated translations generator
+  * Many small fixes
+
+ -- Aleksey Samoilov <samoilov.lex@gmail.com>  Sun, 18 Feb 2024 10:25:42 +0400
+
 sway-input-config (1.2.0-1) lunar; urgency=medium
 
   * New UI using Qt Designer's forms.

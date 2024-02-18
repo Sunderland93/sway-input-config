@@ -91,8 +91,8 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Keyboard shortcut:</source>
-        <translation>Сочетание клавиш:</translation>
+        <source>Switching layouts:</source>
+        <translation>Переключение раскладки:</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -107,8 +107,8 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>CapsLock:</source>
-        <translation></translation>
+        <source>Enable CapsLock on system startup:</source>
+        <translation>Включить CapsLock при запуске системы:</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -143,8 +143,8 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>NumLock:</source>
-        <translation></translation>
+        <source>Enable NumLock on system startup:</source>
+        <translation>Включить NumLock при запуске системы:</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -166,7 +166,7 @@
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Use this settings</source>
+        <source>Use these settings</source>
         <translation>Использовать эти настройки</translation>
     </message>
     <message>

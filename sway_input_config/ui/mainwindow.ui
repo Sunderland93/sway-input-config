@@ -172,7 +172,7 @@
           <item row="2" column="0">
            <widget class="QLabel" name="shortcutLabel">
             <property name="text">
-             <string>Keyboard shortcut:</string>
+             <string>Switching layouts:</string>
             </property>
            </widget>
           </item>
@@ -195,7 +195,7 @@
           <item row="5" column="0">
            <widget class="QLabel" name="caps_lockLabel">
             <property name="text">
-             <string>CapsLock:</string>
+             <string>Enable CapsLock on system startup:</string>
             </property>
            </widget>
           </item>
@@ -288,7 +288,7 @@
           <item row="6" column="0">
            <widget class="QLabel" name="num_lockLabel">
             <property name="text">
-             <string>NumLock:</string>
+             <string>Enable NumLock on system startup:</string>
             </property>
            </widget>
           </item>
@@ -342,7 +342,7 @@
              <enum>Qt::LeftToRight</enum>
             </property>
             <property name="text">
-             <string>Use this settings</string>
+             <string>Use these settings</string>
             </property>
            </widget>
           </item>
@@ -429,7 +429,7 @@
           <item>
            <widget class="QCheckBox" name="PointerUseSettings">
             <property name="text">
-             <string>Use this settings</string>
+             <string>Use these settings</string>
             </property>
            </widget>
           </item>
@@ -665,7 +665,7 @@
           <item>
            <widget class="QCheckBox" name="TouchPadUseSettings">
             <property name="text">
-             <string>Use this settings</string>
+             <string>Use these settings</string>
             </property>
            </widget>
           </item>
@@ -1151,7 +1151,7 @@
           <item>
            <widget class="QCheckBox" name="TabletUseSettings">
             <property name="text">
-             <string>Use this settings</string>
+             <string>Use these settings</string>
             </property>
            </widget>
           </item>
