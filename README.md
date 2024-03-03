@@ -10,6 +10,9 @@ Input device configurator for [SwayWM](https://swaywm.org/), written in Python a
 
 ## Installation:
 
+#### Packages:
+[![Packaging status](https://repology.org/badge/vertical-allrepos/sway-input-config.svg)](https://repology.org/project/sway-input-config/versions)
+
 #### From source:
 
 ```
