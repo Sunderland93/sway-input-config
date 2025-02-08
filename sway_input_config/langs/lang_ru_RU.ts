@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru_RU" sourcelanguage="en">
+<TS version="2.1" language="ru_RU" sourcelanguage="en_US">
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../main.py" line="873"/>
+        <location filename="../main.py" line="875"/>
         <source>Version: </source>
         <translation>Версия: </translation>
     </message>
@@ -183,8 +183,36 @@
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Enables or disables left handed mode.</source>
+        <translation>Включает или выключает режим для левшей.</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Left handed mode</source>
+        <translation>Для левшей</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Pointer device identifier</source>
         <translation>Идентификатор указательного устройства</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Enables or disables middle click emulation.</source>
+        <translation>Включает или выключает эмуляцию
+клика средней кнопкой мыши.</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Press left and right buttons
+for middle click</source>
+        <translation>Нажатие левой и правой
+кнопок для эмуляции
+среднего клика</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -199,40 +227,13 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Enables or disables left handed mode.</source>
-        <translation>Включает или выключает режим для левшей.</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Left handed mode</source>
-        <translation>Для левшей</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Enables or disables middle click emulation.</source>
-        <translation>Включает или выключает эмуляцию
-клика средней кнопкой мыши.</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Press left and right buttons for middle click</source>
-        <translation>Нажатие левой и правой кнопок
-для эмуляции среднего клика</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Scrolling</source>
         <translation>Прокрутка</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Scrolling:</source>
-        <translation>Прокрутка:</translation>
+        <source>Direction:</source>
+        <translation>Направление:</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -288,20 +289,29 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Pointer speed:</source>
-        <translation>Скорость указателя:</translation>
+        <source>Cursor travel distance depends on the mouse movement speed.</source>
+        <translation>Расстояние перемещения курсора зависит
+от скорости движения мыши.</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Changes the pointer acceleration.</source>
-        <translation>Изменяет ускорение указателя.</translation>
+        <source>Adaptive</source>
+        <translation>Адаптивный</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Acceleration profile:</source>
         <translation>Профиль ускорения:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Sets the rotation angle of the device to the given angle, in degrees clockwise.</source>
+        <translation>Устанавливает угол поворота устройства на указанное значение, в градусах по часовой стрелке.</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -318,15 +328,8 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Cursor travel distance depends on the mouse movement speed.</source>
-        <translation>Расстояние перемещения курсора зависит
-от скорости движения мыши.</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Adaptive</source>
-        <translation>Адаптивный</translation>
+        <source>Changes the pointer acceleration.</source>
+        <translation>Изменяет ускорение указателя.</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -337,15 +340,86 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Sets the rotation angle of the device to the given angle, in degrees clockwise.</source>
-        <translation>Устанавливает угол поворота устройства на указанное значение, в градусах по часовой стрелке.</translation>
+        <source>Pointer speed:</source>
+        <translation>Скорость указателя:</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Touchpad</source>
         <translation>Тачпад</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Touchpad ID:</source>
+        <translation>ID тачпада:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Touchpad identifier</source>
+        <translation>Идентификатор тачпада</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Touchpad events:</source>
+        <translation>События тачпада:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Send events normally</source>
+        <translation>Отправка событий в обычном режиме</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Enable</source>
+        <translation>Включить</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Touchpad only stops sending events but not get fully disabled</source>
+        <translation>Тачпад только перестает отправлять события,
+но не отключается полностью</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Disable</source>
+        <translation>Отключить</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Disable touchpad while an external mouse is plugged in</source>
+        <translation>Отключать тачпад пока подключена внешняя мышь</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Disable when external mouse
+is plugged in</source>
+        <translation>Отключать тачпад пока подключена
+внешняя мышь</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Scrolling:</source>
+        <translation>Прокрутка:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Scrolling method:</source>
+        <translation>Метод прокрутки:</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>No scroll</source>
+        <translation>Без прокрутки</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Two fingers</source>
+        <translation>Двумя пальцами</translation>
+    </message>
+    <message>
+        <location filename="../ui/mainwindow.ui" line="0"/>
+        <source>Touchpad edges</source>
+        <translation>По краям тачпада</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -409,7 +483,8 @@
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
         <source>Disable while trackpointing</source>
-        <translation>Отключать при использовании
+        <translation>Отключать при
+использовании
 трекпоинта</translation>
     </message>
     <message>
@@ -421,8 +496,9 @@
         <location filename="../ui/mainwindow.ui" line="0"/>
         <source> Press left and right buttons for
  middle click</source>
-        <translation> Нажатие левой и правой кнопок
- для эмуляции среднего клика</translation>
+        <translation> Нажатие левой и правой
+ кнопок для эмуляции
+ среднего клика</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
@@ -439,72 +515,6 @@
         <source>2 fingers - middle click, 3 - right</source>
         <translation>2 пальца - средний клик,
 3 - правый</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Touchpad ID:</source>
-        <translation>ID тачпада:</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Touchpad identifier</source>
-        <translation>Идентификатор тачпада</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Touchpad events:</source>
-        <translation>События тачпада:</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Send events normally</source>
-        <translation>Отправка событий в обычном режиме</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Enable</source>
-        <translation>Включить</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Touchpad only stops sending events but not get fully disabled</source>
-        <translation>Тачпад только перестает отправлять события,
-но не отключается полностью</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Disable</source>
-        <translation>Отключить</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Disable touchpad while an external mouse is plugged in</source>
-        <translation>Отключать тачпад пока подключена внешняя мышь</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Disable when external mouse is plugged in</source>
-        <translation>Отключить при подключении внешней мыши</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Scrolling method:</source>
-        <translation>Метод прокрутки:</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>No scroll</source>
-        <translation>Без прокрутки</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Two fingers</source>
-        <translation>Двумя пальцами</translation>
-    </message>
-    <message>
-        <location filename="../ui/mainwindow.ui" line="0"/>
-        <source>Touchpad edges</source>
-        <translation>По краям тачпада</translation>
     </message>
     <message>
         <location filename="../ui/mainwindow.ui" line="0"/>
