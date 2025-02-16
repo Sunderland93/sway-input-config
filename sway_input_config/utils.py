@@ -1,6 +1,13 @@
 import json
 import os
+import sys
 from i3ipc import Connection
+
+def get_compositor():
+    if os.getenv("SWAYSOCK"):
+        return "sway"
+    return None
+
 
 def get_sway_version():
     i3 = Connection()
@@ -12,11 +19,12 @@ def get_sway_version():
 def list_inputs_by_type(input_type=""):
     inputs = []
 
-    i3 = Connection()
-    all_inputs = i3.get_inputs()
-    for i in all_inputs:
-        if i.type == input_type or not input_type:
-            inputs.append(i.identifier)
+    if os.getenv("SWAYSOCK"):
+        i3 = Connection()
+        all_inputs = i3.get_inputs()
+        for i in all_inputs:
+            if i.type == input_type or not input_type:
+                inputs.append(i.identifier)
 
     return inputs
 

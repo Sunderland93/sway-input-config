@@ -16,7 +16,8 @@ from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
                                      get_sway_version,
                                      get_config_home,
                                      load_json, save_json,
-                                     load_text_file, reload_sway_config)
+                                     load_text_file, reload_sway_config,
+                                     get_compositor)
 from sway_input_config.ui_mainwindow import Ui_MainWindow
 from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
@@ -24,17 +25,16 @@ from sway_input_config.ui_error_message import Ui_ErrorMessage
 from sway_input_config.backends import InputBackend, SwayInputBackend
 
 app_version = "1.4.1"
-
-if os.getenv("SWAYSOCK"):
-    sway_version = get_sway_version()
-    data_dir = ""
-    config_home = get_config_home()
-    sway_config = os.path.join(config_home, "sway", "config")
-
+compositor = get_compositor()
+config_home = get_config_home()
+data_dir = ""
 dir_name = os.path.dirname(__file__)
 default_settings = os.path.join(dir_name, "data/defaults.json")
-
 os_name = platform.system()
+
+if compositor == "sway":
+    sway_version = get_sway_version()
+    sway_config = os.path.join(config_home, "sway", "config")
 
 if os_name == "Linux":
     XKB_BASE_LIST = load_text_file("/usr/share/X11/xkb/rules/base.lst").splitlines()
@@ -67,15 +67,6 @@ for line in XKB_BASE_LIST:
         elif category == 'option':
             options.append((key, value))
 
-# Buttons array used for on_button_down scroll method
-scroll_buttons = {
-    "Disabled": "disable",
-    "Left button": "BTN_LEFT",
-    "Right button": "BTN_RIGHT",
-    "Middle button": "BTN_MIDDLE",
-    "Side button": "BTN_SIDE",
-    "Extra button": "BTN_EXTRA"
-    }
 
 
 class ErrorMessage(QDialog):
@@ -244,7 +235,7 @@ class MainWindow(QMainWindow):
         self.ui.pointerAdaptive.clicked.connect(self.on_accel_profile_changed)
 
         # Rotation angle (0.0 to 360.0) since Sway 1.9
-        if sway_version >= "1.9":
+        if compositor == "sway" and sway_version >= "1.9":
             pointerRotationValue = float(settings["pointer-rotation-angle"])
             self.ui.pointerRotationAngleSlider.setValue(int(pointerRotationValue))
             self.ui.pointerRotationAngle.setValue(self.ui.pointerRotationAngleSlider.value())
@@ -266,6 +257,14 @@ class MainWindow(QMainWindow):
         self.ui.pointerScrollFactor.valueChanged.connect(self.on_pointer_scroll_value_changed)
 
         # Scrolling button (trackpoints only)
+        scroll_buttons = {
+            "Disabled": "disable",
+            "Left button": "BTN_LEFT",
+            "Right button": "BTN_RIGHT",
+            "Middle button": "BTN_MIDDLE",
+            "Side button": "BTN_SIDE",
+            "Extra button": "BTN_EXTRA"
+            }
         for key, value in scroll_buttons.items():
             self.ui.scrollButtonList.addItem(key, value)
             if value == settings["pointer-scroll-button"]:
@@ -273,7 +272,7 @@ class MainWindow(QMainWindow):
         self.ui.scrollButtonList.activated.connect(self.on_scroll_button_checked)
 
         # Scrolling button lock (since Sway 1.9)
-        if sway_version >= "1.9":
+        if compositor == "sway" and sway_version >= "1.9":
             self.ui.scrollButtonLock.setEnabled(True)
             if settings["pointer-scroll-button-lock"] == "enabled":
                 self.ui.scrollButtonLock.setChecked(True)
@@ -323,7 +322,7 @@ class MainWindow(QMainWindow):
         self.ui.DWT.toggled.connect(self.on_dwt_checked)
 
         # Disable while trackpointing
-        if sway_version >= "1.8":
+        if compositor == "sway" and sway_version >= "1.8":
             if settings["touchpad-dwtp"] == "enabled":
                 self.ui.DWTP.setChecked(True)
             self.ui.DWTP.toggled.connect(self.on_dwtp_checked)
@@ -357,7 +356,7 @@ class MainWindow(QMainWindow):
         self.ui.touchAdaptive.clicked.connect(self.on_touch_accel_profile_changed)
 
         # Rotation angle (0.0 to 360.0) since Sway 1.9
-        if sway_version >= "1.9":
+        if compositor == "sway" and sway_version >= "1.9":
             touchRotationValue = float(settings["touchpad-rotation-angle"])
             self.ui.touchRotationAngleSlider.setValue(int(touchRotationValue))
             self.ui.touchRotationAngle.setValue(self.ui.touchRotationAngleSlider.value())
@@ -538,6 +537,15 @@ class MainWindow(QMainWindow):
         self.ui.pointerRotationAngleSlider.setValue(int(pointerRotationAngleValue))
         self.ui.pointerRotationAngle.setValue(self.ui.pointerRotationAngleSlider.value())
 
+
+        scroll_buttons = {
+            "Disabled": "disable",
+            "Left button": "BTN_LEFT",
+            "Right button": "BTN_RIGHT",
+            "Middle button": "BTN_MIDDLE",
+            "Side button": "BTN_SIDE",
+            "Extra button": "BTN_EXTRA"
+            }
         for key, value in scroll_buttons.items():
             if value == defaults["pointer-scroll-button"]:
                 self.ui.scrollButtonList.setCurrentText(key)
@@ -1000,7 +1008,7 @@ def main():
             copy2(os.path.join(dir_name, "data/defaults.json"), os.path.join(data_dir, "settings"))
             sys.exit(0)
 
-    if os.getenv("SWAYSOCK"):
+    if compositor == "sway":
         input_backend = SwayInputBackend(config_home, sway_config, sway_version)
         win = MainWindow(settings, data_dir, input_backend)
         win.show()
