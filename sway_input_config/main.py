@@ -92,8 +92,10 @@ class ErrorMessage(QDialog):
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, settings, data_dir):
         super(MainWindow, self).__init__()
+        self.settings = settings
+        self.data_dir = data_dir
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
@@ -108,13 +110,13 @@ class MainWindow(QMainWindow):
         # Keyboard Settings #
 
         # Use this settings
-        if settings["keyboard-use-settings"] == "true":
+        if self.settings["keyboard-use-settings"] == "true":
             self.ui.KeyBoardUseSettings.setChecked(True)
         self.ui.KeyBoardUseSettings.toggled.connect(self.keyboard_use_settings)
 
         # Keyboard layout
         for key, value in layouts:
-            if key in settings["keyboard-layout"]:
+            if key in self.settings["keyboard-layout"]:
                 self.layout_item = QTreeWidgetItem(self.ui.layouts)
                 self.layout_item.setData(0, Qt.ItemDataRole.DisplayRole, value)
                 self.layout_item.setData(0, Qt.ItemDataRole.UserRole, key)
@@ -125,7 +127,7 @@ class MainWindow(QMainWindow):
                     if value in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
                         # Workaround to prevent custom layout from using variants for English(US)
                         if "custom" not in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
-                            if key in settings["keyboard-variant"]:
+                            if key in self.settings["keyboard-variant"]:
                                 self.layout_item.setData(1, Qt.ItemDataRole.DisplayRole, description)
                                 self.layout_item.setData(1, Qt.ItemDataRole.UserRole, key)
 
@@ -143,7 +145,7 @@ class MainWindow(QMainWindow):
             self.ui.kbdID.addItem(item)
         kbd_view.setTextElideMode(Qt.TextElideMode.ElideNone)
         kbd_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.ui.kbdID.setCurrentText(settings["keyboard-identifier"])
+        self.ui.kbdID.setCurrentText(self.settings["keyboard-identifier"])
         self.ui.kbdID.activated.connect(self.set_kbd_identifier)
 
         # Keyboard model option
@@ -153,7 +155,7 @@ class MainWindow(QMainWindow):
         model_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         for key, value in models:
             self.ui.kbdModel.addItem(value, key)
-            if key == settings["keyboard-model"]:
+            if key == self.settings["keyboard-model"]:
                 self.ui.kbdModel.setCurrentText(value)
 
         self.ui.kbdModel.activated.connect(self.set_model)
@@ -165,40 +167,40 @@ class MainWindow(QMainWindow):
         for key, value in options:
             if "grp:" in key:
                 self.ui.shortcutName.addItem(value, key)
-            if key == settings["keyboard-shortcut"]:
+            if key == self.settings["keyboard-shortcut"]:
                 self.ui.shortcutName.setCurrentText(value)
         shortcut_view.setTextElideMode(Qt.TextElideMode.ElideNone)
         shortcut_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.ui.shortcutName.activated.connect(self.set_shortcut)
 
         # Repeat delay
-        self.ui.repeatDelaySlider.setValue(settings["keyboard-repeat-delay"])
+        self.ui.repeatDelaySlider.setValue(self.settings["keyboard-repeat-delay"])
         self.ui.repeatDelay.setValue(self.ui.repeatDelaySlider.value())
         self.ui.repeatDelay.valueChanged.connect(self.ui.repeatDelaySlider.setValue)
         self.ui.repeatDelaySlider.sliderMoved.connect(self.ui.repeatDelay.setValue)
         self.ui.repeatDelaySlider.valueChanged.connect(self.on_repeat_delay_value_changed)
 
         # Repeat rate
-        self.ui.repeatRateSlider.setValue(settings["keyboard-repeat-rate"])
+        self.ui.repeatRateSlider.setValue(self.settings["keyboard-repeat-rate"])
         self.ui.repeatRate.setValue(self.ui.repeatRateSlider.value())
         self.ui.repeatRate.valueChanged.connect(self.ui.repeatRateSlider.setValue)
         self.ui.repeatRateSlider.sliderMoved.connect(self.ui.repeatRate.setValue)
         self.ui.repeatRateSlider.valueChanged.connect(self.on_repeat_rate_value_changed)
 
         # Enable Caps Lock option
-        if settings["keyboard-capslock"] == "enabled":
+        if self.settings["keyboard-capslock"] == "enabled":
             self.ui.caps_lock.setChecked(True)
         self.ui.caps_lock.toggled.connect(self.on_caps_lock_checked)
 
         # Enable Num Lock option
-        if settings["keyboard-numlock"] == "enabled":
+        if self.settings["keyboard-numlock"] == "enabled":
             self.ui.num_lock.setChecked(True)
         self.ui.num_lock.toggled.connect(self.on_num_lock_checked)
 
         # Mouse Settings #
 
         # Use this settings
-        if settings["pointer-use-settings"] == "true":
+        if self.settings["pointer-use-settings"] == "true":
             self.ui.PointerUseSettings.setChecked(True)
         self.ui.PointerUseSettings.toggled.connect(self.pointer_use_settings)
 
@@ -211,21 +213,21 @@ class MainWindow(QMainWindow):
             self.ui.pointerID.addItem(item)
         pointers_view.setTextElideMode(Qt.TextElideMode.ElideNone)
         pointers_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.ui.pointerID.setCurrentText(settings["pointer-identifier"])
+        self.ui.pointerID.setCurrentText(self.settings["pointer-identifier"])
         self.ui.pointerID.activated.connect(self.set_pointer_identifier)
 
         # Left handed mode
-        if settings["pointer-left-handed"] == "true":
+        if self.settings["pointer-left-handed"] == "true":
             self.ui.pointerLeftHanded.setChecked(True)
         self.ui.pointerLeftHanded.toggled.connect(self.on_pointer_left_handed_checked)
 
         # Middle click emulation
-        if settings["pointer-middle-emulation"] == "enabled":
+        if self.settings["pointer-middle-emulation"] == "enabled":
             self.ui.pointerMiddle.setChecked(True)
         self.ui.pointerMiddle.toggled.connect(self.on_middle_checked)
 
         # Pointer speed
-        pointerAccelValue = float(settings["pointer-pointer-accel"]) * 10
+        pointerAccelValue = float(self.settings["pointer-pointer-accel"]) * 10
         self.ui.pointerAccel.setValue(int(pointerAccelValue))
         self.ui.pointerAccel.valueChanged.connect(self.on_accel_value_changed)
 
@@ -233,7 +235,7 @@ class MainWindow(QMainWindow):
         self.pointerAccelButtonGroup = QButtonGroup()
         self.pointerAccelButtonGroup.addButton(self.ui.pointerFlat)
         self.pointerAccelButtonGroup.addButton(self.ui.pointerAdaptive)
-        if settings["pointer-accel-profile"] == "flat":
+        if self.settings["pointer-accel-profile"] == "flat":
             self.ui.pointerFlat.setChecked(True)
         else:
             self.ui.pointerAdaptive.setChecked(True)
@@ -242,7 +244,7 @@ class MainWindow(QMainWindow):
 
         # Rotation angle (0.0 to 360.0) since Sway 1.9
         if sway_version >= "1.9":
-            pointerRotationValue = float(settings["pointer-rotation-angle"])
+            pointerRotationValue = float(self.settings["pointer-rotation-angle"])
             self.ui.pointerRotationAngleSlider.setValue(int(pointerRotationValue))
             self.ui.pointerRotationAngle.setValue(self.ui.pointerRotationAngleSlider.value())
             self.ui.pointerRotationAngleSlider.sliderMoved.connect(self.ui.pointerRotationAngle.setValue)
@@ -253,33 +255,33 @@ class MainWindow(QMainWindow):
             self.ui.pointerRotationLabel.setDisabled(True)
 
         # Scrolling
-        if settings["pointer-natural-scroll"] == "true":
+        if self.settings["pointer-natural-scroll"] == "true":
             self.ui.pointerNatScroll.setChecked(True)
         self.ui.pointerNatScroll.toggled.connect(self.on_pointer_nat_scroll_checked)
 
         # Scrolling speed:
-        pointerFactorValue = float(settings["pointer-scroll-factor"]) * 10
+        pointerFactorValue = float(self.settings["pointer-scroll-factor"]) * 10
         self.ui.pointerScrollFactor.setValue(int(pointerFactorValue))
         self.ui.pointerScrollFactor.valueChanged.connect(self.on_pointer_scroll_value_changed)
 
         # Scrolling button (trackpoints only)
         for key, value in scroll_buttons.items():
             self.ui.scrollButtonList.addItem(key, value)
-            if value == settings["pointer-scroll-button"]:
+            if value == self.settings["pointer-scroll-button"]:
                 self.ui.scrollButtonList.setCurrentText(key)
         self.ui.scrollButtonList.activated.connect(self.on_scroll_button_checked)
 
         # Scrolling button lock (since Sway 1.9)
         if sway_version >= "1.9":
             self.ui.scrollButtonLock.setEnabled(True)
-            if settings["pointer-scroll-button-lock"] == "enabled":
+            if self.settings["pointer-scroll-button-lock"] == "enabled":
                 self.ui.scrollButtonLock.setChecked(True)
             self.ui.scrollButtonLock.clicked.connect(self.on_scroll_button_lock_checked)
 
         # Touchapd Settings #
 
         # Use this settings
-        if settings["touchpad-use-settings"] == "true":
+        if self.settings["touchpad-use-settings"] == "true":
             self.ui.TouchPadUseSettings.setChecked(True)
         self.ui.TouchPadUseSettings.toggled.connect(self.touchpad_use_settings)
 
@@ -296,7 +298,7 @@ class MainWindow(QMainWindow):
                 self.ui.touchpadID.addItem(item)
                 touchpads_view.setTextElideMode(Qt.TextElideMode.ElideNone)
                 touchpads_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-                self.ui.touchpadID.setCurrentText(settings["touchpad-identifier"])
+                self.ui.touchpadID.setCurrentText(self.settings["touchpad-identifier"])
                 self.ui.touchpadID.activated.connect(self.set_touchpad_identifier)
 
         # Touchapd send events mode:
@@ -304,9 +306,9 @@ class MainWindow(QMainWindow):
         self.eventsButtonGroup.addButton(self.ui.touchEventsEnabled)
         self.eventsButtonGroup.addButton(self.ui.touchEventsDisabled)
         self.eventsButtonGroup.addButton(self.ui.touchEventsOnExternalMouse)
-        if settings["touchpad-events"] == "disabled":
+        if self.settings["touchpad-events"] == "disabled":
             self.ui.touchEventsDisabled.setChecked(True)
-        elif settings["touchpad-events"] == "disabled_on_external_mouse":
+        elif self.settings["touchpad-events"] == "disabled_on_external_mouse":
             self.ui.touchEventsOnExternalMouse.setChecked(True)
         else:
             self.ui.touchEventsEnabled.setChecked(True)
@@ -315,30 +317,30 @@ class MainWindow(QMainWindow):
         self.ui.touchEventsOnExternalMouse.clicked.connect(self.on_touchpad_events_mode_changed)
 
         # Disable while typing
-        if settings["touchpad-dwt"] == "enabled":
+        if self.settings["touchpad-dwt"] == "enabled":
             self.ui.DWT.setChecked(True)
         self.ui.DWT.toggled.connect(self.on_dwt_checked)
 
         # Disable while trackpointing
         if sway_version >= "1.8":
-            if settings["touchpad-dwtp"] == "enabled":
+            if self.settings["touchpad-dwtp"] == "enabled":
                 self.ui.DWTP.setChecked(True)
             self.ui.DWTP.toggled.connect(self.on_dwtp_checked)
         else:
             self.ui.DWTP.setEnabled(False)
 
         # Left handed mode
-        if settings["touchpad-left-handed"] == "enabled":
+        if self.settings["touchpad-left-handed"] == "enabled":
             self.ui.touchLeftHanded.setChecked(True)
         self.ui.touchLeftHanded.toggled.connect(self.on_touch_left_handed_checked)
 
         # Middle click emulation
-        if settings["touchpad-middle-emulation"] == "enabled":
+        if self.settings["touchpad-middle-emulation"] == "enabled":
             self.ui.touchMiddle.setChecked(True)
         self.ui.touchMiddle.toggled.connect(self.on_touch_middle_emu_checked)
 
         # Pointer speed:
-        touchAccelValue = float(settings["touchpad-pointer-accel"]) * 10
+        touchAccelValue = float(self.settings["touchpad-pointer-accel"]) * 10
         self.ui.touchAccel.setValue(int(touchAccelValue))
         self.ui.touchAccel.valueChanged.connect(self.on_touch_accel_value_changed)
 
@@ -346,7 +348,7 @@ class MainWindow(QMainWindow):
         self.touchAccelButtonGroup = QButtonGroup()
         self.touchAccelButtonGroup.addButton(self.ui.touchFlat)
         self.touchAccelButtonGroup.addButton(self.ui.touchAdaptive)
-        if settings["touchpad-accel-profile"] == "flat":
+        if self.settings["touchpad-accel-profile"] == "flat":
             self.ui.touchFlat.setChecked(True)
         else:
             self.ui.touchAdaptive.setChecked(True)
@@ -355,7 +357,7 @@ class MainWindow(QMainWindow):
 
         # Rotation angle (0.0 to 360.0) since Sway 1.9
         if sway_version >= "1.9":
-            touchRotationValue = float(settings["touchpad-rotation-angle"])
+            touchRotationValue = float(self.settings["touchpad-rotation-angle"])
             self.ui.touchRotationAngleSlider.setValue(int(touchRotationValue))
             self.ui.touchRotationAngle.setValue(self.ui.touchRotationAngleSlider.value())
             self.ui.touchRotationAngleSlider.sliderMoved.connect(self.ui.touchRotationAngle.setValue)
@@ -366,25 +368,25 @@ class MainWindow(QMainWindow):
             self.ui.touchpadRotationLabel.setDisabled(True)
 
         # Tap-to-click
-        if settings["touchpad-tap"] == "enabled":
+        if self.settings["touchpad-tap"] == "enabled":
             self.ui.tap_click.setChecked(True)
         self.ui.tap_click.toggled.connect(self.on_tap_click_checked)
 
         # Tap-and-drag
-        if settings["touchpad-tap"] == "enabled":
+        if self.settings["touchpad-tap"] == "enabled":
             self.ui.drag.setEnabled(True)
         else:
             self.ui.drag.setEnabled(False)
-        if settings["touchpad-drag"] == "enabled":
+        if self.settings["touchpad-drag"] == "enabled":
             self.ui.drag.setChecked(True)
         self.ui.drag.toggled.connect(self.on_tapdrag_checked)
 
         # Tap-and-drag lock
-        if settings["touchpad-tap"] == "enabled":
+        if self.settings["touchpad-tap"] == "enabled":
             self.ui.drag_lock.setEnabled(True)
         else:
             self.ui.drag_lock.setEnabled(False)
-        if settings["touchpad-drag-lock"] == "enabled":
+        if self.settings["touchpad-drag-lock"] == "enabled":
             self.ui.drag_lock.setChecked(True)
         self.ui.drag_lock.toggled.connect(self.on_draglock_checked)
 
@@ -392,7 +394,7 @@ class MainWindow(QMainWindow):
         self.mappingButtonGroup = QButtonGroup()
         self.mappingButtonGroup.addButton(self.ui.lmr)
         self.mappingButtonGroup.addButton(self.ui.lrm)
-        if settings["touchpad-tap"] == "enabled":
+        if self.settings["touchpad-tap"] == "enabled":
             self.ui.lrm.setEnabled(True)
             self.ui.lmr.setEnabled(True)
         else:
@@ -409,9 +411,9 @@ class MainWindow(QMainWindow):
         self.clickMethodButtonGroup = QButtonGroup()
         self.clickMethodButtonGroup.addButton(self.ui.btn_BtnArea)
         self.clickMethodButtonGroup.addButton(self.ui.btn_ClickFinger)
-        if settings["touchpad-click-method"] == "button_areas":
+        if self.settings["touchpad-click-method"] == "button_areas":
             self.ui.btn_BtnArea.setChecked(True)
-        elif settings["touchpad-click-method"] == "clickfinger":
+        elif self.settings["touchpad-click-method"] == "clickfinger":
             self.ui.btn_ClickFinger.setChecked(True)
         self.ui.btn_BtnArea.clicked.connect(self.on_click_method_checked)
         self.ui.btn_ClickFinger.clicked.connect(self.on_click_method_checked)
@@ -421,9 +423,9 @@ class MainWindow(QMainWindow):
         self.scrollingButtonGroup.addButton(self.ui.touchScrollNoScroll)
         self.scrollingButtonGroup.addButton(self.ui.touchScrollTwoFingers)
         self.scrollingButtonGroup.addButton(self.ui.touchScrollEdges)
-        if settings["touchpad-scroll-method"] == "two_finger":
+        if self.settings["touchpad-scroll-method"] == "two_finger":
             self.ui.touchScrollTwoFingers.setChecked(True)
-        elif settings["touchpad-scroll-method"] == "edge":
+        elif self.settings["touchpad-scroll-method"] == "edge":
             self.ui.touchScrollEdges.setChecked(True)
         else:
             self.ui.touchScrollNoScroll.setChecked(True)
@@ -433,19 +435,19 @@ class MainWindow(QMainWindow):
         self.ui.touchScrollEdges.clicked.connect(self.on_scroll_method_checked)
 
         # Natural (inverted) scrolling:
-        if settings["touchpad-natural-scroll"] == "enabled":
+        if self.settings["touchpad-natural-scroll"] == "enabled":
             self.ui.touchNatScroll.setChecked(True)
         self.ui.touchNatScroll.toggled.connect(self.on_touch_nat_scroll_checked)
 
         # Scrolling speed
-        touchFactorValue = float(settings["touchpad-scroll-factor"]) * 10
+        touchFactorValue = float(self.settings["touchpad-scroll-factor"]) * 10
         self.ui.touchScrollFactor.setValue(int(touchFactorValue))
         self.ui.touchScrollFactor.valueChanged.connect(self.on_touch_scroll_value_changed)
 
         # Tablet Settings #
 
         # Use this settings
-        if settings["tablet-use-settings"] == "true":
+        if self.settings["tablet-use-settings"] == "true":
             self.ui.TabletUseSettings.setChecked(True)
         self.ui.TabletUseSettings.clicked.connect(self.tablet_use_settings)
 
@@ -462,10 +464,10 @@ class MainWindow(QMainWindow):
                 self.ui.tabletID.addItem(item)
                 tablet_view.setTextElideMode(Qt.TextElideMode.ElideNone)
                 tablet_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-                self.ui.tabletID.setCurrentText(settings["tablet-identifier"])
+                self.ui.tabletID.setCurrentText(self.settings["tablet-identifier"])
 
         # Left handed mode (invert tablet's input)
-        if settings["tablet-left-handed"] == "enabled":
+        if self.settings["tablet-left-handed"] == "enabled":
             self.ui.tabletLeftHanded.setChecked(True)
         self.ui.tabletLeftHanded.clicked.connect(self.on_tablet_left_handed_checked)
 
@@ -473,14 +475,14 @@ class MainWindow(QMainWindow):
         mode = ["*", "pen", "eraser", "brush", "pencil", "airbrush"]
         for item in mode:
             self.ui.toolModeList.addItem(item)
-        self.ui.toolModeList.setCurrentText(settings["tablet-tool-mode"][0])
+        self.ui.toolModeList.setCurrentText(self.settings["tablet-tool-mode"][0])
         self.ui.toolModeList.activated.connect(self.on_tablet_set_tool_mode)
 
         # Tablet tool movement (absolute or relative)
         self.toolMoveButtonGroup = QButtonGroup()
         self.toolMoveButtonGroup.addButton(self.ui.toolMoveAbsolute)
         self.toolMoveButtonGroup.addButton(self.ui.toolMoveRelative)
-        if settings["tablet-tool-mode"][1] == "absolute":
+        if self.settings["tablet-tool-mode"][1] == "absolute":
             self.ui.toolMoveAbsolute.setChecked(True)
         else:
             self.ui.toolMoveRelative.setChecked(True)
@@ -490,9 +492,9 @@ class MainWindow(QMainWindow):
 
     def keyboard_use_settings(self):
         if self.ui.KeyBoardUseSettings.isChecked() is True:
-            settings["keyboard-use-settings"] = "true"
+            self.settings["keyboard-use-settings"] = "true"
         else:
-            settings["keyboard-use-settings"] = "false"
+            self.settings["keyboard-use-settings"] = "false"
 
     def on_clicked_reset(self):
         defaults = load_json(default_settings)
@@ -635,149 +637,149 @@ class MainWindow(QMainWindow):
                     variants.append(item.data(1, Qt.ItemDataRole.UserRole))
                 layouts.append(item.data(0, Qt.ItemDataRole.UserRole))
                 row += 1
-        settings["keyboard-layout"] = layouts
-        settings["keyboard-variant"] = variants
+        self.settings["keyboard-layout"] = layouts
+        self.settings["keyboard-variant"] = variants
 
     def set_kbd_identifier(self):
-        settings["keyboard-identifier"] = self.ui.kbdID.currentText()
+        self.settings["keyboard-identifier"] = self.ui.kbdID.currentText()
 
     def set_model(self):
-        settings["keyboard-model"] = self.ui.kbdModel.currentData()
+        self.settings["keyboard-model"] = self.ui.kbdModel.currentData()
 
     def set_shortcut(self):
-        settings["keyboard-shortcut"] = self.ui.shortcutName.currentData()
+        self.settings["keyboard-shortcut"] = self.ui.shortcutName.currentData()
 
     def on_repeat_delay_value_changed(self):
-        settings["keyboard-repeat-delay"] = self.ui.repeatDelay.value()
+        self.settings["keyboard-repeat-delay"] = self.ui.repeatDelay.value()
 
     def on_repeat_rate_value_changed(self):
-        settings["keyboard-repeat-rate"] = self.ui.repeatRate.value()
+        self.settings["keyboard-repeat-rate"] = self.ui.repeatRate.value()
 
     def on_caps_lock_checked(self):
         if self.ui.caps_lock.isChecked():
-            settings["keyboard-capslock"] = "enabled"
+            self.settings["keyboard-capslock"] = "enabled"
         else:
-            settings["keyboard-capslock"] = "disabled"
+            self.settings["keyboard-capslock"] = "disabled"
 
     def on_num_lock_checked(self):
         if self.ui.num_lock.isChecked():
-            settings["keyboard-numlock"] = "enabled"
+            self.settings["keyboard-numlock"] = "enabled"
         else:
-            settings["keyboard-numlock"] = "disabled"
+            self.settings["keyboard-numlock"] = "disabled"
 
     def pointer_use_settings(self):
         if self.ui.PointerUseSettings.isChecked() is True:
-            settings["pointer-use-settings"] = "true"
+            self.settings["pointer-use-settings"] = "true"
         else:
-            settings["pointer-use-settings"] = "false"
+            self.settings["pointer-use-settings"] = "false"
 
     def set_pointer_identifier(self):
-        settings["pointer-identifier"] = self.ui.pointerID.currentText()
+        self.settings["pointer-identifier"] = self.ui.pointerID.currentText()
 
     def on_pointer_left_handed_checked(self):
         if self.ui.pointerLeftHanded.isChecked() is True:
-            settings["pointer-left-handed"] = "true"
+            self.settings["pointer-left-handed"] = "true"
         else:
-            settings["pointer-left-handed"] = "false"
+            self.settings["pointer-left-handed"] = "false"
 
     def on_middle_checked(self):
         if self.ui.pointerMiddle.isChecked():
-            settings["pointer-middle-emulation"] = "enabled"
+            self.settings["pointer-middle-emulation"] = "enabled"
         else:
-            settings["pointer-middle-emulation"] = "disabled"
+            self.settings["pointer-middle-emulation"] = "disabled"
 
     def on_accel_value_changed(self):
-        settings["pointer-pointer-accel"] = self.ui.pointerAccel.value() / 10
+        self.settings["pointer-pointer-accel"] = self.ui.pointerAccel.value() / 10
 
     def on_accel_profile_changed(self):
         if self.ui.pointerFlat.isChecked():
-            settings["pointer-accel-profile"] = "flat"
+            self.settings["pointer-accel-profile"] = "flat"
         else:
-            settings["pointer-accel-profile"] = "adaptive"
+            self.settings["pointer-accel-profile"] = "adaptive"
 
     def on_pointer_rotation_angle_value_changed(self):
-        settings["pointer-rotation-angle"] = float(self.ui.pointerRotationAngle.value())
+        self.settings["pointer-rotation-angle"] = float(self.ui.pointerRotationAngle.value())
 
     def on_scroll_button_checked(self):
-        settings["pointer-scroll-button"] = self.ui.scrollButtonList.currentData()
+        self.settings["pointer-scroll-button"] = self.ui.scrollButtonList.currentData()
 
     def on_scroll_button_lock_checked(self):
         if self.ui.scrollButtonLock.isChecked() is True:
-            settings["pointer-scroll-button-lock"] = "enabled"
+            self.settings["pointer-scroll-button-lock"] = "enabled"
         else:
-            settings["pointer-scroll-button-lock"] = "disabled"
+            self.settings["pointer-scroll-button-lock"] = "disabled"
 
     def on_pointer_nat_scroll_checked(self):
         if self.ui.pointerNatScroll.isChecked() is True:
-            settings["pointer-natural-scroll"] = "true"
+            self.settings["pointer-natural-scroll"] = "true"
         else:
-            settings["pointer-natural-scroll"] = "false"
+            self.settings["pointer-natural-scroll"] = "false"
 
     def on_pointer_scroll_value_changed(self):
-        settings["pointer-scroll-factor"] = self.ui.pointerScrollFactor.value() / 10
+        self.settings["pointer-scroll-factor"] = self.ui.pointerScrollFactor.value() / 10
 
     def touchpad_use_settings(self):
         if self.ui.TouchPadUseSettings.isChecked() is True:
-            settings["touchpad-use-settings"] = "true"
+            self.settings["touchpad-use-settings"] = "true"
         else:
-            settings["touchpad-use-settings"] = "false"
+            self.settings["touchpad-use-settings"] = "false"
 
     def set_touchpad_identifier(self):
-        settings["touchpad-identifier"] = self.ui.touchpadID.currentText()
+        self.settings["touchpad-identifier"] = self.ui.touchpadID.currentText()
 
     def on_touchpad_events_mode_changed(self):
         if self.ui.touchEventsDisabled.isChecked() is True:
-            settings["touchpad-events"] = "disabled"
+            self.settings["touchpad-events"] = "disabled"
         elif self.ui.touchEventsOnExternalMouse.isChecked() is True:
-            settings["touchpad-events"] = "disabled_on_external_mouse"
+            self.settings["touchpad-events"] = "disabled_on_external_mouse"
         else:
-            settings["touchpad-events"] = "enabled"
+            self.settings["touchpad-events"] = "enabled"
 
     def on_dwt_checked(self):
         if self.ui.DWT.isChecked():
-            settings["touchpad-dwt"] = "enabled"
+            self.settings["touchpad-dwt"] = "enabled"
         else:
-            settings["touchpad-dwt"] = "disabled"
+            self.settings["touchpad-dwt"] = "disabled"
 
     def on_dwtp_checked(self):
         if self.ui.DWTP.isChecked():
-            settings["touchpad-dwtp"] = "enabled"
+            self.settings["touchpad-dwtp"] = "enabled"
         else:
-            settings["touchpad-dwtp"] = "disabled"
+            self.settings["touchpad-dwtp"] = "disabled"
 
     def on_touch_left_handed_checked(self):
         if self.ui.touchLeftHanded.isChecked():
-            settings["touchpad-left-handed"] = "enabled"
+            self.settings["touchpad-left-handed"] = "enabled"
         else:
-            settings["touchpad-left-handed"] = "disabled"
+            self.settings["touchpad-left-handed"] = "disabled"
 
     def on_touch_middle_emu_checked(self):
         if self.ui.touchMiddle.isChecked():
-            settings["touchpad-middle-emulation"] = "enabled"
+            self.settings["touchpad-middle-emulation"] = "enabled"
         else:
-            settings["touchpad-middle-emulation"] = "disabled"
+            self.settings["touchpad-middle-emulation"] = "disabled"
 
     def on_touch_accel_value_changed(self):
-        settings["touchpad-pointer-accel"] = self.ui.touchAccel.value() / 10
+        self.settings["touchpad-pointer-accel"] = self.ui.touchAccel.value() / 10
 
     def on_touch_accel_profile_changed(self):
         if self.ui.touchFlat.isChecked():
-            settings["touchpad-accel-profile"] = "flat"
+            self.settings["touchpad-accel-profile"] = "flat"
         else:
-            settings["touchpad-accel-profile"] = "adaptive"
+            self.settings["touchpad-accel-profile"] = "adaptive"
 
     def on_touch_rotation_angle_value_changed(self):
-        settings["touchpad-rotation-angle"] = float(self.ui.touchRotationAngle.value())
+        self.settings["touchpad-rotation-angle"] = float(self.ui.touchRotationAngle.value())
 
     def on_tap_click_checked(self):
         if self.ui.tap_click.isChecked():
-            settings["touchpad-tap"] = "enabled"
+            self.settings["touchpad-tap"] = "enabled"
             self.ui.drag.setEnabled(True)
             self.ui.drag_lock.setEnabled(True)
             self.ui.lrm.setEnabled(True)
             self.ui.lmr.setEnabled(True)
         else:
-            settings["touchpad-tap"] = "disabled"
+            self.settings["touchpad-tap"] = "disabled"
             self.ui.drag.setEnabled(False)
             self.ui.drag_lock.setEnabled(False)
             self.ui.lrm.setEnabled(False)
@@ -785,67 +787,67 @@ class MainWindow(QMainWindow):
 
     def on_tapdrag_checked(self):
         if self.ui.drag.isChecked():
-            settings["touchpad-drag"] = "enabled"
+            self.settings["touchpad-drag"] = "enabled"
         else:
-            settings["touchpad-drag"] = "disabled"
+            self.settings["touchpad-drag"] = "disabled"
 
     def on_draglock_checked(self):
         if self.ui.drag_lock.isChecked():
-            settings["touchpad-drag-lock"] = "enabled"
+            self.settings["touchpad-drag-lock"] = "enabled"
         else:
-            settings["touchpad-drag-lock"] = "disabled"
+            self.settings["touchpad-drag-lock"] = "disabled"
 
     def on_multi_tap_checked(self):
         if self.ui.lrm.isChecked():
-            settings["touchpad-tap-button-map"] = "lrm"
+            self.settings["touchpad-tap-button-map"] = "lrm"
         else:
-            settings["touchpad-tap-button-map"] = "lmr"
+            self.settings["touchpad-tap-button-map"] = "lmr"
 
     def on_click_method_checked(self):
         if self.ui.btn_ClickFinger.isChecked():
-            settings["touchpad-click-method"] = "clickfinger"
+            self.settings["touchpad-click-method"] = "clickfinger"
         else:
-            settings["touchpad-click-method"] = "button_areas"
+            self.settings["touchpad-click-method"] = "button_areas"
 
     def on_scroll_method_checked(self):
         if self.ui.touchScrollTwoFingers.isChecked() is True:
-            settings["touchpad-scroll-method"] = "two_finger"
+            self.settings["touchpad-scroll-method"] = "two_finger"
         elif self.ui.touchScrollEdges.isChecked() is True:
-            settings["touchpad-scroll-method"] = "edge"
+            self.settings["touchpad-scroll-method"] = "edge"
         else:
-            settings["touchpad-scroll-method"] = "none"
+            self.settings["touchpad-scroll-method"] = "none"
 
 
     def on_touch_nat_scroll_checked(self):
         if self.ui.touchNatScroll.isChecked() is True:
-            settings["touchpad-natural-scroll"] = "enabled"
+            self.settings["touchpad-natural-scroll"] = "enabled"
         else:
-            settings["touchpad-natural-scroll"] = "disabled"
+            self.settings["touchpad-natural-scroll"] = "disabled"
 
     def on_touch_scroll_value_changed(self):
-        settings["touchpad-scroll-factor"] = self.ui.touchScrollFactor.value() / 10
+        self.settings["touchpad-scroll-factor"] = self.ui.touchScrollFactor.value() / 10
 
     def tablet_use_settings(self):
         if self.ui.TabletUseSettings.isChecked() is True:
-            settings["tablet-use-settings"] = "true"
+            self.settings["tablet-use-settings"] = "true"
         else:
-            settings["tablet-use-settings"] = "false"
+            self.settings["tablet-use-settings"] = "false"
 
     def set_tablet_identifier(self):
-        settings["tablet-identifier"] = self.ui.tabletID.currentText()
+        self.settings["tablet-identifier"] = self.ui.tabletID.currentText()
 
     def on_tablet_left_handed_checked(self):
         if self.ui.tabletLeftHanded.isChecked():
-            settings["tablet-left-handed"] = "enabled"
+            self.settings["tablet-left-handed"] = "enabled"
         else:
-            settings["tablet-left-handed"] = "disabled"
+            self.settings["tablet-left-handed"] = "disabled"
 
     def on_tablet_set_tool_mode(self):
         if self.ui.toolMoveAbsolute.isChecked() is True:
-            settings["tablet-tool-mode"][1] = "absolute"
+            self.settings["tablet-tool-mode"][1] = "absolute"
         else:
-            settings["tablet-tool-mode"][1] = "relative"
-        settings["tablet-tool-mode"][0] = self.ui.toolModeList.currentText()
+            self.settings["tablet-tool-mode"][1] = "relative"
+        self.settings["tablet-tool-mode"][0] = self.ui.toolModeList.currentText()
 
     def on_clicked_about(self):
         self.about = AboutDialog()
@@ -853,10 +855,10 @@ class MainWindow(QMainWindow):
 
     def on_clicked_apply(self):
         self.set_keyboard_layout()
-        save_to_config()
+        save_to_config(self.settings)
         f = os.path.join(data_dir, "settings")
         print("Saving {}".format(f))
-        save_json(settings, f)
+        save_json(self.settings, f)
         reload_sway_config()
 
     def cancel(self):
@@ -939,7 +941,7 @@ class SelectKeyboardLayout(QDialog):
         self.reject()
 
 
-def save_to_config():
+def save_to_config(settings):
     if settings["keyboard-use-settings"] == "true":
 
         lines = ['input "type:keyboard" {'] if not settings["keyboard-identifier"] else [
@@ -1090,9 +1092,8 @@ def save_to_config():
             os.unlink(os.path.join(config_home, "sway/tablet"))
 
 
-def load_settings():
+def load_settings(data_dir):
     settings_file = os.path.join(data_dir, "settings")
-    global settings
     if os.path.isfile(settings_file):
         print("Loading settings from {}".format(settings_file))
         settings = load_json(settings_file)
@@ -1110,6 +1111,7 @@ def load_settings():
         print("Loading default settings")
         copy2(os.path.join(dir_name, "data/defaults.json"), os.path.join(data_dir, "settings"))
         settings = load_json(settings_file)
+    return settings
 
 
 def main():
@@ -1141,16 +1143,15 @@ def main():
         app.installTranslator(locale_ts)
         app.installTranslator(app_ts)
 
-        global data_dir
         data_dir = get_data_dir()
+        settings = load_settings(data_dir)
 
         if args.restore:
             if input("\nRestore default settings? y/N ").upper() == "Y":
                 copy2(os.path.join(dir_name, "data/defaults.json"), os.path.join(data_dir, "settings"))
                 sys.exit(0)
 
-        load_settings()
-        win = MainWindow()
+        win = MainWindow(settings, data_dir)
         win.show()
         sys.exit(app.exec())
     else:
