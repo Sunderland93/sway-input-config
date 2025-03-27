@@ -856,7 +856,7 @@ class MainWindow(QMainWindow):
     def on_clicked_apply(self):
         self.set_keyboard_layout()
         save_to_config(self.settings)
-        f = os.path.join(data_dir, "settings")
+        f = os.path.join(self.data_dir, "settings")
         print("Saving {}".format(f))
         save_json(self.settings, f)
         reload_sway_config()
@@ -947,7 +947,9 @@ def save_to_config(settings):
         lines = ['input "type:keyboard" {'] if not settings["keyboard-identifier"] else [
             'input "%s" {' % settings["keyboard-identifier"]]
         lines.append('  xkb_layout {}'.format(','.join(settings["keyboard-layout"])))
-        lines.append('  xkb_variant {}'.format(','.join(settings["keyboard-variant"])))
+        # Prevents adding empty xkb_variant option in config
+        if settings["keyboard-variant"] and any(v.strip() for v in settings["keyboard-variant"]):
+            lines.append('  xkb_variant {}'.format(','.join(settings["keyboard-variant"])))
         if settings["keyboard-shortcut"]:
             lines.append('  xkb_options {}'.format(settings["keyboard-shortcut"]))
         lines.append('  xkb_model {}'.format(settings["keyboard-model"]))
