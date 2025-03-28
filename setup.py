@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='sway-input-config',
-    version='1.4.2',
+    version='1.4.3',
     description='input devices configurator for sway',
     license='GPL-3',
     author='Aleksey Samoilov',
