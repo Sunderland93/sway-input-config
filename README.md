@@ -71,9 +71,9 @@ If **settings** file is corrupted or missing, Sway Input Configurator will use t
 
 If you would like to translate Sway Input Configurator into your language, please follow the instructions below:
 
-* Install the necessary utilities - Qt Linguist and pylupdate5. For Debian-based systems:
+* Install the necessary utilities - Qt Linguist and pylupdate6. For Debian-based systems:
 
-`sudo apt install pyqt5-dev-tools qttools5-dev-tools`
+`sudo apt install pyqt6-dev-tools linguist-qt6`
 
 * Clone the repository and generate translation:
 
