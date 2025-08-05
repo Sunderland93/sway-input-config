@@ -20,6 +20,7 @@ from sway_input_config.ui_about import Ui_about
 from sway_input_config.ui_error_message import Ui_ErrorMessage
 from sway_input_config.devices.keyboard import KeyboardSettings
 from sway_input_config.devices.pointer import PointerSettings
+from sway_input_config.devices.tablet import TabletSettings
 from sway_input_config.devices.touchpad import TouchpadSettings
 
 app_version = "1.4.3"
@@ -67,10 +68,12 @@ class MainWindow(QMainWindow):
 
         self.keyboard = KeyboardSettings(self.ui, self.settings)
         self.pointer = PointerSettings(self.ui, self.settings)
+        self.tablet = TabletSettings(self.ui, self.settings)
         self.touchpad = TouchpadSettings(self.ui, self.settings)
 
         self.keyboard.init_ui()
         self.pointer.init_ui(sway_version)
+        self.tablet.init_ui()
         self.touchpad.init_ui(sway_version)
 
         # Dialog buttons
@@ -81,86 +84,12 @@ class MainWindow(QMainWindow):
         self.btnReset.clicked.connect(self.on_clicked_reset)
         self.ui.buttonBox.helpRequested.connect(self.on_clicked_about)
 
-        # Tablet Settings #
-
-        # Use this settings
-        if self.settings["tablet-use-settings"] == "true":
-            self.ui.TabletUseSettings.setChecked(True)
-        self.ui.TabletUseSettings.clicked.connect(self.tablet_use_settings)
-
-        # Tablet ID
-        tablet_tools = list_inputs_by_type(input_type="tablet_tool")
-        tablet_view = QListView(self.ui.tabletID)
-        self.ui.tabletID.setView(tablet_view)
-        if not tablet_tools:
-            self.ui.tabletID.addItem("Not found")
-            self.ui.tabWidget.widget(3).setEnabled(False)
-        else:
-            self.ui.tabletID.addItem("")
-            for item in tablet_tools:
-                self.ui.tabletID.addItem(item)
-                tablet_view.setTextElideMode(Qt.TextElideMode.ElideNone)
-                tablet_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-                self.ui.tabletID.setCurrentText(self.settings["tablet-identifier"])
-
-        # Left handed mode (invert tablet's input)
-        if self.settings["tablet-left-handed"] == "enabled":
-            self.ui.tabletLeftHanded.setChecked(True)
-        self.ui.tabletLeftHanded.clicked.connect(self.on_tablet_left_handed_checked)
-
-        # Tablet tool mode ("pen", "eraser", "brush", "pencil", "airbrush", and the wildcard *, which matches all tools)
-        mode = ["*", "pen", "eraser", "brush", "pencil", "airbrush"]
-        for item in mode:
-            self.ui.toolModeList.addItem(item)
-        self.ui.toolModeList.setCurrentText(self.settings["tablet-tool-mode"][0])
-        self.ui.toolModeList.activated.connect(self.on_tablet_set_tool_mode)
-
-        # Tablet tool movement (absolute or relative)
-        self.toolMoveButtonGroup = QButtonGroup()
-        self.toolMoveButtonGroup.addButton(self.ui.toolMoveAbsolute)
-        self.toolMoveButtonGroup.addButton(self.ui.toolMoveRelative)
-        if self.settings["tablet-tool-mode"][1] == "absolute":
-            self.ui.toolMoveAbsolute.setChecked(True)
-        else:
-            self.ui.toolMoveRelative.setChecked(True)
-        self.ui.toolMoveAbsolute.clicked.connect(self.on_tablet_set_tool_mode)
-        self.ui.toolMoveRelative.clicked.connect(self.on_tablet_set_tool_mode)
-
     def on_clicked_reset(self):
         defaults = load_json(default_settings)
         self.keyboard.on_clicked_reset(defaults)
         self.pointer.on_clicked_reset(defaults)
+        self.tablet.on_clicked_reset(defaults)
         self.touchpad.on_clicked_reset(defaults)
-
-        tablet_tools = list_inputs_by_type(input_type="tablet_tool")
-        if tablet_tools:
-            self.ui.tabletID.setCurrentText(defaults["tablet-identifier"])
-            self.ui.tabletLeftHanded.setChecked(False)
-
-            self.ui.toolModeList.setCurrentText(defaults["tablet-tool-mode"][0])
-            self.ui.toolMoveAbsolute.setChecked(True)
-
-    def tablet_use_settings(self):
-        if self.ui.TabletUseSettings.isChecked() is True:
-            self.settings["tablet-use-settings"] = "true"
-        else:
-            self.settings["tablet-use-settings"] = "false"
-
-    def set_tablet_identifier(self):
-        self.settings["tablet-identifier"] = self.ui.tabletID.currentText()
-
-    def on_tablet_left_handed_checked(self):
-        if self.ui.tabletLeftHanded.isChecked():
-            self.settings["tablet-left-handed"] = "enabled"
-        else:
-            self.settings["tablet-left-handed"] = "disabled"
-
-    def on_tablet_set_tool_mode(self):
-        if self.ui.toolMoveAbsolute.isChecked() is True:
-            self.settings["tablet-tool-mode"][1] = "absolute"
-        else:
-            self.settings["tablet-tool-mode"][1] = "relative"
-        self.settings["tablet-tool-mode"][0] = self.ui.toolModeList.currentText()
 
     def on_clicked_about(self):
         self.about = AboutDialog()
