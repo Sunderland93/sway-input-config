@@ -42,10 +42,6 @@ class KeyboardSettings:
     def __init__(self, ui, settings):
         self.ui = ui
         self.settings = settings
-        self.layouts = layouts
-        self.variants = variants
-        self.models = models
-        self.options = options
 
     def init_ui(self):
         # Use this settings
@@ -136,42 +132,11 @@ class KeyboardSettings:
             self.ui.num_lock.setChecked(True)
         self.ui.num_lock.toggled.connect(self.on_num_lock_checked)
 
-
-    def load_defaults(self):
-        self.ui.layouts.clear()
-        for key, values in self.layouts:
-            if key in self.defaults["keyboard-layout"]:
-                self.layout_item = QTreeWidgetItem(self.ui.layouts)
-                self.layout_item.setData(0, Qt.ItemDataRole.DisplayRole, values)
-                self.layout_item.setData(0, Qt.ItemDataRole.UserRole, key)
-                self.ui.layouts.addTopLevelItem(self.layout_item)
-                for var_key, var_val in self.variants:
-                    val = var_val.split(":")[0]
-                    desc = var_val.split(":")[1]
-                    if val in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
-                        # Workaround to prevent custom layout from using variants for English(US)
-                        if "custom" not in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
-                            if key in self.defaults["keyboard-variant"]:
-                                self.layout_item.setData(1, Qt.ItemDataRole.DisplayRole, desc)
-                                self.layout_item.setData(1, Qt.ItemDataRole.UserRole, var_key)
-        for key, value in self.models:
-            if key == self.defaults["keyboard-model"]:
-                self.ui.kbdModel.setCurrentText(value)
-                self.ui.shortcutName.setCurrentText(self.defaults["keyboard-shortcut"])
-                self.ui.kbdID.setCurrentText(self.defaults["keyboard-identifier"])
-                self.ui.repeatDelaySlider.setValue(self.defaults["keyboard-repeat-delay"])
-                self.ui.repeatDelay.setValue(self.ui.repeatDelaySlider.value())
-                self.ui.repeatRateSlider.setValue(self.defaults["keyboard-repeat-rate"])
-                self.ui.repeatRate.setValue(self.ui.repeatRateSlider.value())
-                self.ui.caps_lock.setChecked(False)
-                self.ui.num_lock.setChecked(False)
-
     def keyboard_use_settings(self):
         if self.ui.KeyBoardUseSettings.isChecked() is True:
             self.settings["keyboard-use-settings"] = "true"
         else:
             self.settings["keyboard-use-settings"] = "false"
-
 
     def on_add_keyboard_layout(self):
         self.dlg = SelectKeyboardLayout(self.layouts, self.variants)
@@ -258,13 +223,13 @@ class KeyboardSettings:
 
     def on_clicked_reset(self, defaults):
         self.ui.layouts.clear()
-        for key, values in self.layouts:
+        for key, values in layouts:
             if key in defaults["keyboard-layout"]:
                 self.layout_item = QTreeWidgetItem(self.ui.layouts)
                 self.layout_item.setData(0, Qt.ItemDataRole.DisplayRole, values)
                 self.layout_item.setData(0, Qt.ItemDataRole.UserRole, key)
                 self.ui.layouts.addTopLevelItem(self.layout_item)
-                for key, values in self.variants:
+                for key, values in variants:
                     value = values.split(":")[0]
                     description = values.split(":")[1]
                     if value in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
@@ -273,7 +238,7 @@ class KeyboardSettings:
                             if key in defaults["keyboard-variant"]:
                                 self.layout_item.setData(1, Qt.ItemDataRole.DisplayRole, description)
                                 self.layout_item.setData(1, Qt.ItemDataRole.UserRole, key)
-        for key, value in self.models:
+        for key, value in models:
             if key == defaults["keyboard-model"]:
                 self.ui.kbdModel.setCurrentText(value)
         self.ui.shortcutName.setCurrentText(defaults["keyboard-shortcut"])
