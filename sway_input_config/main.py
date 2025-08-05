@@ -2,13 +2,10 @@
 
 import argparse
 import os
-import platform
-import re
 import sys
 import signal
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QDialogButtonBox,
-                               QDialog, QTreeWidgetItem, QListWidgetItem,
-                               QListView, QButtonGroup)
+                               QDialog, QListView, QButtonGroup)
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt, QTranslator, QLocale, QLibraryInfo
 from shutil import copy2
@@ -20,8 +17,8 @@ from sway_input_config.utils import (list_inputs_by_type, get_data_dir,
                                      load_text_file, reload_sway_config)
 from sway_input_config.ui_mainwindow import Ui_MainWindow
 from sway_input_config.ui_about import Ui_about
-from sway_input_config.ui_selectlayout import Ui_SelectKeyboardLayoutDialog
 from sway_input_config.ui_error_message import Ui_ErrorMessage
+from sway_input_config.devices.keyboard import KeyboardSettings
 
 app_version = "1.4.3"
 
@@ -33,39 +30,6 @@ if os.getenv("SWAYSOCK"):
 
 dir_name = os.path.dirname(__file__)
 default_settings = os.path.join(dir_name, "data/defaults.json")
-
-os_name = platform.system()
-
-if os_name == "Linux":
-    XKB_BASE_LIST = load_text_file("/usr/share/X11/xkb/rules/base.lst").splitlines()
-elif os_name == "FreeBSD":
-    XKB_BASE_LIST = load_text_file("/usr/local/share/X11/xkb/rules/base.lst").splitlines()
-
-models = []
-layouts = []
-variants = []
-options = []
-
-for line in XKB_BASE_LIST:
-    if not line:
-        continue
-    match = re.match(r'^!\s*(\w+)\s*$', line)
-    if match:
-        category = match.group(1)
-    else:
-        match = re.match(r'^\s*(\w+:\w+|\w+-\w+|\w+)\s*(.*)$', line)
-        if not match:
-            continue
-        key = match.group(1)
-        value = match.group(2)
-        if category == 'model':
-            models.append((key, value))
-        elif category == 'layout':
-            layouts.append((key, value))
-        elif category == 'variant':
-            variants.append((key, value))
-        elif category == 'option':
-            options.append((key, value))
 
 # Buttons array used for on_button_down scroll method
 scroll_buttons = {
@@ -99,6 +63,10 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.keyboard = KeyboardSettings(self.ui, self.settings)
+
+        self.keyboard.init_ui()
+
         # Dialog buttons
         self.ui.buttonBox.rejected.connect(self.cancel)
         self.btnApply = self.ui.buttonBox.button(QDialogButtonBox.StandardButton.Apply)
@@ -106,96 +74,6 @@ class MainWindow(QMainWindow):
         self.btnReset = self.ui.buttonBox.button(QDialogButtonBox.StandardButton.RestoreDefaults)
         self.btnReset.clicked.connect(self.on_clicked_reset)
         self.ui.buttonBox.helpRequested.connect(self.on_clicked_about)
-
-        # Keyboard Settings #
-
-        # Use this settings
-        if self.settings["keyboard-use-settings"] == "true":
-            self.ui.KeyBoardUseSettings.setChecked(True)
-        self.ui.KeyBoardUseSettings.toggled.connect(self.keyboard_use_settings)
-
-        # Keyboard layout
-        for key, value in layouts:
-            if key in self.settings["keyboard-layout"]:
-                self.layout_item = QTreeWidgetItem(self.ui.layouts)
-                self.layout_item.setData(0, Qt.ItemDataRole.DisplayRole, value)
-                self.layout_item.setData(0, Qt.ItemDataRole.UserRole, key)
-                self.ui.layouts.addTopLevelItem(self.layout_item)
-                for key, values in variants:
-                    value = values.split(":")[0]
-                    description = values.split(":")[1]
-                    if value in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
-                        # Workaround to prevent custom layout from using variants for English(US)
-                        if "custom" not in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
-                            if key in self.settings["keyboard-variant"]:
-                                self.layout_item.setData(1, Qt.ItemDataRole.DisplayRole, description)
-                                self.layout_item.setData(1, Qt.ItemDataRole.UserRole, key)
-
-        self.ui.addBtn.clicked.connect(self.on_add_keyboard_layout)
-        self.ui.rmBtn.clicked.connect(self.on_remove_layout)
-        self.ui.upBtn.clicked.connect(self.on_move_up)
-        self.ui.downBtn.clicked.connect(self.on_move_down)
-
-        # Keyboard ID #
-        keyboards = list_inputs_by_type(input_type="keyboard")
-        kbd_view = QListView(self.ui.kbdID)
-        self.ui.kbdID.setView(kbd_view)
-        self.ui.kbdID.addItem("")
-        for item in keyboards:
-            self.ui.kbdID.addItem(item)
-        kbd_view.setTextElideMode(Qt.TextElideMode.ElideNone)
-        kbd_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.ui.kbdID.setCurrentText(self.settings["keyboard-identifier"])
-        self.ui.kbdID.activated.connect(self.set_kbd_identifier)
-
-        # Keyboard model option
-        model_view = QListView(self.ui.kbdModel)
-        self.ui.kbdModel.setView(model_view)
-        model_view.setTextElideMode(Qt.TextElideMode.ElideNone)
-        model_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        for key, value in models:
-            self.ui.kbdModel.addItem(value, key)
-            if key == self.settings["keyboard-model"]:
-                self.ui.kbdModel.setCurrentText(value)
-
-        self.ui.kbdModel.activated.connect(self.set_model)
-
-        # Keyboard shortcut option
-        shortcut_view = QListView(self.ui.shortcutName)
-        self.ui.shortcutName.setView(shortcut_view)
-        self.ui.shortcutName.addItem("")
-        for key, value in options:
-            if "grp:" in key:
-                self.ui.shortcutName.addItem(value, key)
-            if key == self.settings["keyboard-shortcut"]:
-                self.ui.shortcutName.setCurrentText(value)
-        shortcut_view.setTextElideMode(Qt.TextElideMode.ElideNone)
-        shortcut_view.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.ui.shortcutName.activated.connect(self.set_shortcut)
-
-        # Repeat delay
-        self.ui.repeatDelaySlider.setValue(self.settings["keyboard-repeat-delay"])
-        self.ui.repeatDelay.setValue(self.ui.repeatDelaySlider.value())
-        self.ui.repeatDelay.valueChanged.connect(self.ui.repeatDelaySlider.setValue)
-        self.ui.repeatDelaySlider.sliderMoved.connect(self.ui.repeatDelay.setValue)
-        self.ui.repeatDelaySlider.valueChanged.connect(self.on_repeat_delay_value_changed)
-
-        # Repeat rate
-        self.ui.repeatRateSlider.setValue(self.settings["keyboard-repeat-rate"])
-        self.ui.repeatRate.setValue(self.ui.repeatRateSlider.value())
-        self.ui.repeatRate.valueChanged.connect(self.ui.repeatRateSlider.setValue)
-        self.ui.repeatRateSlider.sliderMoved.connect(self.ui.repeatRate.setValue)
-        self.ui.repeatRateSlider.valueChanged.connect(self.on_repeat_rate_value_changed)
-
-        # Enable Caps Lock option
-        if self.settings["keyboard-capslock"] == "enabled":
-            self.ui.caps_lock.setChecked(True)
-        self.ui.caps_lock.toggled.connect(self.on_caps_lock_checked)
-
-        # Enable Num Lock option
-        if self.settings["keyboard-numlock"] == "enabled":
-            self.ui.num_lock.setChecked(True)
-        self.ui.num_lock.toggled.connect(self.on_num_lock_checked)
 
         # Mouse Settings #
 
@@ -489,42 +367,9 @@ class MainWindow(QMainWindow):
         self.ui.toolMoveAbsolute.clicked.connect(self.on_tablet_set_tool_mode)
         self.ui.toolMoveRelative.clicked.connect(self.on_tablet_set_tool_mode)
 
-
-    def keyboard_use_settings(self):
-        if self.ui.KeyBoardUseSettings.isChecked() is True:
-            self.settings["keyboard-use-settings"] = "true"
-        else:
-            self.settings["keyboard-use-settings"] = "false"
-
     def on_clicked_reset(self):
         defaults = load_json(default_settings)
-        self.ui.layouts.clear()
-        for key, values in layouts:
-            if key in defaults["keyboard-layout"]:
-                self.layout_item = QTreeWidgetItem(self.ui.layouts)
-                self.layout_item.setData(0, Qt.ItemDataRole.DisplayRole, values)
-                self.layout_item.setData(0, Qt.ItemDataRole.UserRole, key)
-                self.ui.layouts.addTopLevelItem(self.layout_item)
-                for key, values in variants:
-                    value = values.split(":")[0]
-                    description = values.split(":")[1]
-                    if value in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
-                        # Workaround to prevent custom layout from using variants for English(US)
-                        if "custom" not in self.layout_item.data(0, Qt.ItemDataRole.UserRole):
-                            if key in defaults["keyboard-variant"]:
-                                self.layout_item.setData(1, Qt.ItemDataRole.DisplayRole, description)
-                                self.layout_item.setData(1, Qt.ItemDataRole.UserRole, key)
-        for key, value in models:
-            if key == defaults["keyboard-model"]:
-                self.ui.kbdModel.setCurrentText(value)
-        self.ui.shortcutName.setCurrentText(defaults["keyboard-shortcut"])
-        self.ui.kbdID.setCurrentText(defaults["keyboard-identifier"])
-        self.ui.repeatDelaySlider.setValue(defaults["keyboard-repeat-delay"])
-        self.ui.repeatDelay.setValue(self.ui.repeatDelaySlider.value())
-        self.ui.repeatRateSlider.setValue(defaults["keyboard-repeat-rate"])
-        self.ui.repeatRate.setValue(self.ui.repeatRateSlider.value())
-        self.ui.caps_lock.setChecked(False)
-        self.ui.num_lock.setChecked(False)
+        self.keyboard.on_clicked_reset(defaults)
 
         self.ui.pointerID.setCurrentText(defaults["pointer-identifier"])
         self.ui.pointerLeftHanded.setChecked(False)
@@ -586,86 +431,6 @@ class MainWindow(QMainWindow):
 
             self.ui.toolModeList.setCurrentText(defaults["tablet-tool-mode"][0])
             self.ui.toolMoveAbsolute.setChecked(True)
-
-    def on_add_keyboard_layout(self):
-        self.dlg = SelectKeyboardLayout()
-        if self.dlg.exec() == 1:
-            lay_key = self.dlg.select_layout.layouts.currentItem().data(Qt.ItemDataRole.DisplayRole)
-            lay_value = self.dlg.select_layout.layouts.currentItem().data(Qt.ItemDataRole.UserRole)
-            var_key = self.dlg.select_layout.variants.currentItem().data(Qt.ItemDataRole.DisplayRole)
-            var_value = self.dlg.select_layout.variants.currentItem().data(Qt.ItemDataRole.UserRole)
-            self.item = QTreeWidgetItem(self.ui.layouts)
-            self.item.setData(0, Qt.ItemDataRole.DisplayRole, lay_key)
-            self.item.setData(0, Qt.ItemDataRole.UserRole, lay_value)
-            self.item.setData(1, Qt.ItemDataRole.DisplayRole, var_key)
-            self.item.setData(1, Qt.ItemDataRole.UserRole, var_value)
-            self.ui.layouts.addTopLevelItem(self.item)
-
-    def on_remove_layout(self):
-        if self.ui.layouts.topLevelItemCount() > 1:
-            item = self.ui.layouts.currentItem()
-            pos = self.ui.layouts.indexOfTopLevelItem(item)
-            self.ui.layouts.takeTopLevelItem(pos)
-
-    def on_move_up(self):
-        item = self.ui.layouts.currentItem()
-        pos = self.ui.layouts.indexOfTopLevelItem(item)
-        if pos > 0:
-            self.ui.layouts.takeTopLevelItem(pos)
-            self.ui.layouts.insertTopLevelItem(pos - 1, item)
-            self.ui.layouts.setCurrentItem(item)
-
-    def on_move_down(self):
-        item = self.ui.layouts.currentItem()
-        pos = self.ui.layouts.indexOfTopLevelItem(item)
-        if pos < self.ui.layouts.topLevelItemCount() - 1:
-            self.ui.layouts.takeTopLevelItem(pos)
-            self.ui.layouts.insertTopLevelItem(pos + 1, item)
-            self.ui.layouts.setCurrentItem(item)
-
-    def set_keyboard_layout(self):
-        n = self.ui.layouts.topLevelItemCount()
-        layouts = []
-        variants = []
-        row = 0
-        if n > 0:
-            while row < n:
-                item = self.ui.layouts.topLevelItem(row)
-                if item.data(1, Qt.ItemDataRole.UserRole) is None:
-                    variants.append(str(""))
-                else:
-                    variants.append(item.data(1, Qt.ItemDataRole.UserRole))
-                layouts.append(item.data(0, Qt.ItemDataRole.UserRole))
-                row += 1
-        self.settings["keyboard-layout"] = layouts
-        self.settings["keyboard-variant"] = variants
-
-    def set_kbd_identifier(self):
-        self.settings["keyboard-identifier"] = self.ui.kbdID.currentText()
-
-    def set_model(self):
-        self.settings["keyboard-model"] = self.ui.kbdModel.currentData()
-
-    def set_shortcut(self):
-        self.settings["keyboard-shortcut"] = self.ui.shortcutName.currentData()
-
-    def on_repeat_delay_value_changed(self):
-        self.settings["keyboard-repeat-delay"] = self.ui.repeatDelay.value()
-
-    def on_repeat_rate_value_changed(self):
-        self.settings["keyboard-repeat-rate"] = self.ui.repeatRate.value()
-
-    def on_caps_lock_checked(self):
-        if self.ui.caps_lock.isChecked():
-            self.settings["keyboard-capslock"] = "enabled"
-        else:
-            self.settings["keyboard-capslock"] = "disabled"
-
-    def on_num_lock_checked(self):
-        if self.ui.num_lock.isChecked():
-            self.settings["keyboard-numlock"] = "enabled"
-        else:
-            self.settings["keyboard-numlock"] = "disabled"
 
     def pointer_use_settings(self):
         if self.ui.PointerUseSettings.isChecked() is True:
@@ -854,7 +619,7 @@ class MainWindow(QMainWindow):
         self.about.show()
 
     def on_clicked_apply(self):
-        self.set_keyboard_layout()
+        self.keyboard.set_keyboard_layout()
         save_to_config(self.settings)
         f = os.path.join(self.data_dir, "settings")
         print("Saving {}".format(f))
@@ -880,65 +645,6 @@ class AboutDialog(QDialog):
 
     def cancel(self):
         self.close()
-
-
-class SelectKeyboardLayout(QDialog):
-    def __init__(self):
-        super().__init__()
-        self.select_layout = Ui_SelectKeyboardLayoutDialog()
-        self.select_layout.setupUi(self)
-
-        none_item = QListWidgetItem()
-        none_item.setData(Qt.ItemDataRole.UserRole, "")
-        none_item.setData(Qt.ItemDataRole.DisplayRole, "")
-        self.select_layout.variants.addItem(none_item)
-
-        for key, value in layouts:
-            item = QListWidgetItem(value)
-            item.setData(Qt.ItemDataRole.UserRole, key)
-            item.setData(Qt.ItemDataRole.DisplayRole, value)
-            self.select_layout.layouts.addItem(item)
-        for key, values in variants:
-            value = values.split(":")[0]
-            description = values.split(":")[1]
-            if value in item.data(Qt.ItemDataRole.UserRole):
-                # Workaround to prevent custom layout from using variants for English(US)
-                if "custom" not in item.data(Qt.ItemDataRole.UserRole):
-                    vitem = QListWidgetItem(description)
-                    vitem.setData(Qt.ItemDataRole.UserRole, key)
-                    vitem.setData(Qt.ItemDataRole.DisplayRole, description)
-                    self.select_layout.variants.addItem(vitem)
-        self.select_layout.layouts.setCurrentItem(self.select_layout.layouts.item(0))
-        self.select_layout.variants.setCurrentItem(self.select_layout.variants.item(0))
-
-        self.select_layout.layouts.currentItemChanged.connect(self.on_layout_changed)
-        self.select_layout.buttonBox.rejected.connect(self.cancel)
-        self.select_layout.buttonBox.accepted.connect(self.on_add_layout)
-
-    def on_layout_changed(self):
-        item = self.select_layout.layouts.currentItem()
-        self.select_layout.variants.clear()
-        none_item = QListWidgetItem()
-        none_item.setData(Qt.ItemDataRole.UserRole, "")
-        none_item.setData(Qt.ItemDataRole.DisplayRole, "")
-        self.select_layout.variants.addItem(none_item)
-        for key, values in variants:
-            value = values.split(":")[0]
-            description = values.split(":")[1]
-            if value in item.data(Qt.ItemDataRole.UserRole):
-                # Workaround to prevent custom layout from using variants for English(US)
-                if "custom" not in item.data(Qt.ItemDataRole.UserRole):
-                    vitem = QListWidgetItem(description)
-                    vitem.setData(Qt.ItemDataRole.UserRole, key)
-                    vitem.setData(Qt.ItemDataRole.DisplayRole, description)
-                    self.select_layout.variants.addItem(vitem)
-        self.select_layout.variants.setCurrentItem(self.select_layout.variants.item(0))
-
-    def on_add_layout(self):
-        self.accept()
-
-    def cancel(self):
-        self.reject()
 
 
 def save_to_config(settings):
