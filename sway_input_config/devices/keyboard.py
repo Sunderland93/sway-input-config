@@ -71,7 +71,6 @@ class KeyboardSettings:
         self.ui.upBtn.clicked.connect(self.on_move_up)
         self.ui.downBtn.clicked.connect(self.on_move_down)
 
-
         # Keyboard ID #
         keyboards = list_inputs_by_type(input_type="keyboard")
         kbd_view = QListView(self.ui.kbdID)
@@ -152,13 +151,11 @@ class KeyboardSettings:
             self.item.setData(1, Qt.ItemDataRole.UserRole, var_value)
             self.ui.layouts.addTopLevelItem(self.item)
 
-
     def on_remove_layout(self):
         if self.ui.layouts.topLevelItemCount() > 1:
             item = self.ui.layouts.currentItem()
             pos = self.ui.layouts.indexOfTopLevelItem(item)
             self.ui.layouts.takeTopLevelItem(pos)
-
 
     def on_move_up(self):
         item = self.ui.layouts.currentItem()
@@ -167,7 +164,6 @@ class KeyboardSettings:
             self.ui.layouts.takeTopLevelItem(pos)
             self.ui.layouts.insertTopLevelItem(pos - 1, item)
             self.ui.layouts.setCurrentItem(item)
-
 
     def on_move_down(self):
         item = self.ui.layouts.currentItem()
@@ -249,7 +245,6 @@ class KeyboardSettings:
         self.ui.repeatRate.setValue(self.ui.repeatRateSlider.value())
         self.ui.caps_lock.setChecked(False)
         self.ui.num_lock.setChecked(False)
-
 
 class SelectKeyboardLayout(QDialog):
     def __init__(self, parent=None):

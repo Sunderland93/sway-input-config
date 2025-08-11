@@ -271,7 +271,6 @@ class TouchpadSettings:
         else:
             self.settings["touchpad-scroll-method"] = "none"
 
-
     def on_touch_nat_scroll_checked(self):
         if self.ui.touchNatScroll.isChecked() is True:
             self.settings["touchpad-natural-scroll"] = "enabled"
