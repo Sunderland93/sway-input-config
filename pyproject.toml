@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sway-input-config"
+version = "1.4.4"
+description = "input devices configurator for sway"
+readme = "README.md"
+license = { text = "GPL-3" }
+authors = [
+    { name = "Aleksey Samoilov", email = "samoilov.lex@gmail.com" }
+]
+urls = {
+    Homepage = "https://github.com/Sunderland93/sway-input-config"
+}
+dependencies = [
+    "PyQt6",
+    "i3ipc"
+]
+
+[project.gui-scripts]
+sway-input-config = "sway_input_config.main:main"
+
+[tool.setuptools.packages.find]
+include = ["sway_input_config*"]
+
+[tool.setuptools.package-data]
+"*" = ["data/*", "ui/*", "langs/*"]
+
+[tool.setuptools.data-files]
+"share/applications" = ["sway-input-config.desktop"]
+"share/icons/hicolor/128x128/apps" = ["sway-input-config.png"]
+"share/metainfo" = ["io.github.Sunderland93.sway-input-config.metainfo.xml"]
