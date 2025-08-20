@@ -22,7 +22,7 @@ from sway_input_config.devices.pointer import PointerSettings
 from sway_input_config.devices.tablet import TabletSettings
 from sway_input_config.devices.touchpad import TouchpadSettings
 
-app_version = "1.4.3"
+app_version = "1.4.4"
 
 if os.getenv("SWAYSOCK"):
     sway_version = get_sway_version()
@@ -62,6 +62,7 @@ class ErrorMessage(QDialog):
 
     def on_clicked_ok(self):
         self.close()
+
 
 class MainWindow(QMainWindow):
     def __init__(self, settings, data_dir):
