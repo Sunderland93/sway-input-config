@@ -1,3 +1,9 @@
+sway-input-config (1.4.4-1) questing; urgency=medium
+
+  * New upstream release
+
+ -- Aleksey Samoilov <samoilov.lex@gmail.com>  Fri, 29 Aug 2025 10:35:22 +0400
+
 sway-input-config (1.4.3-1) unstable; urgency=medium
 
   * Fix text warp on some elements
