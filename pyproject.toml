@@ -7,15 +7,15 @@ name = "sway-input-config"
 version = "1.4.4"
 description = "input devices configurator for sway"
 readme = "README.md"
-license = "GPL-3.0-or-later"
+license = { file = "LICENSE" }
 dependencies = [
     "PyQt6",
     "i3ipc"
 ]
 
-[[project.authors]]
-name = "Aleksey Samoilov"
-email = "samoilov.lex@gmail.com"
+authors = [
+    { name = "Aleksey Samoilov", email = "samoilov.lex@gmail.com" }
+]
 
 [project.urls]
 Homepage = "https://github.com/Sunderland93/sway-input-config"
